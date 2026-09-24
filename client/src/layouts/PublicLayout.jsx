@@ -167,28 +167,23 @@ export default function PublicLayout() {
           ============================================================ */}
       <nav className="sticky top-0 z-50 glass-modern border-b border-slate-200/80 shadow-sm transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            {/* Brand Logo */}
-            <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 via-orange-500 to-amber-400 flex items-center justify-center text-white shadow-lg shadow-brand-500/30 group-hover:scale-105 group-hover:rotate-3 transition-transform duration-300">
-                <Car className="w-6 h-6 stroke-[2.2]" />
+          <div className="flex items-center justify-between h-16 sm:h-18">
+            {/* Brand Logo - Compact Single-Line "Help on Drive" */}
+            <Link to="/" className="flex items-center space-x-2.5 flex-shrink-0 group">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-orange-500 to-amber-400 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 group-hover:rotate-2 transition-transform flex-shrink-0">
+                <Car className="w-5 h-5 stroke-[2.2]" />
               </div>
-              <div>
-                <span className="font-black text-xl tracking-tight text-slate-900 leading-none block">
-                  HELP ON <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-amber-500">DRIVE</span>
-                </span>
-                <span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase block mt-0.5">
-                  Roadside & Vehicle Care
-                </span>
-              </div>
+              <span className="font-black text-lg tracking-tight text-slate-900 whitespace-nowrap">
+                Help on <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-amber-500">Drive</span>
+              </span>
             </Link>
 
-            {/* Desktop Navigation with User-Friendly Segmented Tab Bar */}
-            <div className="hidden lg:flex items-center space-x-1 p-1.5 rounded-2xl bg-slate-100/90 border border-slate-200/80 text-xs font-semibold shadow-inner">
+            {/* Desktop Navigation with User-Friendly Compact Segmented Tab Bar */}
+            <div className="hidden lg:flex items-center space-x-0.5 p-1 rounded-2xl bg-slate-100/90 border border-slate-200/80 text-xs font-semibold shadow-inner">
               {/* Home Tab */}
               <Link
                 to="/"
-                className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl transition-all ${
+                className={`flex items-center space-x-1 px-2.5 py-1.5 rounded-xl whitespace-nowrap transition-all ${
                   location.pathname === '/'
                     ? 'bg-white text-slate-900 shadow-sm font-bold border border-slate-200/90'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
@@ -206,7 +201,7 @@ export default function PublicLayout() {
               >
                 <button
                   type="button"
-                  className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl transition-all ${
+                  className={`flex items-center space-x-1 px-2.5 py-1.5 rounded-xl whitespace-nowrap transition-all ${
                     location.pathname === '/roadside-assistance' || location.pathname.includes('/roadside-assistance')
                       ? 'bg-brand-600 text-white shadow-md font-bold'
                       : activeDropdown === 'rsa'
@@ -214,16 +209,16 @@ export default function PublicLayout() {
                       : 'text-brand-700 font-bold hover:bg-brand-50/80'
                   }`}
                 >
-                  <Wrench className="w-3.5 h-3.5" />
-                  <span>Roadside Assistance</span>
-                  <span className={`text-[9px] px-1.5 py-0.5 rounded-full uppercase tracking-wider font-extrabold ${
+                  <Wrench className="w-3.5 h-3.5 text-brand-500" />
+                  <span>Roadside Help</span>
+                  <span className={`text-[8px] px-1 py-0.2 rounded-full uppercase tracking-wider font-extrabold ${
                     location.pathname === '/roadside-assistance' || location.pathname.includes('/roadside-assistance')
                       ? 'bg-white text-brand-700'
                       : 'bg-brand-100 text-brand-700'
                   }`}>
-                    ★ Primary
+                    ★ Core
                   </span>
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'rsa' ? 'rotate-180' : 'opacity-70'}`} />
+                  <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'rsa' ? 'rotate-180' : 'opacity-70'}`} />
                 </button>
 
                 {/* Dropdown Menu Window */}
@@ -308,7 +303,7 @@ export default function PublicLayout() {
                   {location.pathname.startsWith('/how-it-works') && (
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                   )}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'how' ? 'rotate-180 text-blue-600' : 'text-slate-400'}`} />
+                  <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'how' ? 'rotate-180 text-blue-600' : 'text-slate-400'}`} />
                 </button>
 
                 {activeDropdown === 'how' && (
@@ -356,7 +351,7 @@ export default function PublicLayout() {
               >
                 <button
                   type="button"
-                  className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl transition-all ${
+                  className={`flex items-center space-x-1 px-2.5 py-1.5 rounded-xl whitespace-nowrap transition-all ${
                     location.pathname === '/hire-driver' || location.pathname.includes('/hire-driver')
                       ? 'bg-white text-blue-600 shadow-sm font-bold border border-blue-200'
                       : activeDropdown === 'driver'
@@ -365,11 +360,11 @@ export default function PublicLayout() {
                   }`}
                 >
                   <UserCheck className="w-3.5 h-3.5 text-blue-500" />
-                  <span>Hire a Driver</span>
+                  <span>Hire Driver</span>
                   {(location.pathname === '/hire-driver' || location.pathname.includes('/hire-driver')) && (
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                   )}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'driver' ? 'rotate-180 text-blue-600' : 'text-slate-400'}`} />
+                  <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'driver' ? 'rotate-180 text-blue-600' : 'text-slate-400'}`} />
                 </button>
 
                 {activeDropdown === 'driver' && (
@@ -439,7 +434,7 @@ export default function PublicLayout() {
               >
                 <button
                   type="button"
-                  className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl transition-all ${
+                  className={`flex items-center space-x-1 px-2 py-1.5 rounded-xl whitespace-nowrap transition-all ${
                     location.pathname === '/become-driver' || location.pathname === '/become-provider'
                       ? 'bg-white text-slate-900 shadow-sm font-bold border border-slate-200/90'
                       : activeDropdown === 'partner'
@@ -452,7 +447,7 @@ export default function PublicLayout() {
                   {(location.pathname === '/become-driver' || location.pathname === '/become-provider') && (
                     <span className="w-1.5 h-1.5 rounded-full bg-slate-900" />
                   )}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'partner' ? 'rotate-180 text-slate-700' : 'text-slate-400'}`} />
+                  <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${activeDropdown === 'partner' ? 'rotate-180 text-slate-700' : 'text-slate-400'}`} />
                 </button>
 
                 {activeDropdown === 'partner' && (
@@ -491,16 +486,16 @@ export default function PublicLayout() {
               {/* Near Me (Fuel & EV) Radar Button */}
               <a
                 href="/#near-me-energy"
-                className="flex items-center space-x-1 px-3 py-2 rounded-xl text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 font-bold transition-all border border-emerald-200/80 shadow-sm"
+                className="flex items-center space-x-1 px-2 py-1.5 rounded-xl whitespace-nowrap text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 font-bold transition-all border border-emerald-200/80 shadow-sm"
               >
                 <Fuel className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Near Me (Fuel/EV)</span>
+                <span>Near Me</span>
               </a>
 
               {/* FAQ Tab */}
               <Link
                 to="/faq"
-                className={`flex items-center space-x-1 px-3 py-2 rounded-xl transition-all ${
+                className={`flex items-center space-x-1 px-2 py-1.5 rounded-xl whitespace-nowrap transition-all ${
                   location.pathname === '/faq'
                     ? 'bg-white text-slate-900 shadow-sm font-bold border border-slate-200/90'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
@@ -513,7 +508,7 @@ export default function PublicLayout() {
               {/* Contact Tab */}
               <Link
                 to="/contact"
-                className={`flex items-center space-x-1 px-3 py-2 rounded-xl transition-all ${
+                className={`flex items-center space-x-1 px-2 py-1.5 rounded-xl whitespace-nowrap transition-all ${
                   location.pathname === '/contact'
                     ? 'bg-white text-slate-900 shadow-sm font-bold border border-slate-200/90'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
@@ -524,24 +519,23 @@ export default function PublicLayout() {
               </Link>
             </div>
 
-            {/* Right Action CTA & Emergency SOS */}
-            <div className="flex items-center space-x-3">
-              {/* Emergency SOS Panic Button with Glow */}
+            {/* Right Action CTA & Emergency SOS - flex-shrink-0 */}
+            <div className="flex items-center space-x-2 flex-shrink-0">
+              {/* Emergency SOS Panic Button */}
               <button
                 onClick={() => setSosModalOpen(true)}
-                className="relative group flex items-center space-x-1.5 px-3.5 py-2 rounded-2xl bg-gradient-to-r from-rose-600 to-red-600 text-white font-extrabold text-xs shadow-lg shadow-rose-600/40 hover:scale-105 active:scale-95 transition-all overflow-hidden"
+                className="relative group flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 text-white font-extrabold text-xs shadow-md shadow-rose-600/30 hover:scale-105 active:scale-95 transition-all whitespace-nowrap flex-shrink-0"
               >
-                <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                <Siren className="w-4 h-4 animate-bounce relative z-10" />
-                <span className="relative z-10 tracking-wider">SOS HELP</span>
+                <Siren className="w-3.5 h-3.5 animate-bounce" />
+                <span className="tracking-wide">SOS HELP</span>
               </button>
 
               {/* User Authentication state */}
               {isAuthenticated ? (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1.5 flex-shrink-0">
                   <Link
                     to={getDashboardLink()}
-                    className="flex items-center space-x-2 px-4 py-2 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-all hover:scale-[1.02]"
+                    className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm transition-all whitespace-nowrap"
                   >
                     <LayoutDashboard className="w-3.5 h-3.5 text-brand-400" />
                     <span>Dashboard ({user?.name?.split(' ')[0]})</span>
@@ -553,22 +547,22 @@ export default function PublicLayout() {
                       navigate('/');
                     }}
                     title="Sign Out"
-                    className="p-2 rounded-2xl border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                    className="p-1.5 rounded-xl border border-slate-200 text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
                   </button>
                 </div>
               ) : (
-                <div className="hidden sm:flex items-center space-x-2">
+                <div className="hidden sm:flex items-center space-x-1.5 flex-shrink-0">
                   <Link
                     to="/login"
-                    className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-brand-600 hover:bg-slate-100/80 rounded-2xl transition-all"
+                    className="px-3 py-1.5 text-xs font-bold text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-xl transition-all whitespace-nowrap"
                   >
                     Sign In
                   </Link>
                   <Link
                     to="/register"
-                    className="px-4 py-2 text-xs font-extrabold bg-gradient-to-r from-brand-600 to-amber-500 hover:from-brand-700 hover:to-amber-600 text-white rounded-2xl shadow-md shadow-brand-500/25 hover:scale-[1.02] transition-all"
+                    className="px-3.5 py-1.5 text-xs font-extrabold bg-gradient-to-r from-brand-600 to-amber-500 hover:from-brand-700 hover:to-amber-600 text-white rounded-xl shadow-md shadow-brand-500/25 hover:scale-105 transition-all whitespace-nowrap"
                   >
                     Register
                   </Link>
@@ -797,10 +791,12 @@ export default function PublicLayout() {
             {/* Brand details */}
             <div className="md:col-span-2 space-y-4">
               <div className="flex items-center space-x-2.5">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-400 flex items-center justify-center text-white font-bold shadow-md">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-400 flex items-center justify-center text-white font-bold shadow-md flex-shrink-0">
                   <Car className="w-5 h-5" />
                 </div>
-                <span className="font-extrabold text-base tracking-tight">HELP ON DRIVE</span>
+                <span className="font-extrabold text-base tracking-tight text-white whitespace-nowrap">
+                  Help on <span className="text-brand-500">Drive</span>
+                </span>
               </div>
               <p className="text-slate-400 leading-relaxed max-w-sm">
                 India's trusted dual-service mobility platform. Instant emergency roadside assistance for breakdown recovery, and on-demand professional temporary chauffeurs to drive your personal car.

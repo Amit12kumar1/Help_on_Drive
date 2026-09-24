@@ -108,12 +108,12 @@ export default function LoginPage() {
 
           {/* Top Brand Logo */}
           <div className="relative z-10">
-            <Link to="/" className="inline-flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-500 flex items-center justify-center shadow-lg shadow-brand-500/30">
-                <Car className="w-5 h-5 text-white" />
+            <Link to="/" className="inline-flex items-center space-x-2.5 flex-shrink-0 group">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-500 flex items-center justify-center shadow-lg shadow-brand-500/30 flex-shrink-0">
+                <Car className="w-5 h-5 text-white stroke-[2.2]" />
               </div>
-              <span className="text-xl font-black tracking-tight text-white">
-                HELP ON <span className="text-brand-400">DRIVE</span>
+              <span className="text-lg font-black tracking-tight text-white whitespace-nowrap">
+                Help on <span className="text-brand-400">Drive</span>
               </span>
             </Link>
           </div>

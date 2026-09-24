@@ -42,16 +42,14 @@ export default function UserLayout() {
     <div className="min-h-screen bg-slate-50 flex">
       {/* Sidebar for Desktop */}
       <aside className="hidden lg:flex lg:flex-col w-64 bg-slate-900 text-white border-r border-slate-800 z-30">
-        {/* Brand */}
         <div className="p-5 border-b border-slate-800 flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold shadow-md shadow-brand-600/30">
-              <Car className="w-5 h-5" />
+          <Link to="/" className="flex items-center space-x-2.5 flex-shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-500 flex items-center justify-center text-white font-bold shadow-md shadow-brand-600/30 flex-shrink-0">
+              <Car className="w-4 h-4" />
             </div>
-            <div>
-              <span className="font-extrabold text-sm tracking-tight text-white block">HELP ON DRIVE</span>
-              <span className="text-[10px] text-brand-400 font-semibold tracking-wider uppercase block">Customer Portal</span>
-            </div>
+            <span className="font-extrabold text-sm tracking-tight text-white whitespace-nowrap">
+              Help on <span className="text-brand-400">Drive</span>
+            </span>
           </Link>
         </div>
 

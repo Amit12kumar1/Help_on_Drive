@@ -35,14 +35,13 @@ export default function AdminLayout() {
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex lg:flex-col w-64 bg-slate-950 text-white border-r border-slate-800 z-30">
         <div className="p-5 border-b border-slate-800">
-          <Link to="/" className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-xl bg-purple-600 flex items-center justify-center text-white font-bold shadow-md">
-              <ShieldAlert className="w-5 h-5" />
+          <Link to="/" className="flex items-center space-x-2.5 flex-shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-purple-600 flex items-center justify-center text-white font-bold shadow-md flex-shrink-0">
+              <ShieldAlert className="w-4 h-4" />
             </div>
-            <div>
-              <span className="font-extrabold text-sm tracking-tight text-white block">HELP ON DRIVE</span>
-              <span className="text-[10px] text-purple-400 font-semibold tracking-wider uppercase block">Super Admin Control</span>
-            </div>
+            <span className="font-extrabold text-sm tracking-tight text-white whitespace-nowrap">
+              Help on <span className="text-purple-400">Drive</span>
+            </span>
           </Link>
         </div>
 
