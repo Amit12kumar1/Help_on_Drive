@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HELP ON DRIVE - Project Presentation | KIET University</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .slide { display: none; }
+    .slide.active { display: flex; animation: slideFade 0.35s ease-out forwards; }
+    @keyframes slideFade {
+      from { opacity: 0; transform: translateY(10px) scale(0.995); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between select-none overflow-x-hidden">
+
+  <!-- TOP HEADER & PROGRESS BAR -->
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-6 py-3 flex items-center justify-between z-50">
+    <div class="flex items-center space-x-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white font-black text-sm shadow-md">
+        <i class="fa-solid fa-car"></i>
+      </div>
+      <div>
+        <div class="text-xs font-black tracking-tight text-white flex items-center space-x-2">
+          <span>HELP ON <span class="text-orange-500">DRIVE</span></span>
+          <span class="text-[10px] bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded-full font-bold">MCA Capstone</span>
+        </div>
+        <div class="text-[10px] text-slate-400 font-medium">KIET Deemed to be University, Delhi-NCR</div>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-4">
+      <span class="text-xs font-mono text-slate-400 bg-slate-800/80 px-3 py-1 rounded-full border border-slate-700/80" id="slideIndicator">
+        Slide 1 / 16
+      </span>
+      <button onclick="toggleSpeakerNotes()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center space-x-1.5" title="Toggle Viva Speaker Notes (Press 'N')">
+        <i class="fa-solid fa-microphone-lines text-orange-400"></i>
+        <span class="hidden sm:inline">Viva Notes</span>
+      </button>
+      <button onclick="toggleFullScreen()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg border border-slate-700 transition" title="Toggle Fullscreen (Press 'F')">
+        <i class="fa-solid fa-expand"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- SLIDES CONTAINER -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-8 max-w-6xl w-full mx-auto relative">
+
+    <!-- ========================================== -->
+    <!-- SLIDE 1: TITLE SLIDE (KIET UNIVERSITY) -->
+    <!-- ========================================== -->
+    <div class="slide active flex-col items-center justify-center text-center space-y-6 w-full py-6" data-title="Title Slide">
+      <div class="bg-white px-6 py-2.5 rounded-2xl shadow-xl flex items-center space-x-4 max-w-md border border-slate-200">
+        <div class="w-12 h-12 bg-blue-900 rounded-xl flex items-center justify-center font-black text-white text-lg tracking-wider">
+          KIET
+        </div>
+        <div class="text-left">
+          <div class="text-xs font-black text-blue-950 uppercase tracking-wider">KIET UNIVERSITY</div>
+          <div class="text-[11px] text-orange-600 font-bold uppercase tracking-tight">DELHI-NCR, INDIA (UGC Section 3)</div>
+          <div class="text-[9px] text-slate-500 font-medium">Empowering Minds. Enabling Skills.</div>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-orange-400 bg-orange-500/10 px-4 py-1.5 rounded-full border border-orange-500/30">
+          MCA Major Project Synopsis & Evaluation 2026
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-none mt-2">
+          HELP ON <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-amber-400 to-orange-400">DRIVE</span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 font-semibold max-w-2xl mx-auto">
+          Unified Emergency Roadside Breakdown Assistance, Fuel/EV Radar & Verified Personal Chauffeur Platform
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-2xl pt-4">
+        <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl text-left shadow-lg">
+          <div class="text-[10px] uppercase font-bold text-orange-400 tracking-wider mb-2 flex items-center space-x-1.5">
+            <i class="fa-solid fa-users"></i>
+            <span>Project Team Members</span>
+          </div>
+          <div class="space-y-1.5 text-xs text-slate-200 font-medium">
+            <div class="flex justify-between border-b border-slate-800/80 pb-1">
+              <span class="font-bold text-white">AMIT KUMAR</span>
+              <span class="mono text-orange-300">2628MCA0147</span>
+            </div>
+            <div class="flex justify-between border-b border-slate-800/80 pb-1">
+              <span class="font-bold text-white">AJAY KUMAR</span>
+              <span class="mono text-orange-300">2628MCA0288</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-bold text-white">ABHISHEK SINGH BHANDARI</span>
+              <span class="mono text-orange-300">2628MCA0163</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl text-left shadow-lg flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] uppercase font-bold text-blue-400 tracking-wider mb-2 flex items-center space-x-1.5">
+              <i class="fa-solid fa-chalkboard-user"></i>
+              <span>Project Supervisor & Guide</span>
+            </div>
+            <div class="text-sm font-bold text-white">Dr. Mahima Tayal</div>
+            <div class="text-xs text-slate-400">Department of Computer Applications (MCA)</div>
+            <div class="text-[11px] text-slate-500">KIET Deemed to be University</div>
+          </div>
+          <div class="text-[11px] font-mono text-emerald-400 pt-2 flex items-center space-x-1">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>August 2026 Academic Evaluation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 2: EXECUTIVE SUMMARY & PLATFORM PARADIGM -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Platform Core Paradigm">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">1. Executive Overview</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Platform Core Hierarchy & Paradigm Shift</h2>
+      </div>
+
+      <div class="bg-gradient-to-r from-orange-500/15 via-amber-500/10 to-transparent border border-orange-500/30 p-4 rounded-2xl flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-orange-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+          <i class="fa-solid fa-bullseye"></i>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-200">
+          <strong>Strategic Project Alignment:</strong> While the initial synopsis treated driver booking and roadside help equally, our live architecture establishes 
+          <span class="text-orange-400 font-bold">Vehicle Breakdown Assistance as the #1 Primary Focus</span> (~15-min emergency dispatch), with <span class="text-blue-400 font-bold">On-Demand Chauffeur Hire as #2</span>, complemented by real-time Energy Radar & Safety.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
+        <div class="bg-slate-900 border-2 border-orange-500/80 p-4 rounded-2xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] font-black uppercase tracking-wider bg-orange-600 text-white px-2 py-0.5 rounded">Core Focus #1</span>
+            <i class="fa-solid fa-wrench text-orange-400"></i>
+          </div>
+          <h3 class="font-bold text-sm text-white">Emergency Breakdown Care</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            15-minute SLA on-spot assistance: Flat Tyre Puncture, Battery Jumpstart, Fuel Delivery, Towing, and Mechanical Diagnostics.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] font-black uppercase tracking-wider bg-blue-600 text-white px-2 py-0.5 rounded">Core Focus #2</span>
+            <i class="fa-solid fa-user-tie text-blue-400"></i>
+          </div>
+          <h3 class="font-bold text-sm text-white">On-Demand Chauffeurs</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Personal car driver hire: 2h, 4h, full-day, and multi-day outstation roadtrips with RTO-verified commercial drivers.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-[10px] font-black uppercase tracking-wider bg-emerald-600 text-white px-2 py-0.5 rounded">New Feature #3</span>
+            <i class="fa-solid fa-gas-pump text-emerald-400"></i>
+          </div>
+          <h3 class="font-bold text-sm text-white">Fuel & EV Radar Finder</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            HTML5 Geolocation radar identifying closest Petrol Pumps & EV Superchargers with live distance, price, and Leaflet GPS routing.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/60 border border-slate-800 p-3 rounded-xl flex items-center justify-between text-xs text-slate-400 font-mono">
+        <span>Platform: Full-Stack MERN (Vite + React 18, Node.js, Express, MongoDB Atlas, Socket.IO)</span>
+        <span class="text-emerald-400">Status: Live & Functional</span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 3: PROBLEM STATEMENT & MARKET DEFECTS -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Problem Statement">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">2. Motivation & Gap Analysis</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">The Real-World Mobility Crisis</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div class="bg-rose-950/20 border border-rose-800/40 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold uppercase text-rose-400 tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Current Informal Breakdown Problems</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside leading-relaxed">
+            <li><strong>No Guaranteed Arrival ETA:</strong> Drivers stranded on highways wait 2 to 4 hours with no visibility into mechanic location.</li>
+            <li><strong>Extortionate Roadside Surge Pricing:</strong> Unregulated local mechanics demand arbitrary charges (₹2000+ for minor punctures).</li>
+            <li><strong>Safety Risks on Expressways:</strong> 70% of highway rear-end fatalities occur when vehicles are stationary in breakdown condition.</li>
+            <li><strong>Basement & Low-Clearance Failures:</strong> Standard tow trucks cannot enter tight multi-level parking basements when batteries die.</li>
+          </ul>
+        </div>
+
+        <div class="bg-blue-950/20 border border-blue-800/40 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold uppercase text-blue-400 tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-id-card-clip"></i>
+            <span>Current Driver Hiring Dilemmas</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside leading-relaxed">
+            <li><strong>Unverified Driver Safety:</strong> Relying on casual neighborhood referrals with zero commercial licence verification or criminal background checks.</li>
+            <li><strong>Rigid Duration Tiers:</strong> Existing cab aggregators provide their own cars at exorbitant rates, with no platform to drive the owner's personal car.</li>
+            <li><strong>No Digital Paper Trail:</strong> Lack of GST tax invoices, formal trip logs, and transparent per-hour billing.</li>
+            <li><strong>Zero Panic Response:</strong> No connected panic mechanism during late-night outstation commutes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex items-center justify-between text-xs">
+        <div class="flex items-center space-x-2 text-slate-300">
+          <i class="fa-solid fa-lightbulb text-amber-400 text-base"></i>
+          <span><strong>Solution Requirement:</strong> A single digital umbrella providing verified rapid assistance, personal chauffeurs, and emergency telematics.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 4: SYSTEM OBJECTIVES & SPECIFICATIONS -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Objectives & Goals">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">3. System Objectives</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Project Scope & Technical Goals</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-xs font-bold text-orange-400 flex items-center space-x-2">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Sub-15 Minute Dispatch SLA</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Automate geographical matching of vehicle distress beacons with the nearest certified mobile technician or towing carrier within 3-5 km radius.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-xs font-bold text-blue-400 flex items-center space-x-2">
+            <i class="fa-solid fa-user-shield"></i>
+            <span>3-Tier Vetting & Verification Pipeline</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Enforce mandatory commercial driver license verification, Aadhaar identity check, and workshop registration vetting before accepting orders.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-xs font-bold text-emerald-400 flex items-center space-x-2">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span>Real-Time Bi-Directional Telematics</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Implement WebSockets (Socket.IO) and Leaflet GPS mapping to stream live technician/driver coordinates with sub-second latency and accurate ETA.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-xs font-bold text-rose-400 flex items-center space-x-2">
+            <i class="fa-solid fa-bell-concierge"></i>
+            <span>1-Tap Emergency SOS & Panic Dispatch</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Instantaneous hardware siren trigger, precise GPS coordinate broadcast to registered family contacts, and 1-tap connection to 112/108 services.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl text-center text-xs text-slate-400">
+        <span class="text-white font-semibold">Audience:</span> Daily commuters, long-distance highway travelers, elderly drivers, corporate executives, and commercial fleet owners.
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 5: 4-TIER MULTI-SIDED ARCHITECTURE -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="System Architecture">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">4. System Design</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">4-Role Multi-Sided Marketplace</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center space-y-2">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-lg mx-auto">
+            <i class="fa-solid fa-car"></i>
+          </div>
+          <h3 class="font-bold text-sm text-white">1. Vehicle Owner</h3>
+          <ul class="text-[11px] text-slate-400 text-left space-y-1 list-disc list-inside">
+            <li>Saved Virtual Garage</li>
+            <li>1-Click Breakdown Help</li>
+            <li>Chauffeur Booking (2h-7d)</li>
+            <li>Fuel / EV Radar</li>
+            <li>Post-Service 5★ Feedback</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center space-y-2">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg mx-auto">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <h3 class="font-bold text-sm text-white">2. Chauffeur (Driver)</h3>
+          <ul class="text-[11px] text-slate-400 text-left space-y-1 list-disc list-inside">
+            <li>Online/Offline Toggle</li>
+            <li>Incoming Trip Radar</li>
+            <li>Turn-by-turn Navigation</li>
+            <li>Daily Payout Wallet</li>
+            <li>Customer Rating Badges</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center space-y-2">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg mx-auto">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+          </div>
+          <h3 class="font-bold text-sm text-white">3. Garage / Mechanic</h3>
+          <ul class="text-[11px] text-slate-400 text-left space-y-1 list-disc list-inside">
+            <li>Breakdown Broadcast Queue</li>
+            <li>Service Job Card Log</li>
+            <li>Spare Parts Quotation</li>
+            <li>Towing Carrier Dispatch</li>
+            <li>Workshop Performance Metric</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-center space-y-2">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg mx-auto">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3 class="font-bold text-sm text-white">4. Super Admin</h3>
+          <ul class="text-[11px] text-slate-400 text-left space-y-1 list-disc list-inside">
+            <li>Licence Document Vetting</li>
+            <li>Dynamic Pricing Engine</li>
+            <li>SOS Panic Command Center</li>
+            <li>Revenue & GST Analytics</li>
+            <li>Dispute & Refund Arbiter</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between text-xs">
+        <span class="text-slate-400">Security Architecture:</span>
+        <span class="font-mono text-orange-400">JWT Token Auth + Bcrypt Password Hashing + Role-Based Guard Middleware</span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 6: MODULE 1 - EMERGENCY ROADSIDE ASSISTANCE -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Roadside Assistance Module">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">5. Primary Module (#1 Core Focus)</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Emergency Roadside Assistance Network</h2>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl space-y-1">
+          <div class="text-orange-400 font-bold text-xs flex items-center space-x-2">
+            <i class="fa-solid fa-wrench"></i>
+            <span>Engine Breakdown</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Clutch failure, overheating, alternator diagnostic & on-spot minor fixes.</p>
+          <div class="text-[10px] text-orange-300 font-mono">From ₹499 • 15m ETA</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl space-y-1">
+          <div class="text-blue-400 font-bold text-xs flex items-center space-x-2">
+            <i class="fa-solid fa-circle-dot"></i>
+            <span>Tyre & Puncture</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Tubeless puncture sealing, spare wheel stepney mount & hydraulic jack assistance.</p>
+          <div class="text-[10px] text-blue-300 font-mono">From ₹299 • 15m ETA</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl space-y-1">
+          <div class="text-emerald-400 font-bold text-xs flex items-center space-x-2">
+            <i class="fa-solid fa-car-battery"></i>
+            <span>Battery Jumpstart</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Portable booster packs for tight basement clearances and alternator testing.</p>
+          <div class="text-[10px] text-emerald-300 font-mono">From ₹349 • 12m ETA</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl space-y-1">
+          <div class="text-rose-400 font-bold text-xs flex items-center space-x-2">
+            <i class="fa-solid fa-gas-pump"></i>
+            <span>Emergency Fuel</span>
+          </div>
+          <p class="text-[11px] text-slate-400">5 Litres pure petrol/diesel delivered in PESO-certified safety canisters.</p>
+          <div class="text-[10px] text-rose-300 font-mono">₹199 + Fuel Cost</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl space-y-1">
+          <div class="text-purple-400 font-bold text-xs flex items-center space-x-2">
+            <i class="fa-solid fa-truck-pickup"></i>
+            <span>Flatbed Towing</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Hydraulic carrier under-lift trucks ensuring zero-drag scratchless transit.</p>
+          <div class="text-[10px] text-purple-300 font-mono">₹1199 + ₹45/km</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl space-y-1">
+          <div class="text-amber-400 font-bold text-xs flex items-center space-x-2">
+            <i class="fa-solid fa-key"></i>
+            <span>Key Lockout</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Non-destructive air-wedge unlocking when keys are left inside vehicle.</p>
+          <div class="text-[10px] text-amber-300 font-mono">From ₹399 • 18m ETA</div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-xl flex items-center space-x-3 text-xs">
+        <span class="text-orange-400 font-bold whitespace-nowrap">Workflow Pipeline:</span>
+        <span class="text-slate-300 truncate">
+          Select Saved Vehicle → Auto GPS Pinpoint → Instant Provider Match → Real-time Socket ETA → Service Done → Digital Receipt
+        </span>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 7: MODULE 2 - CHAUFFEUR HIRE TIERS -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Chauffeur Hire Module">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">6. Secondary Module</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">On-Demand Personal Car Chauffeurs</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-blue-400">Quick Errand</div>
+          <div class="text-2xl font-black text-white">2 Hours</div>
+          <div class="text-lg font-bold text-blue-400">₹240 <span class="text-xs text-slate-500">(₹120/hr)</span></div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Market trips, clinic appointments, and doctor visits in your own car.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Half-Day</div>
+          <div class="text-2xl font-black text-white">4 Hours</div>
+          <div class="text-lg font-bold text-emerald-400">₹480 <span class="text-xs text-slate-500">(₹120/hr)</span></div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Airport drop/pickup, shopping sprees, and family city events.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-orange-400">Corporate Day</div>
+          <div class="text-2xl font-black text-white">8-10 Hours</div>
+          <div class="text-lg font-bold text-orange-400">₹900 <span class="text-xs text-slate-500">Flat Rate</span></div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Full-day corporate schedules, office rush, and executive transit.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-[10px] font-bold uppercase tracking-wider text-purple-400">Outstation Pro</div>
+          <div class="text-2xl font-black text-white">Multi-Day</div>
+          <div class="text-lg font-bold text-purple-400">₹1400/day</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Weekend getaways, hill stations, and long-distance family highway trips.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+        <span class="text-xs font-bold text-white block">Driver Verification Protocol:</span>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-400">
+          <div><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Commercial RTO License Validation</div>
+          <div><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Aadhaar & Police Background Vetting</div>
+          <div><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i>Automatic & Luxury Vehicle Proficiency</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 8: INNOVATION 1 - FUEL & EV RADAR -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Fuel & EV Radar">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">7. Core Innovation #1</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Near Me Petrol & EV Station Radar</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-charging-station"></i>
+            <span>Interactive Geolocation Teardown</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2.5 list-disc list-inside leading-relaxed">
+            <li><strong>HTML5 Geolocation API:</strong> Automatically queries browser latitude/longitude coordinates with high-accuracy fallback.</li>
+            <li><strong>Live Radius Distance Math:</strong> Uses Haversine spherical trigonometric formula to calculate true driving radius to nearby stations.</li>
+            <li><strong>Dual Energy Switcher:</strong> Instantly filter between Conventional Fuel (Petrol/Diesel/CNG: IndianOil, HP, Bharat Petroleum) and EV Fast Chargers (Tata Power, Zeon, Statiq).</li>
+            <li><strong>1-Click Navigation Handoff:</strong> Directly generates Google Maps turn-by-turn routing links and Leaflet map polylines.</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900 border border-emerald-500/40 p-5 rounded-2xl space-y-3 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-white uppercase tracking-wider mb-2">Live Radar Station Telemetry</div>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+                <div>
+                  <div class="font-bold text-white">Tata Power EZ Charge 60kW CCS2</div>
+                  <div class="text-[10px] text-slate-400">NH-24 Expressway Corridor</div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-emerald-400 font-mono">0.8 km</div>
+                  <div class="text-[10px] text-slate-400">3 Available</div>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+                <div>
+                  <div class="font-bold text-white">IndianOil Swarna Jayanti Fuel Plaza</div>
+                  <div class="text-[10px] text-slate-400">24x7 Nitrogen Air + Petrol/Diesel</div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold text-orange-400 font-mono">1.2 km</div>
+                  <div class="text-[10px] text-slate-400">Open 24/7</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-400 border-t border-slate-800 pt-2 font-mono">
+            Directly solves highway range anxiety & unexpected tank empties.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 9: INNOVATION 2 - 3D EXPLODED VEHICLE -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="3D Exploded-View Visualizer">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">8. Core Innovation #2</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">3D Exploded-View Vehicle Anatomy Visualizer</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-cube"></i>
+            <span>Hardware-Accelerated CSS 3D Matrix Math</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside leading-relaxed">
+            <li><strong>Zero Heavy WebGL Dependencies:</strong> Built using ultra-fast, lightweight CSS 3D transformations (<code class="text-orange-400 font-mono">perspective: 1200px</code>, <code class="text-orange-400 font-mono">preserve-3d</code>).</li>
+            <li><strong>Dynamic Exploded Assembly:</strong> Disassembles car components into separate 3D spatial layers:
+              <span class="text-slate-400 block pl-4">• Engine & Cooling System Layer</span>
+              <span class="text-slate-400 block pl-4">• 4-Wheel Hydraulic Brake & Tyre Suspension Layer</span>
+              <span class="text-slate-400 block pl-4">• EV Battery Pack & Powertrain Layer</span>
+              <span class="text-slate-400 block pl-4">• Cabin Security & Central Lockout Layer</span>
+            </li>
+            <li><strong>Interactive Diagnosis Pinpoints:</strong> Hovering or tapping any component visually connects it to its corresponding roadside assistance booking workflow.</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between space-y-4">
+          <div>
+            <div class="text-xs font-bold text-white uppercase tracking-wider mb-2">Technical Implementation Code (React)</div>
+            <pre class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-[11px] mono text-slate-300 overflow-x-auto">
+// CSS Hardware-Accelerated 3D Transform
+&lt;div className="relative preserve-3d transition-transform duration-700"
+     style={{
+       transform: exploded 
+         ? 'rotateX(25deg) rotateY(-30deg) translateZ(50px)' 
+         : 'rotateX(0deg) rotateY(0deg)'
+     }}&gt;
+  &lt;EngineLayer zIndex={80} offset={exploded ? '-90px' : '0px'} /&gt;
+  &lt;BatteryLayer zIndex={60} offset={exploded ? '+60px' : '0px'} /&gt;
+  &lt;TyreAssembly zIndex={40} offset={exploded ? '+110px' : '0px'} /&gt;
+&lt;/div&gt;</pre>
+          </div>
+          <div class="text-[11px] text-orange-400 font-semibold flex items-center space-x-2">
+            <i class="fa-solid fa-award"></i>
+            <span>Interactive showcase praised in college viva for frontend UI excellence.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 10: INNOVATION 3 - SOS PANIC & ROAD SAFETY -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Emergency SOS & Road Safety">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">9. Core Innovation #3</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">1-Click SOS Panic & MoRTH Road Safety</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div class="bg-rose-950/20 border border-rose-800/40 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-bell"></i>
+            <span>Emergency SOS Panic Protocol</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside leading-relaxed">
+            <li><strong>Audio Siren Alarm:</strong> Uses Web Audio API oscillator synthesis to emit an urgent audible siren upon panic trigger.</li>
+            <li><strong>Precision GPS Locking:</strong> Captures exact latitude/longitude with timestamp and generates a live tracking URL.</li>
+            <li><strong>Emergency Contact Broadcast:</strong> Automatically alerts configured family members (Father, Mother, Friend) with distress SMS payload.</li>
+            <li><strong>National Highway Hotline Sync:</strong> Direct 1-tap links to 112 (Police), 108 (Ambulance), and 1033 (NHAI Road Helpline).</li>
+          </ul>
+        </div>
+
+        <div class="bg-amber-950/20 border border-amber-800/40 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>MoRTH 5 Golden Rules of Road Safety</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside leading-relaxed">
+            <li><strong>Rule 1: Never Sit in Stalled Car:</strong> Always exit left and wait behind the steel crash barrier on expressways.</li>
+            <li><strong>Rule 2: 50m Warning Triangle:</strong> Place reflective triangle 50-100m behind vehicle to give 100km/h traffic braking buffer.</li>
+            <li><strong>Rule 3: Tyre Blowout Handling:</strong> No sudden braking; hold steering straight and let engine braking decelerate vehicle.</li>
+            <li><strong>Rule 4: High-Beam Discipline:</strong> Mandatory low-beam dip during highway traffic encounters to prevent blinding accidents.</li>
+            <li><strong>Rule 5: Zero Drowsy Driving:</strong> Fatigue countermeasures with 24/7 on-demand night chauffeurs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl text-center text-xs text-slate-400">
+        Dedicated knowledge base implemented at <code class="text-orange-400 font-mono">/faq</code> tab under Road Safety & Rules.
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 11: REAL-TIME TELEMATICS & WEBSOCKET PIPELINE -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Real-Time Telematics">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">10. Technical Architecture</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Real-Time Socket.IO Telematics Pipeline</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-xs font-bold text-orange-400 flex items-center space-x-2">
+            <i class="fa-solid fa-bolt"></i>
+            <span>1. Broadcast Dispatch</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            When customer submits breakdown request, server emits <code class="text-orange-300 font-mono text-[10px]">assistance:new</code> event to mechanics in nearby spatial radius.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-xs font-bold text-blue-400 flex items-center space-x-2">
+            <i class="fa-solid fa-satellite-dish"></i>
+            <span>2. Live GPS Coordinate Stream</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Technician/Driver device continuously streams geo-coordinates via <code class="text-blue-300 font-mono text-[10px]">driver:location_update</code> with automatic Leaflet marker interpolation.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+          <div class="text-xs font-bold text-emerald-400 flex items-center space-x-2">
+            <i class="fa-solid fa-flag-checkered"></i>
+            <span>3. State Transition Machine</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Strict lifecycle progression: <code class="text-emerald-300 font-mono text-[10px]">pending → accepted → on_the_way → arrived → in_progress → completed</code>.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-2">
+        <span class="text-xs font-bold text-white block">In-App Web Chat & Coordination:</span>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Bi-directional customer-technician chat room scoped to booking ID (<code class="text-orange-400 font-mono text-[11px]">chat:message</code>), enabling instantaneous landmark clarification, photo sharing, and arrival confirmation without revealing personal contact numbers.
+        </p>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 12: POST-SERVICE FEEDBACK & PRAISE TAGS -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Feedback & Reviews System">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">11. Quality Assurance & Trust</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Post-Service Feedback & Rating System</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-star"></i>
+            <span>Interactive Review Modal Engine</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2.5 list-disc list-inside leading-relaxed">
+            <li><strong>5-Star Dynamic Rating:</strong> Visual star selection with contextual feedback label (<code class="text-amber-400 font-mono">Terrible</code> to <code class="text-amber-400 font-mono">Exceptional</code>).</li>
+            <li><strong>1-Tap Instant Praise Tags:</strong>
+              <div class="flex flex-wrap gap-1.5 pt-1.5">
+                <span class="text-[10px] bg-slate-800 text-orange-400 px-2 py-0.5 rounded border border-slate-700">⚡ 15-Min Arrival</span>
+                <span class="text-[10px] bg-slate-800 text-blue-400 px-2 py-0.5 rounded border border-slate-700">🔧 Professional Fix</span>
+                <span class="text-[10px] bg-slate-800 text-emerald-400 px-2 py-0.5 rounded border border-slate-700">🤝 Very Polite</span>
+                <span class="text-[10px] bg-slate-800 text-purple-400 px-2 py-0.5 rounded border border-slate-700">💯 Fair Pricing</span>
+                <span class="text-[10px] bg-slate-800 text-amber-400 px-2 py-0.5 rounded border border-slate-700">🛡️ Safe Vehicle Care</span>
+              </div>
+            </li>
+            <li><strong>Celebratory Confetti Animation:</strong> Canvas-confetti burst upon successful feedback submission for gamified user delight.</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-white uppercase tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-comments"></i>
+            <span>End-to-End System Touchpoints</span>
+          </div>
+          <div class="space-y-2 text-xs text-slate-300">
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+              <span class="font-bold text-orange-400 block">1. Live Tracking Completion Banner</span>
+              <span class="text-[11px] text-slate-400">Triggered automatically when job status turns <code class="text-emerald-400 font-mono">completed</code>.</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+              <span class="font-bold text-blue-400 block">2. My Bookings Dynamic Button</span>
+              <span class="text-[11px] text-slate-400">Shows <span class="text-amber-400 font-bold">⭐ Rate Service</span> for pending reviews or <span class="text-emerald-400 font-bold">✓ Rated 5★</span> badge once done.</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+              <span class="font-bold text-emerald-400 block">3. Homepage Verified Testimonials</span>
+              <span class="text-[11px] text-slate-400">Verified reviews showcase real rescues across expressway & city corridors.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 13: PRICING ENGINE, BILLING & DATABASE -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Pricing & Database Design">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">12. Billing & Data Architecture</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Dynamic Pricing Engine & MongoDB Design</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-orange-400 uppercase tracking-wider">Dynamic Pricing Algorithm</div>
+          <div class="space-y-2 text-xs">
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 font-mono text-[11px]">
+              <span class="text-orange-400 font-bold block mb-1">Roadside Assistance Formula:</span>
+              Total = Base Fee + (Dist_km × ₹45) + Addon + 18% GST
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 font-mono text-[11px]">
+              <span class="text-blue-400 font-bold block mb-1">Chauffeur Booking Formula:</span>
+              Total = (Duration_hrs × ₹120) + Platform Fee (₹50) + 5% GST
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-400">
+            <strong>Automated Printable GST Tax Invoice:</strong> Generates official printable tax invoice with HSN/SAC codes, vehicle metadata, and digital signature.
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-white uppercase tracking-wider">MongoDB Schema Collections</div>
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-slate-300">users</div>
+            <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-slate-300">vehicles</div>
+            <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-slate-300">assistancerequests</div>
+            <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-slate-300">driverbookings</div>
+            <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-slate-300">drivers</div>
+            <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-slate-300">serviceproviders</div>
+            <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-slate-300">reviews</div>
+            <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 text-slate-300">emergencycontacts</div>
+          </div>
+          <div class="text-[11px] text-emerald-400 font-mono">
+            Full relational normalization maintained via MongoDB ObjectIDs and indexed geoJSON location fields.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 14: 1-CLICK EXAMINER DEMO MODE & SECURITY -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Demo Mode & Security">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">13. Presentation & Security</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">1-Click Evaluator Demo Mode & Security</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-orange-400 uppercase tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-user-secret"></i>
+            <span>1-Click Viva Demo Persona Switcher</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            To enable seamless academic examination without typing passwords repeatedly, the login portal features 1-click test personas:
+          </p>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="p-2 bg-slate-950 border border-slate-800 rounded-xl">
+              <span class="font-bold text-orange-400 block">👤 Customer</span>
+              <span class="text-[10px] text-slate-400">Rahul (Vehicle Owner)</span>
+            </div>
+            <div class="p-2 bg-slate-950 border border-slate-800 rounded-xl">
+              <span class="font-bold text-blue-400 block">👨‍✈️ Chauffeur</span>
+              <span class="text-[10px] text-slate-400">Rajesh (Verified Driver)</span>
+            </div>
+            <div class="p-2 bg-slate-950 border border-slate-800 rounded-xl">
+              <span class="font-bold text-amber-400 block">👨‍🔧 Workshop</span>
+              <span class="text-[10px] text-slate-400">SpeedFix Garage</span>
+            </div>
+            <div class="p-2 bg-slate-950 border border-slate-800 rounded-xl">
+              <span class="font-bold text-purple-400 block">🛡️ Super Admin</span>
+              <span class="text-[10px] text-slate-400">Full Platform Control</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center space-x-2">
+            <i class="fa-solid fa-lock"></i>
+            <span>Enterprise-Grade Security Architecture</span>
+          </div>
+          <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside leading-relaxed">
+            <li><strong>Stateful JWT Session Guards:</strong> JSON Web Tokens signed with 256-bit secrets, expiring in 30 days.</li>
+            <li><strong>Bcrypt Salt Hashing:</strong> Passwords hashed with 10 salt rounds; plain-text passwords never stored.</li>
+            <li><strong>Zero Sensitive Leakage:</strong> All database schemas explicitly exclude <code class="text-orange-400 font-mono">password</code> on API query returns.</li>
+            <li><strong>Input Sanitization:</strong> Protected against NoSQL injection and XSS payload injections.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 15: TECHNOLOGY STACK & DELIVERABLES -->
+    <!-- ========================================== -->
+    <div class="slide flex-col space-y-5 w-full" data-title="Technology Stack">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400">14. Engineering Stack</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">Full-Stack MERN Implementation Specs</h2>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-2">
+          <div class="font-bold text-blue-400 flex items-center space-x-1.5">
+            <i class="fa-brands fa-react text-base"></i>
+            <span>Frontend Tier</span>
+          </div>
+          <ul class="text-[11px] text-slate-400 space-y-1">
+            <li>React 18.2 (Hooks, Context)</li>
+            <li>Vite 5 (HMR Build Tool)</li>
+            <li>Tailwind CSS (Utility Styling)</li>
+            <li>Lucide-React & FontAwesome</li>
+            <li>Canvas-Confetti</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-2">
+          <div class="font-bold text-emerald-400 flex items-center space-x-1.5">
+            <i class="fa-brands fa-node-js text-base"></i>
+            <span>Backend Tier</span>
+          </div>
+          <ul class="text-[11px] text-slate-400 space-y-1">
+            <li>Node.js (LTS Runtime)</li>
+            <li>Express.js 4 (REST API)</li>
+            <li>JWT & Bcrypt.js</li>
+            <li>Nodemon & CORS</li>
+            <li>Multer (Document Upload)</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-2">
+          <div class="font-bold text-green-400 flex items-center space-x-1.5">
+            <i class="fa-solid fa-database text-base"></i>
+            <span>Database & Cloud</span>
+          </div>
+          <ul class="text-[11px] text-slate-400 space-y-1">
+            <li>MongoDB (NoSQL Document)</li>
+            <li>Mongoose 8 (ODM Modeling)</li>
+            <li>MongoDB Compass</li>
+            <li>2dsphere Geo-Indexing</li>
+            <li>MongoDB Atlas Ready</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl space-y-2">
+          <div class="font-bold text-orange-400 flex items-center space-x-1.5">
+            <i class="fa-solid fa-satellite-dish text-base"></i>
+            <span>Telematics & Maps</span>
+          </div>
+          <ul class="text-[11px] text-slate-400 space-y-1">
+            <li>Socket.IO 4.7 (WebSockets)</li>
+            <li>Leaflet.js & OpenStreetMap</li>
+            <li>HTML5 Geolocation API</li>
+            <li>Git & GitHub Repository</li>
+            <li>Postman API Collection</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <div>
+          <span class="text-white font-bold block">GitHub Repository:</span>
+          <span class="font-mono text-orange-400">https://github.com/Amit12kumar1/Help_on_Drive.git</span>
+        </div>
+        <div class="text-right">
+          <span class="text-emerald-400 font-bold block">Build Verification:</span>
+          <span class="text-slate-400">1694 Modules Transformed • 0 Errors</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 16: CONCLUSION & VIVA DEFENSE -->
+    <!-- ========================================== -->
+    <div class="slide flex-col items-center justify-center text-center space-y-6 w-full py-6" data-title="Conclusion & Defense">
+      <div class="space-y-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-orange-400 bg-orange-500/10 px-3 py-1 rounded-full border border-orange-500/30">
+          Academic Conclusion & Defense
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white">Thank You! Any Questions?</h2>
+        <p class="text-sm text-slate-400 max-w-xl mx-auto">
+          Help On Drive successfully bridges India's emergency mobility and chauffeur hiring gap through a unified, secure, real-time MERN platform.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-2xl text-left">
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs space-y-1">
+          <span class="text-orange-400 font-bold block">🚗 Vehicle First</span>
+          <p class="text-slate-400 text-[11px]">Primary breakdown dispatch (~15 min SLA) with transparent flat rates.</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs space-y-1">
+          <span class="text-blue-400 font-bold block">👨‍✈️ Vetted Drivers</span>
+          <p class="text-slate-400 text-[11px]">Commercial license and police-verified chauffeurs for personal car trips.</p>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs space-y-1">
+          <span class="text-emerald-400 font-bold block">⚡ Radar & SOS</span>
+          <p class="text-slate-400 text-[11px]">Live Fuel/EV station radar, 3D anatomy, and emergency panic audio siren.</p>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-500 space-y-1">
+        <div><strong>KIET Deemed to be University, Delhi-NCR</strong> • MCA Department</div>
+        <div>Amit Kumar (2628MCA0147) | Ajay Kumar (2628MCA0288) | Abhishek Singh Bhandari (2628MCA0163)</div>
+        <div class="text-orange-400 font-medium">Under Guidance of: Dr. Mahima Tayal</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SPEAKER VIVA NOTES DRAWER (PRESS 'N' OR TOGGLE) -->
+  <aside id="speakerNotesDrawer" class="hidden bg-slate-900/95 border-t border-slate-800 px-6 py-4 max-w-6xl mx-auto w-full z-40">
+    <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-2">
+      <div class="text-xs font-bold text-orange-400 flex items-center space-x-2">
+        <i class="fa-solid fa-microphone-lines"></i>
+        <span>Viva Defense Speaker Notes (What to speak to Dr. Mahima Tayal & Examiners)</span>
+      </div>
+      <button onclick="toggleSpeakerNotes()" class="text-xs text-slate-500 hover:text-white">✕ Close</button>
+    </div>
+    <div id="notesContent" class="text-xs text-slate-300 leading-relaxed max-h-36 overflow-y-auto">
+      <!-- Injected dynamically per slide -->
+    </div>
+  </aside>
+
+  <!-- BOTTOM NAVIGATION CONTROLS -->
+  <footer class="bg-slate-900/90 backdrop-blur-md border-t border-slate-800 px-6 py-3 flex items-center justify-between z-50">
+    <div class="flex items-center space-x-2 text-xs text-slate-400">
+      <span class="hidden sm:inline">Use Arrow Keys:</span>
+      <kbd class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 font-mono text-[10px]">←</kbd>
+      <kbd class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 font-mono text-[10px]">→</kbd>
+    </div>
+
+    <div class="flex items-center space-x-3">
+      <button onclick="prevSlide()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition flex items-center space-x-1.5">
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>Previous</span>
+      </button>
+      <button onclick="nextSlide()" class="px-5 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-lg shadow-orange-600/30 transition flex items-center space-x-1.5">
+        <span>Next Slide</span>
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    const speakerNotes = [
+      // Slide 1
+      "Good morning respected Dr. Mahima Tayal ma'am and external evaluators. We are Amit Kumar, Ajay Kumar, and Abhishek Singh Bhandari from MCA final year at KIET University. Today, we present 'Help on Drive' — an integrated emergency roadside assistance and on-demand personal driver booking platform.",
+      // Slide 2
+      "Key Viva Defense Point: Explain why vehicle breakdown was made #1 focus. 'During initial research, we observed that driver hiring is planned, but a breakdown is an acute emergency. Therefore, our UI puts 15-minute emergency roadside assistance front-and-center, with chauffeur booking as an on-demand convenience.'",
+      // Slide 3
+      "Explain the problem: 'Currently, when a family's car stalls on Yamuna Expressway at midnight, they face exorbitant roadside quotes, 2-3 hour delays, and extreme safety risks. Help on Drive provides guaranteed flat rates and rapid emergency technician arrival.'",
+      // Slide 4
+      "Highlight our core objectives: 15-minute response time SLA, verified 3-tier commercial RTO driver vetting, and transparent GST billing with instant invoice download.",
+      // Slide 5
+      "Architecture Defense: Walk through the 4 roles. Show how Super Admin governs document approvals, price rules, and SOS alerts, while User, Driver, and Service Provider communicate in real-time.",
+      // Slide 6
+      "Module 1 Highlights: Point out our 6 core breakdown categories — Puncture, Jumpstart, Fuel, Towing, Lockout, Breakdown. Mention how basement parking battery dead issues are solved with portable power packs.",
+      // Slide 7
+      "Module 2 Highlights: Explain chauffeur tiers. Emphasize that drivers drive the customer's personal car, making it 60% cheaper than booking an Uber/Ola for outstation 3-day family roadtrips.",
+      // Slide 8
+      "Innovation #1 Defense: 'We built a live Petrol and EV Charging Station Radar using HTML5 Geolocation and Leaflet map polylines. It helps drivers prevent battery drainage or fuel exhaustion before it happens.'",
+      // Slide 9
+      "Innovation #2 Defense: 'To demonstrate engineering UI excellence, we built a 3D Exploded-View Car Anatomy engine using CSS 3D perspective matrix math. It breaks the car down into engine, battery, tyres, and fuel layers with 0 heavy 3D engine overhead.'",
+      // Slide 10
+      "Innovation #3 Defense: 'Safety is paramount. Our 1-Click SOS triggers an audible siren alarm, locks GPS, broadcasts to emergency family contacts, and connects with 112 police and 108 ambulance. We also integrated MoRTH 5 Golden Road Safety rules.'",
+      // Slide 11
+      "Telematics Defense: 'We used Socket.IO for sub-second live coordinate streaming between driver and customer devices, accompanied by an in-app privacy-preserving chat room.'",
+      // Slide 12
+      "Feedback System Defense: 'Post-service quality is maintained through a 5-star rating modal, 1-tap praise tags (15-Min Arrival, Polite, Transparent Pricing), celebratory confetti, and a verified customer review showcase.'",
+      // Slide 13
+      "Pricing & DB Defense: 'Pricing uses a base fee + distance + service add-on + 18% GST formula. Invoices are printable with tax numbers. MongoDB handles normalized relational entities via ObjectIDs.'",
+      // Slide 14
+      "Demo Mode & Security Defense: 'For your convenience during viva evaluation, our login portal contains 1-click test personas for Customer, Driver, Workshop, and Admin, backed by JWT token auth and Bcrypt hashing.'",
+      // Slide 15
+      "Engineering Deliverables: 'The project is version controlled on GitHub with 1694 modules transformed with zero build errors. Fully responsive from mobile to 4K desktop.'",
+      // Slide 16
+      "Conclusion: 'Thank you ma'am and committee members. We are now ready to demonstrate the live working project and answer any technical questions!'"
+    ];
+
+    function updateSlide() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+      document.getElementById('slideIndicator').innerText = `Slide ${currentSlide + 1} / ${slides.length}`;
+      document.getElementById('notesContent').innerText = speakerNotes[currentSlide] || "No notes for this slide.";
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function toggleSpeakerNotes() {
+      const drawer = document.getElementById('speakerNotesDrawer');
+      drawer.classList.toggle('hidden');
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key === 'n' || e.key === 'N') {
+        toggleSpeakerNotes();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullScreen();
+      }
+    });
+
+    // Initialize first notes
+    updateSlide();
+  </script>
+</body>
+</html>
