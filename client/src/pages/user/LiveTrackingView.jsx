@@ -33,7 +33,7 @@ export default function LiveTrackingView() {
   const [booking, setBooking] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Modals
+  // Modals 
   const [chatOpen, setChatOpen] = useState(false);
   const [callOpen, setCallOpen] = useState(false);
   const [payModalOpen, setPayModalOpen] = useState(false);
@@ -198,6 +198,43 @@ export default function LiveTrackingView() {
           )}
         </div>
       </div>
+
+      {/* Post-Service Completion & Feedback Prompt Banner */}
+      {booking.status === 'completed' && (
+        <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-amber-950 rounded-3xl p-6 text-white border border-emerald-500/40 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 animate-fadeIn">
+          <div className="flex items-center space-x-4">
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-400/40 text-amber-300 flex items-center justify-center font-bold text-2xl flex-shrink-0">
+              ⭐
+            </div>
+            <div>
+              <div className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold mb-1 border border-emerald-500/30">
+                <span>✓ Service Completed Successfully</span>
+              </div>
+              <h3 className="text-lg font-black text-white">How was your vehicle service experience?</h3>
+              <p className="text-xs text-slate-300">
+                Please leave your feedback & rating for <span className="font-bold text-amber-400">{partnerUser?.name || 'the service partner'}</span>.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-3 w-full md:w-auto">
+            <button
+              onClick={() => setReviewModalOpen(true)}
+              className="flex-1 md:flex-initial px-5 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-black text-xs shadow-lg shadow-amber-500/30 flex items-center justify-center space-x-2 transition-all hover:scale-105"
+            >
+              <Star className="w-4 h-4 fill-white" />
+              <span>Leave Feedback & Rating</span>
+            </button>
+            <button
+              onClick={handleOpenInvoice}
+              className="px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20 flex items-center justify-center space-x-1.5 transition-colors"
+            >
+              <Printer className="w-4 h-4" />
+              <span>Tax Invoice</span>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Status Progress Stepper */}
       <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">

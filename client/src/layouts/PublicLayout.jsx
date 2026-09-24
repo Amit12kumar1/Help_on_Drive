@@ -137,11 +137,12 @@ export default function PublicLayout() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
             </span>
             <span className="text-slate-300 font-medium">
-              24x7 Pan-India Rapid Roadside Assistance & Verified Personal Car Chauffeurs
+              <span className="text-brand-400 font-bold mr-1.5">🚗 Core Focus:</span> 
+              India's #1 Emergency Roadside Assistance & Vehicle Breakdown Network | Rapid 15-Min On-Spot Mechanics
             </span>
           </div>
 
@@ -155,7 +156,7 @@ export default function PublicLayout() {
             </a>
             <div className="flex items-center space-x-1 text-emerald-400 font-medium">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>RTO Verified Drivers & Certified Mechanics</span>
+              <span>Certified Mechanics & RTO Drivers</span>
             </div>
           </div>
         </div>
@@ -177,7 +178,7 @@ export default function PublicLayout() {
                   HELP ON <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-amber-500">DRIVE</span>
                 </span>
                 <span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase block mt-0.5">
-                  Roadside & Chauffeurs
+                  Roadside & Vehicle Care
                 </span>
               </div>
             </Link>
@@ -197,7 +198,7 @@ export default function PublicLayout() {
                 <span>Home</span>
               </Link>
 
-              {/* DROPDOWN 1: Roadside Assistance (Mega Menu) */}
+              {/* DROPDOWN 1: Roadside Assistance (Mega Menu) - PRIMARY FOCUS */}
               <div
                 className="relative"
                 onMouseEnter={() => handleMouseEnter('rsa')}
@@ -207,18 +208,22 @@ export default function PublicLayout() {
                   type="button"
                   className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl transition-all ${
                     location.pathname === '/roadside-assistance' || location.pathname.includes('/roadside-assistance')
-                      ? 'bg-white text-brand-600 shadow-sm font-bold border border-brand-200'
+                      ? 'bg-brand-600 text-white shadow-md font-bold'
                       : activeDropdown === 'rsa'
-                      ? 'text-brand-600 bg-white/80 font-bold'
-                      : 'text-slate-600 hover:text-brand-600 hover:bg-white/60'
+                      ? 'text-brand-700 bg-brand-50 font-bold'
+                      : 'text-brand-700 font-bold hover:bg-brand-50/80'
                   }`}
                 >
-                  <Wrench className="w-3.5 h-3.5 text-brand-500" />
+                  <Wrench className="w-3.5 h-3.5" />
                   <span>Roadside Assistance</span>
-                  {(location.pathname === '/roadside-assistance' || location.pathname.includes('/roadside-assistance')) && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />
-                  )}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'rsa' ? 'rotate-180 text-brand-600' : 'text-slate-400'}`} />
+                  <span className={`text-[9px] px-1.5 py-0.5 rounded-full uppercase tracking-wider font-extrabold ${
+                    location.pathname === '/roadside-assistance' || location.pathname.includes('/roadside-assistance')
+                      ? 'bg-white text-brand-700'
+                      : 'bg-brand-100 text-brand-700'
+                  }`}>
+                    ★ Primary
+                  </span>
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${activeDropdown === 'rsa' ? 'rotate-180' : 'opacity-70'}`} />
                 </button>
 
                 {/* Dropdown Menu Window */}
@@ -610,8 +615,8 @@ export default function PublicLayout() {
               {location.pathname === '/' && <span className="text-[10px] bg-brand-600 text-white px-2 py-0.5 rounded-full">Active</span>}
             </Link>
 
-            {/* Roadside Assistance Accordion */}
-            <div className="border border-slate-200/80 rounded-2xl overflow-hidden bg-slate-50/50">
+            {/* Roadside Assistance Accordion - PRIMARY FOCUS */}
+            <div className="border border-brand-300/80 rounded-2xl overflow-hidden bg-brand-50/30">
               <button
                 type="button"
                 onClick={() => setMobileRsaOpen(!mobileRsaOpen)}
@@ -619,7 +624,10 @@ export default function PublicLayout() {
               >
                 <div className="flex items-center space-x-2">
                   <Wrench className="w-4 h-4 text-brand-600" />
-                  <span>Roadside Assistance Services</span>
+                  <span className="text-brand-900">Roadside Assistance</span>
+                  <span className="text-[9px] bg-brand-600 text-white font-black px-1.5 py-0.5 rounded-full uppercase">
+                    ★ Primary
+                  </span>
                 </div>
                 <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${mobileRsaOpen ? 'rotate-180 text-brand-600' : ''}`} />
               </button>

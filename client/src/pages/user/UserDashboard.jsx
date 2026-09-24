@@ -14,7 +14,8 @@ import {
   ChevronRight,
   MapPin,
   Sparkles,
-  PhoneCall
+  PhoneCall,
+  Star
 } from 'lucide-react';
 
 export default function UserDashboard() {
@@ -102,25 +103,33 @@ export default function UserDashboard() {
         </div>
       )}
 
-      {/* Hero Action Cards */}
+      {/* Hero Action Cards - Vehicle Breakdown is #1 Primary Focus */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Link
           to="/user/roadside-assistance"
-          className="group relative bg-white hover:bg-brand-50/40 p-6 rounded-3xl border border-slate-200 hover:border-brand-500 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+          className="group relative bg-gradient-to-br from-brand-50/50 via-white to-amber-50/30 p-6 rounded-3xl border-2 border-brand-500 shadow-md hover:shadow-xl transition-all flex flex-col justify-between"
         >
           <div>
-            <div className="w-12 h-12 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center mb-4">
-              <Wrench className="w-6 h-6" />
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-brand-600 text-white flex items-center justify-center shadow-lg shadow-brand-500/30">
+                <Wrench className="w-6 h-6" />
+              </div>
+              <span className="text-[10px] font-black uppercase tracking-wider bg-brand-600 text-white px-2.5 py-1 rounded-full shadow-sm">
+                ★ Core Focus #1
+              </span>
             </div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-brand-600">Immediate Breakdown Recovery</span>
-            <h3 className="text-xl font-bold text-slate-900 mt-1 mb-2">Request Roadside Assistance</h3>
-            <p className="text-xs text-slate-500 leading-relaxed mb-6">
-              Puncture repairs, battery jumpstarts, emergency fuel delivery, flatbed towing, and on-spot minor repairs within 15-20 minutes.
+            <span className="text-[10px] font-bold uppercase tracking-wider text-brand-700">Immediate Breakdown Recovery</span>
+            <h3 className="text-xl font-black text-slate-900 mt-1 mb-2">Request Roadside Assistance</h3>
+            <p className="text-xs text-slate-600 leading-relaxed mb-6">
+              Puncture repairs, battery jumpstarts, emergency fuel delivery, flatbed towing, and on-spot minor mechanical repairs within 15-20 minutes.
             </p>
           </div>
-          <div className="flex items-center text-xs font-bold text-brand-600 group-hover:translate-x-1 transition-transform">
-            <span>Dispatch Mechanic</span>
-            <ChevronRight className="w-4 h-4 ml-1" />
+          <div className="flex items-center justify-between pt-2 border-t border-brand-100">
+            <span className="text-[11px] font-bold text-slate-500">~15 Min Fast Arrival</span>
+            <div className="flex items-center text-xs font-black text-brand-700 group-hover:translate-x-1 transition-transform">
+              <span>Dispatch Mechanic Now</span>
+              <ChevronRight className="w-4 h-4 ml-1" />
+            </div>
           </div>
         </Link>
 
@@ -138,12 +147,38 @@ export default function UserDashboard() {
               Book vetted professional drivers for 2h, 4h, 8h city errands, night party commutes, or multi-day family outstation roadtrips.
             </p>
           </div>
-          <div className="flex items-center text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform">
-            <span>Choose Duration & Chauffeur</span>
-            <ChevronRight className="w-4 h-4 ml-1" />
+          <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+            <span className="text-[11px] font-semibold text-slate-400">From ₹120/hr</span>
+            <div className="flex items-center text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform">
+              <span>Choose Duration & Chauffeur</span>
+              <ChevronRight className="w-4 h-4 ml-1" />
+            </div>
           </div>
         </Link>
       </div>
+
+      {/* Post-Service Feedback Prompt if completed services exist */}
+      {recentHistory.some(item => item.status === 'completed') && (
+        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/80 rounded-2xl p-4 flex items-center justify-between shadow-sm">
+          <div className="flex items-center space-x-3">
+            <div className="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shadow-md">
+              <Star className="w-5 h-5 fill-white" />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-slate-900">How was your recent vehicle service experience?</h4>
+              <p className="text-[11px] text-slate-600">
+                Leave a rating and review on your completed bookings to help us maintain top quality standards.
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/user/bookings"
+            className="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow-sm transition-all hover:scale-105 whitespace-nowrap ml-4"
+          >
+            Leave Feedback →
+          </Link>
+        </div>
+      )}
 
       {/* My Vehicles Quick Section */}
       <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">

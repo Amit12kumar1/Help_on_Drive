@@ -15,16 +15,19 @@ export default function MyBookingsPage() {
   const [invoiceModalOpen, setInvoiceModalOpen] = useState(false);
   const [reviewModalOpen, setReviewModalOpen] = useState(false);
   const [reviewTarget, setReviewTarget] = useState(null);
+  const [myReviews, setMyReviews] = useState([]);
 
   const fetchData = async () => {
     try {
-      const [rRes, dRes] = await Promise.all([
+      const [rRes, dRes, revRes] = await Promise.allSettled([
         api.get('/assistance/my'),
-        api.get('/driver-bookings/my')
+        api.get('/driver-bookings/my'),
+        api.get('/reviews/my')
       ]);
 
-      if (rRes.data.success) setRsaRequests(rRes.data.requests);
-      if (dRes.data.success) setDriverBookings(dRes.data.bookings);
+      if (rRes.status === 'fulfilled' && rRes.value.data.success) setRsaRequests(rRes.value.data.requests);
+      if (dRes.status === 'fulfilled' && dRes.value.data.success) setDriverBookings(dRes.value.data.bookings);
+      if (revRes.status === 'fulfilled' && revRes.value.data.success) setMyReviews(revRes.value.data.reviews || []);
     } catch (err) {
       console.error('Error fetching bookings:', err);
     } finally {
@@ -124,6 +127,7 @@ export default function MyBookingsPage() {
             const isDriver = item.category === 'driver';
             const partner = isDriver ? item.driverId : item.providerId;
             const amount = item.charges?.totalAmount || item.fare?.totalAmount || 570;
+            const existingReview = myReviews.find(r => r.bookingId === item._id);
 
             return (
               <div
@@ -191,13 +195,20 @@ export default function MyBookingsPage() {
                         <span>Invoice</span>
                       </button>
 
-                      <button
-                        onClick={() => openReview(partner, item._id, item.category)}
-                        className="px-3.5 py-2 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl text-xs font-bold transition-colors flex items-center space-x-1"
-                      >
-                        <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
-                        <span>Rate</span>
-                      </button>
+                      {existingReview ? (
+                        <div className="px-3.5 py-2 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-bold flex items-center space-x-1">
+                          <Star className="w-3.5 h-3.5 fill-emerald-500 text-emerald-500" />
+                          <span>Rated {existingReview.rating}★</span>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => openReview(partner, item._id, item.category)}
+                          className="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white rounded-xl text-xs font-black transition-all shadow-sm flex items-center space-x-1.5 hover:scale-105"
+                        >
+                          <Star className="w-3.5 h-3.5 fill-white" />
+                          <span>Rate Service</span>
+                        </button>
+                      )}
                     </>
                   )}
                 </div>
@@ -220,7 +231,10 @@ export default function MyBookingsPage() {
           targetUser={reviewTarget.targetUser}
           bookingId={reviewTarget.bookingId}
           bookingType={reviewTarget.bookingType}
-          onSuccess={() => alert('Review submitted!')}
+          onSuccess={() => {
+            fetchData();
+            alert('Thank you for rating your service!');
+          }}
         />
       )}
     </div>

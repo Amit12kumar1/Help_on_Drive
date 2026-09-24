@@ -8,38 +8,53 @@ const createReview = async (req, res) => {
   try {
     const { targetId, bookingId, bookingType, rating, comment, aspects } = req.body;
 
-    if (!targetId || !bookingId || !rating || !comment) {
+    if (!bookingId || !rating || !comment) {
       return res.status(400).json({ success: false, message: 'Please provide rating, comment, and booking details' });
     }
 
+    const finalTargetId = targetId || req.user.id;
+
     const review = await Review.create({
       userId: req.user.id,
-      targetId,
+      targetId: finalTargetId,
       bookingId,
-      bookingType,
+      bookingType: bookingType || 'assistance',
       rating: Number(rating),
       comment,
       aspects: aspects || { punctuality: 5, professionalism: 5, serviceQuality: 5 }
     });
 
-    // Update average rating for target driver or provider
-    if (bookingType === 'driver') {
-      const allReviews = await Review.find({ targetId, bookingType: 'driver' });
-      const avg = allReviews.reduce((acc, r) => acc + r.rating, 0) / allReviews.length;
-      await DriverProfile.findOneAndUpdate(
-        { userId: targetId },
-        { rating: Number(avg.toFixed(1)), totalRatings: allReviews.length }
-      );
-    } else {
-      const allReviews = await Review.find({ targetId, bookingType: 'assistance' });
-      const avg = allReviews.reduce((acc, r) => acc + r.rating, 0) / allReviews.length;
-      await ProviderProfile.findOneAndUpdate(
-        { userId: targetId },
-        { rating: Number(avg.toFixed(1)), totalRatings: allReviews.length }
-      );
+    // Update average rating for target driver or provider if valid targetId
+    if (targetId) {
+      if (bookingType === 'driver') {
+        const allReviews = await Review.find({ targetId, bookingType: 'driver' });
+        const avg = allReviews.reduce((acc, r) => acc + r.rating, 0) / (allReviews.length || 1);
+        await DriverProfile.findOneAndUpdate(
+          { userId: targetId },
+          { rating: Number(avg.toFixed(1)), totalRatings: allReviews.length }
+        );
+      } else {
+        const allReviews = await Review.find({ targetId, bookingType: 'assistance' });
+        const avg = allReviews.reduce((acc, r) => acc + r.rating, 0) / (allReviews.length || 1);
+        await ProviderProfile.findOneAndUpdate(
+          { userId: targetId },
+          { rating: Number(avg.toFixed(1)), totalRatings: allReviews.length }
+        );
+      }
     }
 
-    res.status(201).json({ success: true, message: 'Thank you for your review!', review });
+    res.status(201).json({ success: true, message: 'Thank you for your feedback! Rating recorded.', review });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Get user's own submitted reviews
+// @route   GET /api/reviews/my
+const getMyReviews = async (req, res) => {
+  try {
+    const reviews = await Review.find({ userId: req.user.id }).sort({ createdAt: -1 });
+    res.json({ success: true, count: reviews.length, reviews });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -59,4 +74,4 @@ const getTargetReviews = async (req, res) => {
   }
 };
 
-module.exports = { createReview, getTargetReviews };
+module.exports = { createReview, getMyReviews, getTargetReviews };
