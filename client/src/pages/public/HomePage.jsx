@@ -464,7 +464,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="pt-2">
+              <div className="pt-2 flex flex-wrap items-center gap-3">
                 <button
                   type="button"
                   onClick={() => setSosModalOpen(true)}
@@ -473,6 +473,13 @@ export default function HomePage() {
                   <Siren className="w-4 h-4 animate-pulse" />
                   <span>Test Emergency SOS Flow</span>
                 </button>
+                <Link
+                  to="/faq?tab=road_safety"
+                  className="inline-flex items-center space-x-2 px-5 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-md shadow-amber-600/30 transition-all hover:scale-[1.02]"
+                >
+                  <ShieldCheck className="w-4 h-4" />
+                  <span>Highway Safety Rules & Protocols →</span>
+                </Link>
               </div>
             </div>
 

@@ -87,7 +87,7 @@ export default function PublicLayout() {
       return { label: 'How It Works', icon: HelpCircle, color: 'text-blue-600', badge: 'Interactive System Flow & Workflows' };
     }
     if (pathname === '/faq') {
-      return { label: 'Frequently Asked Questions', icon: HelpCircle, color: 'text-brand-600', badge: 'Help Center & Knowledge Base' };
+      return { label: 'Road Safety & FAQ', icon: ShieldCheck, color: 'text-amber-600', badge: 'Highway Safety Rules & Help Center' };
     }
     if (pathname === '/contact') {
       return { label: 'Contact Support', icon: Phone, color: 'text-emerald-600', badge: '24/7 Helpline & Assistance' };
@@ -130,38 +130,6 @@ export default function PublicLayout() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
-      {/* ============================================================
-          TOP ANNOUNCEMENT & EMERGENCY HOTLINE BAR
-          ============================================================ */}
-      <div className="bg-slate-950 text-white text-xs py-2 px-4 border-b border-slate-800/80 tracking-tight">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-2.5">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-            </span>
-            <span className="text-slate-300 font-medium">
-              <span className="text-brand-400 font-bold mr-1.5">🚗 Core Focus:</span> 
-              India's #1 Emergency Roadside Assistance & Vehicle Breakdown Network | Rapid 15-Min On-Spot Mechanics
-            </span>
-          </div>
-
-          <div className="hidden sm:flex items-center space-x-6 text-slate-300">
-            <a
-              href="tel:18001024357"
-              className="flex items-center space-x-1.5 hover:text-white transition-colors group"
-            >
-              <Phone className="w-3.5 h-3.5 text-brand-500 group-hover:scale-110 transition-transform" />
-              <span className="font-semibold">Toll Free: 1800-HELP-DRIVE (1800-435-737)</span>
-            </a>
-            <div className="flex items-center space-x-1 text-emerald-400 font-medium">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Certified Mechanics & RTO Drivers</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* ============================================================
           MAIN GLASSMORPHIC NAVIGATION BAR
           ============================================================ */}
@@ -492,17 +460,17 @@ export default function PublicLayout() {
                 <span>Near Me</span>
               </a>
 
-              {/* FAQ Tab */}
+              {/* Road Safety & FAQ Tab */}
               <Link
-                to="/faq"
-                className={`flex items-center space-x-1 px-2 py-1.5 rounded-xl whitespace-nowrap transition-all ${
+                to="/faq?tab=road_safety"
+                className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl whitespace-nowrap transition-all ${
                   location.pathname === '/faq'
-                    ? 'bg-white text-slate-900 shadow-sm font-bold border border-slate-200/90'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                    ? 'bg-amber-500 text-white shadow-md font-bold'
+                    : 'text-amber-800 bg-amber-50/90 hover:bg-amber-100 hover:text-amber-900 font-bold border border-amber-200/80 shadow-2xs'
                 }`}
               >
-                {location.pathname === '/faq' && <span className="w-1.5 h-1.5 rounded-full bg-brand-500" />}
-                <span>FAQ</span>
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
+                <span>Road Safety & FAQ</span>
               </Link>
 
               {/* Contact Tab */}
@@ -726,8 +694,9 @@ export default function PublicLayout() {
               <Link to="/become-provider" className="p-2.5 bg-slate-100 rounded-xl font-bold text-slate-700 text-center">
                 Partner Garage
               </Link>
-              <Link to="/faq" className="p-2.5 bg-slate-100 rounded-xl font-bold text-slate-700 text-center">
-                FAQ
+              <Link to="/faq?tab=road_safety" className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl font-bold text-amber-800 text-center flex items-center justify-center space-x-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
+                <span>Road Safety & FAQ</span>
               </Link>
               <Link to="/contact" className="p-2.5 bg-slate-100 rounded-xl font-bold text-slate-700 text-center">
                 Contact

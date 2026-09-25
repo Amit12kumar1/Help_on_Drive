@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   ChevronDown,
   HelpCircle,
@@ -12,8 +13,18 @@ import {
 } from 'lucide-react';
 
 export default function FAQPage() {
-  const [activeTab, setActiveTab] = useState('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlTab = searchParams.get('tab');
+  const [activeTab, setActiveTab] = useState(urlTab || 'road_safety');
   const [openIdx, setOpenIdx] = useState(0);
+
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab) {
+      setActiveTab(tab);
+      setOpenIdx(0);
+    }
+  }, [searchParams]);
 
   const faqs = [
     // ROAD SAFETY & HIGHWAY RULES
