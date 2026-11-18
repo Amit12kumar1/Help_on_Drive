@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Roadside Assistance - Help on Drive</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Demo Topbar -->
+  <div id="demoTopbar" class="demo-topbar"></div>
+
+  <!-- Main Navbar -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🚗</div>
+        <span>Help on Drive</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="assistance.html" class="nav-link active">Roadside Assistance</a></li>
+        <li><a href="driver.html" class="nav-link">Hire Driver</a></li>
+        <li><a href="tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="garage.html" class="nav-link">My Garage</a></li>
+        <li><a href="admin.html" class="nav-link">Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button onclick="openSOSModal()" class="btn-sos">
+          <span>🚨 SOS HELP</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <div class="container" style="padding-top:2.5rem; padding-bottom:1.5rem;">
+    <span class="hero-pill" style="margin-bottom:0.5rem;">⚡ Emergency Dispatch Console</span>
+    <h1 style="font-size:2rem; font-weight:900; color:#0f172a; letter-spacing:-0.025em;">Request Roadside Assistance</h1>
+    <p style="font-size:0.85rem; color:#64748b;">Fast certified mobile mechanic & tow truck dispatch with upfront pricing & GPS tracking.</p>
+  </div>
+
+  <!-- Main Request Form Container -->
+  <div class="container" style="padding-bottom:4rem;">
+    <form id="assistanceForm" onsubmit="handleRequestAssistance(event)" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:2rem;">
+      
+      <!-- Left Column: Service & Vehicle Selection -->
+      <div style="display:flex; flex-direction:column; gap:1.5rem;">
+        
+        <!-- Step 1: Select Service -->
+        <div class="form-card">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
+            <span style="width:1.75rem; height:1.75rem; border-radius:50%; background:#ffedd5; color:#ea580c; font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center;">1</span>
+            <h3 style="font-size:1.1rem; font-weight:800; color:#0f172a;">Select Breakdown Service</h3>
+          </div>
+
+          <div id="serviceGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Step 2: Select Vehicle -->
+        <div class="form-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span style="width:1.75rem; height:1.75rem; border-radius:50%; background:#ffedd5; color:#ea580c; font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center;">2</span>
+              <h3 style="font-size:1.1rem; font-weight:800; color:#0f172a;">Select Vehicle</h3>
+            </div>
+            
+            <button type="button" onclick="quickAddTestCar()" class="btn btn-outline btn-sm" style="background:#fffbeb; color:#b45309; border-color:#fde68a;">
+              ⚡ Quick Add Test Car
+            </button>
+          </div>
+
+          <div id="vehiclesList" style="display:grid; grid-template-columns:1fr; gap:0.75rem;">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Step 3: Location & Problem Description -->
+        <div class="form-card">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
+            <span style="width:1.75rem; height:1.75rem; border-radius:50%; background:#ffedd5; color:#ea580c; font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center;">3</span>
+            <h3 style="font-size:1.1rem; font-weight:800; color:#0f172a;">Breakdown Location & Notes</h3>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Breakdown Address / Highway Landmark</label>
+            <input type="text" id="locAddress" class="form-control" value="Hauz Khas Enclave, Outer Ring Road, New Delhi" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Describe Problem Symptoms</label>
+            <textarea id="locNotes" rows="2" class="form-control" placeholder="E.g., Left front tyre has puncture on expressway shoulder..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Transparent Billing Summary & Dispatch Button -->
+      <div>
+        <div class="form-card" style="position:sticky; top:110px; border-top:4px solid var(--primary);">
+          <span style="font-size:0.7rem; font-weight:800; text-transform:uppercase; color:#64748b; letter-spacing:0.05em;">Dispatch Fare Estimate</span>
+          <h3 style="font-size:1.35rem; font-weight:900; color:#0f172a; margin-top:0.25rem; margin-bottom:1.25rem;">Upfront Tax Invoice Estimate</h3>
+
+          <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; border-bottom:1px dashed #cbd5e1; padding-bottom:1rem; margin-bottom:1rem;">
+            <div style="display:flex; justify-content:space-between;">
+              <span id="billServiceLabel" style="color:#64748b;">Flat Tyre / Puncture Repair</span>
+              <span id="billServicePrice" style="font-weight:700;">₹199</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:#64748b;">Mobile Mechanic Transit (4.2 km)</span>
+              <span style="font-weight:700;">₹105</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:#64748b;">Highway Platform Fee</span>
+              <span style="font-weight:700;">₹50</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:#64748b;">GST (18% Applicable)</span>
+              <span id="billGST" style="font-weight:700;">₹63</span>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+            <span style="font-weight:800; font-size:1rem; color:#0f172a;">Total Payable:</span>
+            <span id="billTotal" style="font-size:1.6rem; font-weight:900; color:var(--primary);">₹417</span>
+          </div>
+
+          <div style="background:#ecfdf5; border:1px solid #a7f3d0; border-radius:12px; padding:0.75rem; margin-bottom:1.25rem; font-size:0.75rem; color:#065f46;">
+            <strong>✓ Guaranteed No Hidden Surcharges:</strong> Pay after service via UPI, Card, or Cash directly to the verified mechanic.
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:0.9rem; font-size:1rem; box-shadow:0 10px 25px rgba(249, 115, 22, 0.35);">
+            ⚡ Dispatch Certified Mechanic Now
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#fff; font-weight:bold;">Help on Drive</span>
+      <span style="font-size:0.8rem; color:#64748b;">Standalone Edition</span>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let selectedService = HOD.SERVICES[0];
+    let selectedVehicleId = '';
+
+    function initPage() {
+      renderServices();
+      renderVehicles();
+      updateBill();
+    }
+
+    function renderServices() {
+      const container = document.getElementById('serviceGrid');
+      container.innerHTML = HOD.SERVICES.map((s, idx) => `
+        <div class="selectable-box ${selectedService.id === s.id ? 'active' : ''}" onclick="selectService('${s.id}')">
+          <div style="font-size:1.4rem; margin-bottom:0.25rem;">${s.icon}</div>
+          <div style="font-size:0.8rem; font-weight:800; color:#0f172a;">${s.name}</div>
+          <div style="font-size:0.75rem; font-weight:bold; color:var(--primary); margin-top:0.25rem;">₹${s.basePrice} base</div>
+        </div>
+      `).join('');
+    }
+
+    function selectService(id) {
+      selectedService = HOD.SERVICES.find(s => s.id === id) || HOD.SERVICES[0];
+      renderServices();
+      updateBill();
+    }
+
+    function renderVehicles() {
+      const vehicles = HOD.getVehicles();
+      const container = document.getElementById('vehiclesList');
+
+      if (vehicles.length === 0) {
+        container.innerHTML = `
+          <div style="padding:1rem; background:#fffbeb; border:1px solid #fde68a; border-radius:12px; font-size:0.8rem; color:#92400e; display:flex; justify-content:space-between; align-items:center;">
+            <span>No car in garage. Click button to add instantly.</span>
+            <button type="button" onclick="quickAddTestCar()" class="btn btn-sm" style="background:#d97706; color:#fff;">Add Test Car</button>
+          </div>
+        `;
+        selectedVehicleId = '';
+        return;
+      }
+
+      if (!selectedVehicleId) selectedVehicleId = vehicles[0].id;
+
+      container.innerHTML = vehicles.map(v => `
+        <div class="selectable-box ${selectedVehicleId === v.id ? 'active' : ''}" onclick="selectVehicle('${v.id}')">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-weight:800; font-size:0.85rem; color:#0f172a;">${v.brand} ${v.model}</div>
+              <div style="font-family:var(--font-mono); font-size:0.75rem; color:#ea580c; font-weight:bold;">${v.number}</div>
+              <div style="font-size:0.7rem; color:#64748b;">${v.type} • ${v.fuel}</div>
+            </div>
+            ${selectedVehicleId === v.id ? '<span style="color:#ea580c; font-size:1.1rem; font-weight:bold;">✓</span>' : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectVehicle(id) {
+      selectedVehicleId = id;
+      renderVehicles();
+    }
+
+    function quickAddTestCar() {
+      const newCar = HOD.addVehicle({
+        brand: 'Tata',
+        model: 'Nexon EV',
+        number: 'DL-01-CX-' + Math.floor(Math.random() * 8999 + 1000),
+        type: 'SUV',
+        fuel: 'Electric',
+        color: 'Daytona Grey',
+        isDefault: true
+      });
+      selectedVehicleId = newCar.id;
+      renderVehicles();
+      if (typeof confetti === 'function') confetti({ particleCount: 30, spread: 50, origin: { y: 0.7 } });
+    }
+
+    function updateBill() {
+      const base = selectedService.basePrice;
+      const distance = 105;
+      const platform = 50;
+      const gst = Math.round((base + distance + platform) * 0.18);
+      const total = base + distance + platform + gst;
+
+      document.getElementById('billServiceLabel').textContent = selectedService.name;
+      document.getElementById('billServicePrice').textContent = '₹' + base;
+      document.getElementById('billGST').textContent = '₹' + gst;
+      document.getElementById('billTotal').textContent = '₹' + total;
+    }
+
+    function handleRequestAssistance(e) {
+      e.preventDefault();
+      const vehicles = HOD.getVehicles();
+      const chosenVeh = vehicles.find(v => v.id === selectedVehicleId) || vehicles[0];
+
+      if (!chosenVeh) {
+        alert('Please add or select a vehicle first.');
+        return;
+      }
+
+      const base = selectedService.basePrice;
+      const distance = 105;
+      const platform = 50;
+      const gst = Math.round((base + distance + platform) * 0.18);
+      const total = base + distance + platform + gst;
+
+      const booking = HOD.createBooking({
+        type: 'assistance',
+        serviceType: selectedService.name,
+        vehicle: chosenVeh,
+        provider: HOD.USERS.provider,
+        location: {
+          address: document.getElementById('locAddress').value,
+          lat: 28.5494,
+          lng: 77.2001
+        },
+        problemDescription: document.getElementById('locNotes').value,
+        charges: { base, distance, platform, gst, total }
+      });
+
+      // Redirect directly to Live Tracking Screen
+      window.location.href = 'tracking.html';
+    }
+
+    window.addEventListener('load', initPage);
+  </script>
+</body>
+</html>

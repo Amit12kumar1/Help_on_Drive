@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Garage - Help on Drive</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Demo Topbar -->
+  <div id="demoTopbar" class="demo-topbar"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🚗</div>
+        <span>Help on Drive</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="assistance.html" class="nav-link">Roadside Assistance</a></li>
+        <li><a href="driver.html" class="nav-link">Hire Driver</a></li>
+        <li><a href="tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="garage.html" class="nav-link active">My Garage</a></li>
+        <li><a href="admin.html" class="nav-link">Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button onclick="openSOSModal()" class="btn-sos">
+          <span>🚨 SOS HELP</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <div class="container" style="padding-top:2.5rem; padding-bottom:4rem;">
+    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:2rem;">
+      <div>
+        <span class="hero-pill" style="margin-bottom:0.4rem;">🚘 Active Fleet Management</span>
+        <h1 style="font-size:2rem; font-weight:900; color:#0f172a;">My Vehicle Garage</h1>
+        <p style="font-size:0.85rem; color:#64748b;">Manage your registered cars, SUVs, and electric vehicles for instant roadside rescue.</p>
+      </div>
+
+      <div style="display:flex; gap:0.5rem;">
+        <button onclick="quickAddTestCar()" class="btn btn-outline" style="background:#fffbeb; color:#b45309; border-color:#fde68a;">
+          ⚡ Add Quick Test Car
+        </button>
+        <button onclick="openAddCarModal()" class="btn btn-primary">
+          + Add New Vehicle
+        </button>
+      </div>
+    </div>
+
+    <!-- Vehicles Grid -->
+    <div id="garageGrid" class="cards-grid" style="margin-top:0;">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- Add Vehicle Modal -->
+  <div id="addCarModal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeAddCarModal()">✕</button>
+
+      <h3 style="font-size:1.25rem; font-weight:900; color:#0f172a; margin-bottom:0.25rem;">Add New Vehicle</h3>
+      <p style="font-size:0.75rem; color:#64748b; margin-bottom:1.25rem;">Enter vehicle details as per official Registration Certificate (RC).</p>
+
+      <form onsubmit="handleAddCarSubmit(event)">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+          <div class="form-group">
+            <label class="form-label">Brand / Make</label>
+            <input type="text" id="carBrand" class="form-control" placeholder="E.g. Hyundai, Tata" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Model</label>
+            <input type="text" id="carModel" class="form-control" placeholder="E.g. i20, Nexon" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Vehicle Registration Number</label>
+          <input type="text" id="carNumber" class="form-control" placeholder="E.g. DL-01-AB-1234" required style="text-transform:uppercase;">
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+          <div class="form-group">
+            <label class="form-label">Vehicle Body Type</label>
+            <select id="carType" class="form-control">
+              <option value="Hatchback">Hatchback</option>
+              <option value="Sedan">Sedan</option>
+              <option value="SUV">SUV</option>
+              <option value="Luxury">Luxury</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Fuel Type</label>
+            <select id="carFuel" class="form-control">
+              <option value="Petrol">Petrol</option>
+              <option value="Diesel">Diesel</option>
+              <option value="CNG">CNG</option>
+              <option value="Electric">Electric (EV)</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:0.8rem; margin-top:0.5rem;">
+          Save Vehicle to Garage
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#fff; font-weight:bold;">Help on Drive</span>
+      <span style="font-size:0.8rem; color:#64748b;">Standalone Edition</span>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    function renderGarage() {
+      const vehicles = HOD.getVehicles();
+      const container = document.getElementById('garageGrid');
+
+      if (vehicles.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; background:#fff; border-radius:20px; padding:3rem; text-align:center; border:1px dashed #cbd5e1;">
+            <div style="font-size:3rem; margin-bottom:0.5rem;">🚗</div>
+            <h3 style="font-size:1.2rem; font-weight:bold; color:#0f172a;">Your Garage is Empty</h3>
+            <p style="font-size:0.85rem; color:#64748b; margin-bottom:1.5rem;">Add your car now so you can request roadside assistance or chauffeur booking in 1 click.</p>
+            <button onclick="quickAddTestCar()" class="btn btn-primary">⚡ Add Quick Test Car</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = vehicles.map(v => `
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem;">
+            <div class="card-icon" style="background:#eff6ff; color:#2563eb; margin-bottom:0;">
+              🚗
+            </div>
+            <button onclick="handleDeleteCar('${v.id}')" style="background:none; border:none; color:#ef4444; font-size:0.75rem; font-weight:bold; cursor:pointer;">
+              Delete
+            </button>
+          </div>
+
+          <h3 class="card-title">${v.brand} ${v.model}</h3>
+          <div style="font-family:var(--font-mono); font-size:0.85rem; color:var(--primary); font-weight:bold; margin-bottom:0.75rem;">
+            ${v.number}
+          </div>
+
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap; font-size:0.7rem; font-weight:bold; color:#64748b;">
+            <span style="background:#f1f5f9; padding:0.2rem 0.5rem; border-radius:6px;">${v.type}</span>
+            <span style="background:#f1f5f9; padding:0.2rem 0.5rem; border-radius:6px;">${v.fuel}</span>
+            <span style="background:#f1f5f9; padding:0.2rem 0.5rem; border-radius:6px;">${v.color || 'Standard'}</span>
+          </div>
+
+          <div class="card-meta" style="margin-top:1.25rem;">
+            <span style="color:#059669; font-size:0.75rem; font-weight:bold;">● Verified Active</span>
+            <a href="assistance.html" class="btn btn-outline btn-sm">Dispatch RSA →</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function quickAddTestCar() {
+      const models = [
+        { brand: 'Mahindra', model: 'Scorpio-N', type: 'SUV', fuel: 'Diesel', color: 'Deep Forest' },
+        { brand: 'Kia', model: 'Seltos GTX', type: 'SUV', fuel: 'Petrol', color: 'Gravity Grey' },
+        { brand: 'Honda', model: 'City Hybrid', type: 'Sedan', fuel: 'Hybrid', color: 'Platinum White' }
+      ];
+      const randomM = models[Math.floor(Math.random() * models.length)];
+      HOD.addVehicle({
+        ...randomM,
+        number: 'DL-09-XY-' + Math.floor(Math.random() * 8999 + 1000)
+      });
+      renderGarage();
+      if (typeof confetti === 'function') confetti({ particleCount: 40, spread: 50, origin: { y: 0.7 } });
+    }
+
+    function openAddCarModal() {
+      document.getElementById('addCarModal').classList.add('open');
+    }
+
+    function closeAddCarModal() {
+      document.getElementById('addCarModal').classList.remove('open');
+    }
+
+    function handleAddCarSubmit(e) {
+      e.preventDefault();
+      HOD.addVehicle({
+        brand: document.getElementById('carBrand').value,
+        model: document.getElementById('carModel').value,
+        number: document.getElementById('carNumber').value.toUpperCase(),
+        type: document.getElementById('carType').value,
+        fuel: document.getElementById('carFuel').value
+      });
+      closeAddCarModal();
+      renderGarage();
+      if (typeof confetti === 'function') confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+    }
+
+    function handleDeleteCar(id) {
+      if (confirm('Are you sure you want to remove this vehicle from your garage?')) {
+        HOD.deleteVehicle(id);
+        renderGarage();
+      }
+    }
+
+    window.addEventListener('load', renderGarage);
+  </script>
+</body>
+</html>

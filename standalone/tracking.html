@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live GPS Dispatch Tracking - Help on Drive</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Lucide & Confetti CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Demo Topbar -->
+  <div id="demoTopbar" class="demo-topbar"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🚗</div>
+        <span>Help on Drive</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="assistance.html" class="nav-link">Roadside Assistance</a></li>
+        <li><a href="driver.html" class="nav-link">Hire Driver</a></li>
+        <li><a href="tracking.html" class="nav-link active">Live Tracking</a></li>
+        <li><a href="garage.html" class="nav-link">My Garage</a></li>
+        <li><a href="admin.html" class="nav-link">Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button onclick="openSOSModal()" class="btn-sos">
+          <span>🚨 SOS HELP</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tracking Container -->
+  <div class="container" style="padding-top:2rem; padding-bottom:4rem;">
+    
+    <!-- Title Header -->
+    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1.5rem;">
+      <div>
+        <div style="display:flex; align-items:center; gap:0.4rem;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#10b981; animation:pulse-red 2s infinite;"></span>
+          <span style="font-size:0.75rem; font-weight:800; color:#059669; text-transform:uppercase; letter-spacing:0.05em;">Live Active Dispatch Telemetry</span>
+        </div>
+        <h1 id="trackTitle" style="font-size:1.85rem; font-weight:900; color:#0f172a; margin-top:0.25rem;">
+          Roadside Assistance (Puncture Repair)
+        </h1>
+        <p id="trackRef" style="font-size:0.75rem; color:#64748b; font-family:var(--font-mono);">
+          Incident Reference: HOD-RSA-8821
+        </p>
+      </div>
+
+      <!-- Action Buttons Header -->
+      <div id="completedActions" style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <!-- Injected if completed: Invoice, Pay, Rate -->
+      </div>
+    </div>
+
+    <!-- Post-Service Feedback Banner (Appears on completed) -->
+    <div id="feedbackBanner" style="display:none; background:linear-gradient(135deg, #022c22 0%, #0f172a 100%); border:1px solid #10b981; border-radius:var(--radius-xl); padding:1.5rem; color:#fff; margin-bottom:1.5rem; box-shadow:var(--shadow-lg);">
+      <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;">
+        <div style="display:flex; align-items:center; gap:1rem;">
+          <div style="width:3.25rem; height:3.25rem; border-radius:14px; background:rgba(245, 158, 11, 0.2); border:1px solid #f59e0b; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">
+            ⭐
+          </div>
+          <div>
+            <span style="background:rgba(16, 185, 129, 0.2); color:#6ee7b7; padding:0.15rem 0.5rem; border-radius:9999px; font-size:0.65rem; font-weight:800; border:1px solid rgba(16, 185, 129, 0.3);">
+              ✓ SERVICE COMPLETED SUCCESSFULLY
+            </span>
+            <h3 style="font-size:1.15rem; font-weight:800; margin-top:0.25rem;">How was your vehicle breakdown service?</h3>
+            <p style="font-size:0.75rem; color:#cbd5e1;">Please leave your valuable rating and feedback for the assigned partner.</p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:0.5rem;">
+          <button onclick="openReviewModal()" class="btn btn-primary" style="background:#f59e0b; border-color:#f59e0b; color:#0f172a; font-weight:800;">
+            ⭐ Leave Feedback & Rating
+          </button>
+          <button onclick="openInvoiceModal()" class="btn btn-outline" style="background:rgba(255,255,255,0.1); color:#fff; border-color:rgba(255,255,255,0.2);">
+            📄 Tax Invoice
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⚡ Live Dispatch Lifecycle Simulator Bar -->
+    <div class="simulator-box">
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem;">
+        <div>
+          <span style="background:rgba(99, 102, 241, 0.25); color:#a5b4fc; padding:0.2rem 0.6rem; border-radius:9999px; font-size:0.7rem; font-weight:800; border:1px solid rgba(165, 180, 252, 0.3);">
+            ⚡ VIVA & DEMO DISPATCH SIMULATOR
+          </span>
+          <h4 style="font-size:1rem; font-weight:800; margin-top:0.35rem;">Interactive Lifecycle Stepper</h4>
+          <p style="font-size:0.75rem; color:#cbd5e1;">Click any stage below to simulate status advance without needing 2 separate phones:</p>
+        </div>
+
+        <div class="simulator-btns">
+          <button id="simBtn_pending" class="sim-btn" onclick="simulateStatus('pending')">1. Pending</button>
+          <button id="simBtn_accepted" class="sim-btn" onclick="simulateStatus('accepted')">2. Accepted</button>
+          <button id="simBtn_on_the_way" class="sim-btn" onclick="simulateStatus('on_the_way')">3. On The Way</button>
+          <button id="simBtn_arrived" class="sim-btn" onclick="simulateStatus('arrived')">4. Arrived</button>
+          <button id="simBtn_completed" class="sim-btn" onclick="simulateStatus('completed')" style="background:linear-gradient(135deg, #10b981 0%, #059669 100%); color:#fff; font-weight:800; border:none;">
+            🏁 Fast Finish & Test Feedback
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stepper Track -->
+    <div style="background:#fff; border-radius:var(--radius-xl); padding:1.5rem; border:1px solid #e2e8f0; margin-bottom:1.5rem; box-shadow:var(--shadow-sm);">
+      <div style="display:flex; justify-content:space-between; font-size:0.75rem; font-weight:800; color:#64748b; margin-bottom:0.5rem;">
+        <span>Service Progression</span>
+        <span id="currentStatusBadge" style="color:var(--primary); text-transform:uppercase;">On The Way</span>
+      </div>
+
+      <div class="stepper-track">
+        <div id="stepNode1" class="step-node completed">
+          <div class="step-circle">1</div>
+          <span class="step-label">Pending</span>
+        </div>
+        <div id="stepNode2" class="step-node completed">
+          <div class="step-circle">2</div>
+          <span class="step-label">Accepted</span>
+        </div>
+        <div id="stepNode3" class="step-node active">
+          <div class="step-circle">3</div>
+          <span class="step-label">On The Way</span>
+        </div>
+        <div id="stepNode4" class="step-node">
+          <div class="step-circle">4</div>
+          <span class="step-label">Arrived</span>
+        </div>
+        <div id="stepNode5" class="step-node">
+          <div class="step-circle">5</div>
+          <span class="step-label">Completed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaflet GPS Map Container -->
+    <div style="position:relative; margin-bottom:1.5rem;">
+      <div id="map"></div>
+      
+      <!-- ETA Floating Card -->
+      <div style="position:absolute; bottom:1.25rem; left:1.25rem; z-index:20; background:rgba(15, 23, 42, 0.9); backdrop-filter:blur(6px); color:#fff; border-radius:16px; padding:0.85rem 1.25rem; border:1px solid rgba(255,255,255,0.15); box-shadow:0 10px 25px rgba(0,0,0,0.3);">
+        <div style="font-size:0.65rem; color:#94a3b8; font-weight:800; text-transform:uppercase;">Live Transit ETA</div>
+        <div style="font-size:1.35rem; font-weight:900; color:#f97316;">12 Mins <span style="font-size:0.75rem; color:#cbd5e1; font-weight:normal;">(3.4 km away)</span></div>
+      </div>
+    </div>
+
+    <!-- Partner & Vehicle Info Cards -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem;">
+      
+      <!-- Partner Card -->
+      <div class="form-card" style="display:flex; align-items:center; gap:1rem; padding:1.25rem;">
+        <img id="partnerImg" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100" style="width:3.5rem; height:3.5rem; border-radius:14px; object-fit:cover; border:2px solid var(--primary);" alt="Partner">
+        <div>
+          <div style="display:flex; align-items:center; gap:0.35rem;">
+            <h4 id="partnerName" style="font-weight:900; font-size:0.95rem; color:#0f172a;">Manoj Mechanic</h4>
+            <span style="color:#059669; font-size:0.75rem;">✓</span>
+          </div>
+          <div id="partnerPhone" style="font-size:0.75rem; color:#64748b; font-family:var(--font-mono);">+91 98202 02021</div>
+          <div style="font-size:0.7rem; color:#ea580c; font-weight:bold; margin-top:0.2rem;">★ 4.9 Verified Specialist</div>
+        </div>
+      </div>
+
+      <!-- Vehicle Card -->
+      <div class="form-card" style="display:flex; align-items:center; gap:1rem; padding:1.25rem;">
+        <div style="width:3.5rem; height:3.5rem; border-radius:14px; background:#f1f5f9; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">
+          🚗
+        </div>
+        <div>
+          <span style="font-size:0.65rem; color:#94a3b8; font-weight:800; text-transform:uppercase;">Vehicle Under Service</span>
+          <h4 id="vehicleName" style="font-weight:900; font-size:0.95rem; color:#0f172a;">Hyundai i20 Asta</h4>
+          <div id="vehicleNumber" style="font-size:0.75rem; color:#ea580c; font-weight:bold; font-family:var(--font-mono);">UP-16-AB-1234</div>
+        </div>
+      </div>
+
+      <!-- Quick Call / Chat -->
+      <div class="form-card" style="display:flex; gap:0.75rem; align-items:center; padding:1.25rem;">
+        <button onclick="alert('📞 Calling Manoj Mechanic (+91 98202 02021)...')" class="btn btn-emerald" style="flex:1; padding:0.75rem; font-size:0.8rem;">
+          📞 Call Partner
+        </button>
+        <button onclick="alert('💬 Live chat message sent: \'Mechanic is on the way with repair toolkit.\'')" class="btn btn-dark" style="flex:1; padding:0.75rem; font-size:0.8rem;">
+          💬 Live Chat
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODALS: INVOICE, PAYMENT, FEEDBACK -->
+  <!-- ===================================================================== -->
+
+  <!-- Printable GST Invoice Modal -->
+  <div id="invoiceModalOverlay" class="modal-overlay">
+    <div class="modal-card" style="max-width:580px;">
+      <button class="modal-close" onclick="closeInvoiceModal()">✕</button>
+
+      <div id="invoicePrintArea">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0f172a; padding-bottom:1rem; margin-bottom:1.25rem;">
+          <div>
+            <div style="font-size:1.25rem; font-weight:900; color:#0f172a; display:flex; align-items:center; gap:0.35rem;">
+              🚗 Help on Drive
+            </div>
+            <div style="font-size:0.7rem; color:#64748b;">Emergency Roadside & Chauffeur Services</div>
+            <div style="font-size:0.7rem; color:#64748b;">GSTIN: 07AAAAH0000A1Z5</div>
+          </div>
+          <div style="text-align:right;">
+            <span style="background:#0f172a; color:#fff; font-size:0.65rem; font-weight:bold; padding:0.2rem 0.5rem; border-radius:4px;">TAX INVOICE</span>
+            <div id="invNumber" style="font-family:var(--font-mono); font-size:0.8rem; font-weight:bold; margin-top:0.25rem;">INV-882190</div>
+            <div id="invDate" style="font-size:0.7rem; color:#64748b;">18 Nov 2026</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.75rem; margin-bottom:1.25rem;">
+          <div>
+            <strong style="color:#0f172a;">Customer Details:</strong>
+            <div id="invCustName">Rahul Sharma</div>
+            <div id="invCustPhone">+91 98765 43210</div>
+            <div id="invVehicle">Vehicle: Hyundai i20 (UP-16-AB-1234)</div>
+          </div>
+          <div>
+            <strong style="color:#0f172a;">Dispatched Partner:</strong>
+            <div id="invPartnerName">Manoj Mechanic</div>
+            <div>SpeedFix Express Garage</div>
+            <div>Payment Mode: UPI Verified</div>
+          </div>
+        </div>
+
+        <table style="width:100%; border-collapse:collapse; font-size:0.75rem; margin-bottom:1.25rem;">
+          <thead>
+            <tr style="background:#f1f5f9; text-align:left; border-bottom:1px solid #cbd5e1;">
+              <th style="padding:0.5rem;">Service Particulars</th>
+              <th style="padding:0.5rem; text-align:right;">Amount (INR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td id="invServiceName" style="padding:0.5rem;">Flat Tyre / Puncture Repair</td>
+              <td id="invBaseAmt" style="padding:0.5rem; text-align:right;">₹199.00</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5rem;">Highway Mobile Mechanic Transit</td>
+              <td style="padding:0.5rem; text-align:right;">₹105.00</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5rem;">Technology & Platform Fee</td>
+              <td style="padding:0.5rem; text-align:right;">₹50.00</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5rem;">GST (18% SGST+CGST)</td>
+              <td id="invTaxAmt" style="padding:0.5rem; text-align:right;">₹63.00</td>
+            </tr>
+            <tr style="font-weight:900; font-size:0.9rem; background:#f8fafc;">
+              <td style="padding:0.6rem;">Total Amount Paid:</td>
+              <td id="invTotalAmt" style="padding:0.6rem; text-align:right; color:#0f172a;">₹417.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1rem;">
+        <button onclick="window.print()" class="btn btn-dark btn-sm">🖨️ Print Tax Invoice</button>
+        <button onclick="closeInvoiceModal()" class="btn btn-outline btn-sm">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settle Payment Modal -->
+  <div id="payModalOverlay" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closePayModal()">✕</button>
+
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        <div style="font-size:2rem; margin-bottom:0.25rem;">💳</div>
+        <h3 style="font-size:1.25rem; font-weight:900;">Settle Service Payment</h3>
+        <p style="font-size:0.8rem; color:#64748b;">Instant digital settlement or cash payment confirmation.</p>
+        <div id="payAmtBig" style="font-size:2rem; font-weight:900; color:var(--primary); margin-top:0.5rem;">₹417</div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:0.75rem; margin-bottom:1.5rem;">
+        <button onclick="confirmPayment('UPI QR')" class="selectable-box active" style="text-align:center; padding:0.75rem;">
+          <strong style="color:#0f172a;">⚡ Instant UPI (GPay / PhonePe / Paytm)</strong>
+        </button>
+        <button onclick="confirmPayment('Debit/Credit Card')" class="selectable-box" style="text-align:center; padding:0.75rem;">
+          <strong style="color:#0f172a;">💳 Debit / Credit Card (POS Terminal)</strong>
+        </button>
+        <button onclick="confirmPayment('Cash to Partner')" class="selectable-box" style="text-align:center; padding:0.75rem;">
+          <strong style="color:#0f172a;">💵 Cash Directly to Mechanic</strong>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5-Star Partner Feedback Modal -->
+  <div id="reviewModalOverlay" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeReviewModal()">✕</button>
+
+      <div style="text-align:center; margin-bottom:1.25rem;">
+        <span style="background:#fffbeb; color:#b45309; padding:0.2rem 0.6rem; border-radius:9999px; font-size:0.7rem; font-weight:bold; border:1px solid #fde68a;">
+          ⭐ Post-Service Customer Feedback
+        </span>
+        <h3 style="font-size:1.25rem; font-weight:900; margin-top:0.4rem;">Rate Your Service Partner</h3>
+        <p style="font-size:0.75rem; color:#64748b;">How was your experience with Manoj Mechanic?</p>
+      </div>
+
+      <form onsubmit="handleReviewSubmit(event)">
+        <!-- Stars -->
+        <div style="display:flex; justify-content:center; gap:0.5rem; font-size:2rem; margin-bottom:1rem; cursor:pointer;" id="starsRow">
+          <span onclick="setStars(1)">★</span>
+          <span onclick="setStars(2)">★</span>
+          <span onclick="setStars(3)">★</span>
+          <span onclick="setStars(4)">★</span>
+          <span onclick="setStars(5)" style="color:#f59e0b;">★</span>
+        </div>
+
+        <!-- 1-Tap Quick Tags -->
+        <div style="margin-bottom:1rem;">
+          <label class="form-label">1-Tap Praise Tags:</label>
+          <div style="display:flex; flex-wrap:wrap; gap:0.35rem;">
+            <button type="button" onclick="addTag('⚡ Rapid 15-Min Arrival')" class="btn btn-outline btn-sm">+ ⚡ Rapid 15-Min Arrival</button>
+            <button type="button" onclick="addTag('🔧 Professional Fix')" class="btn btn-outline btn-sm">+ 🔧 Professional Fix</button>
+            <button type="button" onclick="addTag('💯 Transparent Fair Pricing')" class="btn btn-outline btn-sm">+ 💯 Transparent Fair Pricing</button>
+            <button type="button" onclick="addTag('🤝 Very Courteous')" class="btn btn-outline btn-sm">+ 🤝 Very Courteous</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Your Comments</label>
+          <textarea id="reviewText" rows="3" class="form-control" placeholder="Share your experience with other vehicle owners..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:0.75rem; font-size:0.9rem; background:#f59e0b; border-color:#f59e0b; color:#0f172a; font-weight:800;">
+          ⭐ Submit Service Feedback
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#fff; font-weight:bold;">Help on Drive</span>
+      <span style="font-size:0.8rem; color:#64748b;">Standalone Edition</span>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let activeBooking = null;
+    let map = null;
+    let partnerMarker = null;
+    let userMarker = null;
+    let routeLine = null;
+    let selectedRating = 5;
+
+    const STATUS_STEPS = ['pending', 'accepted', 'on_the_way', 'arrived', 'completed'];
+
+    function initTracking() {
+      activeBooking = HOD.getActiveBooking();
+      if (!activeBooking) {
+        alert('No active dispatch found. Returning to home.');
+        window.location.href = 'index.html';
+        return;
+      }
+
+      // Populate booking text
+      document.getElementById('trackTitle').textContent = `${activeBooking.serviceType} for ${activeBooking.vehicle?.brand} ${activeBooking.vehicle?.model}`;
+      document.getElementById('trackRef').textContent = `Incident Reference: ${activeBooking.id}`;
+      document.getElementById('vehicleName').textContent = `${activeBooking.vehicle?.brand} ${activeBooking.vehicle?.model}`;
+      document.getElementById('vehicleNumber').textContent = activeBooking.vehicle?.number;
+
+      const partner = activeBooking.provider || activeBooking.driver || HOD.USERS.provider;
+      document.getElementById('partnerName').textContent = partner.name;
+      document.getElementById('partnerPhone').textContent = partner.phone;
+      if (partner.avatar) document.getElementById('partnerImg').src = partner.avatar;
+
+      initMap();
+      renderStatusUI();
+    }
+
+    function initMap() {
+      const userPos = [28.5494, 77.2001]; // Hauz Khas
+      const partnerPos = [28.5720, 77.2350]; // 3.4 km away
+
+      map = L.map('map').setView(userPos, 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+      }).addTo(map);
+
+      // Custom Icon for user
+      const userIcon = L.divIcon({
+        className: 'user-pin',
+        html: '<div style="background:#059669; color:#fff; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; border:3px solid #fff; box-shadow:0 4px 10px rgba(0,0,0,0.3);">📍</div>',
+        iconSize: [34, 34],
+        iconAnchor: [17, 34]
+      });
+
+      // Custom Icon for partner
+      const partnerIcon = L.divIcon({
+        className: 'partner-pin',
+        html: '<div style="background:#ea580c; color:#fff; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; border:3px solid #fff; box-shadow:0 6px 14px rgba(234,88,12,0.4); animation:pulse-red 2s infinite;">🚗</div>',
+        iconSize: [38, 38],
+        iconAnchor: [19, 38]
+      });
+
+      userMarker = L.marker(userPos, { icon: userIcon }).addTo(map).bindPopup('<strong>Your Breakdown Location</strong><br>Hauz Khas Enclave').openPopup();
+      partnerMarker = L.marker(partnerPos, { icon: partnerIcon }).addTo(map).bindPopup('<strong>Manoj Mechanic (SpeedFix)</strong><br>En-route with tools');
+
+      routeLine = L.polyline([userPos, partnerPos], { color: '#f97316', weight: 4, dashArray: '8, 8' }).addTo(map);
+      map.fitBounds([userPos, partnerPos], { padding: [50, 50] });
+    }
+
+    function renderStatusUI() {
+      const st = activeBooking.status || 'pending';
+      const stepIdx = STATUS_STEPS.indexOf(st);
+
+      // Update badge
+      document.getElementById('currentStatusBadge').textContent = st.replace(/_/g, ' ');
+
+      // Update Stepper
+      STATUS_STEPS.forEach((step, idx) => {
+        const node = document.getElementById('stepNode' + (idx + 1));
+        if (!node) return;
+        node.className = 'step-node';
+        if (idx < stepIdx) node.classList.add('completed');
+        if (idx === stepIdx) node.classList.add(stepIdx === 4 ? 'completed' : 'active');
+      });
+
+      // Update Simulator Buttons
+      STATUS_STEPS.forEach(step => {
+        const btn = document.getElementById('simBtn_' + step);
+        if (btn) {
+          if (step === st) btn.classList.add('active');
+          else btn.classList.remove('active');
+        }
+      });
+
+      // If completed: show feedback banner and action buttons
+      const feedbackBanner = document.getElementById('feedbackBanner');
+      const actionContainer = document.getElementById('completedActions');
+
+      if (st === 'completed') {
+        feedbackBanner.style.display = 'block';
+        actionContainer.innerHTML = `
+          <button onclick="openInvoiceModal()" class="btn btn-dark btn-sm">📄 GST Tax Invoice</button>
+          <button onclick="openPayModal()" class="btn btn-emerald btn-sm" style="animation:pulse-red 2s infinite;">💳 Settle Payment (₹${activeBooking.charges?.total || 417})</button>
+          <button onclick="openReviewModal()" class="btn btn-primary btn-sm" style="background:#f59e0b; border-color:#f59e0b; color:#0f172a; font-weight:800;">⭐ Rate Partner</button>
+        `;
+      } else {
+        feedbackBanner.style.display = 'none';
+        actionContainer.innerHTML = '';
+      }
+    }
+
+    function simulateStatus(newStatus) {
+      activeBooking = HOD.updateBookingStatus(activeBooking.id, newStatus);
+      renderStatusUI();
+
+      if (newStatus === 'completed') {
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+        }
+      } else if (newStatus === 'arrived' && partnerMarker) {
+        partnerMarker.setLatLng([28.5494, 77.2001]);
+        if (routeLine) map.removeLayer(routeLine);
+      }
+    }
+
+    // Modal Handlers
+    function openInvoiceModal() {
+      const modal = document.getElementById('invoiceModalOverlay');
+      const total = activeBooking.charges?.total || 417;
+      const base = activeBooking.charges?.base || 199;
+      const gst = activeBooking.charges?.gst || 63;
+
+      document.getElementById('invNumber').textContent = 'INV-' + activeBooking.id.replace(/[^0-9]/g, '');
+      document.getElementById('invDate').textContent = new Date().toLocaleDateString();
+      document.getElementById('invServiceName').textContent = activeBooking.serviceType;
+      document.getElementById('invBaseAmt').textContent = '₹' + base + '.00';
+      document.getElementById('invTaxAmt').textContent = '₹' + gst + '.00';
+      document.getElementById('invTotalAmt').textContent = '₹' + total + '.00';
+
+      modal.classList.add('open');
+    }
+
+    function closeInvoiceModal() {
+      document.getElementById('invoiceModalOverlay').classList.remove('open');
+    }
+
+    function openPayModal() {
+      const modal = document.getElementById('payModalOverlay');
+      document.getElementById('payAmtBig').textContent = '₹' + (activeBooking.charges?.total || 417);
+      modal.classList.add('open');
+    }
+
+    function closePayModal() {
+      document.getElementById('payModalOverlay').classList.remove('open');
+    }
+
+    function confirmPayment(mode) {
+      HOD.updatePaymentStatus(activeBooking.id, 'paid');
+      closePayModal();
+      if (typeof confetti === 'function') confetti({ particleCount: 50, spread: 60, origin: { y: 0.5 } });
+      alert(`✅ Payment of ₹${activeBooking.charges?.total || 417} settled successfully via ${mode}!\nGST Tax Invoice is ready.`);
+      openInvoiceModal();
+    }
+
+    function openReviewModal() {
+      document.getElementById('reviewModalOverlay').classList.add('open');
+    }
+
+    function closeReviewModal() {
+      document.getElementById('reviewModalOverlay').classList.remove('open');
+    }
+
+    function setStars(n) {
+      selectedRating = n;
+      const spans = document.querySelectorAll('#starsRow span');
+      spans.forEach((s, idx) => {
+        s.style.color = idx < n ? '#f59e0b' : '#cbd5e1';
+      });
+    }
+
+    function addTag(tag) {
+      const txt = document.getElementById('reviewText');
+      txt.value = txt.value ? `${txt.value} • ${tag}` : tag;
+    }
+
+    function handleReviewSubmit(e) {
+      e.preventDefault();
+      const comment = document.getElementById('reviewText').value || 'Excellent, fast and reliable service!';
+      HOD.addReview({
+        bookingId: activeBooking.id,
+        rating: selectedRating,
+        comment: comment
+      });
+      closeReviewModal();
+      if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      alert('⭐ Thank you! Your 5-star feedback has been published.');
+    }
+
+    window.addEventListener('load', initTracking);
+  </script>
+</body>
+</html>

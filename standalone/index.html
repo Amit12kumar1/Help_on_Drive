@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help on Drive - 24/7 Vehicle Roadside Assistance & Chauffeur Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Demo Role Switcher Topbar -->
+  <div id="demoTopbar" class="demo-topbar"></div>
+
+  <!-- Main Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🚗</div>
+        <span>Help on Drive</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="assistance.html" class="nav-link">Roadside Assistance</a></li>
+        <li><a href="driver.html" class="nav-link">Hire Driver</a></li>
+        <li><a href="tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="garage.html" class="nav-link">My Garage</a></li>
+        <li><a href="admin.html" class="nav-link">Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button onclick="openSOSModal()" class="btn-sos">
+          <span>🚨 SOS HELP</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-pill">
+        <span>⚡ 15-Minute Highway Emergency Response Guaranteed</span>
+      </div>
+      <h1 class="hero-title">
+        Vehicle Breakdown? <br>
+        <span>Help on Drive</span> is on the way.
+      </h1>
+      <p class="hero-sub">
+        India's most dependable on-demand roadside mechanical assistance, flatbed towing, emergency fuel delivery, and verified personal chauffeur service.
+      </p>
+
+      <div class="hero-actions">
+        <a href="assistance.html" class="btn btn-primary" style="padding: 0.85rem 1.75rem; font-size: 0.95rem;">
+          <span>🔧 Request Assistance Now</span>
+        </a>
+        <a href="driver.html" class="btn btn-dark" style="padding: 0.85rem 1.75rem; font-size: 0.95rem;">
+          <span>👨‍✈️ Hire a Personal Chauffeur</span>
+        </a>
+        <a href="tracking.html" class="btn btn-outline" style="padding: 0.85rem 1.5rem; font-size: 0.95rem;">
+          <span>📡 Live Tracking Console</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span style="font-size:0.75rem; font-weight:800; color:var(--primary); text-transform:uppercase; letter-spacing:0.05em;">Our Core Capabilities</span>
+        <h2>On-Demand Vehicle Services</h2>
+        <p>Certified mobile mechanics dispatched instantly with transparent upfront GST billing.</p>
+      </div>
+
+      <div class="cards-grid">
+        <!-- Puncture -->
+        <div class="card">
+          <div class="card-icon" style="background:#fff7ed; color:#ea580c;">🛞</div>
+          <h3 class="card-title">Flat Tyre / Puncture</h3>
+          <p class="card-desc">Tubeless puncture repair or hydraulic jack spare tyre wheel mounting right at your breakdown spot.</p>
+          <div class="card-meta">
+            <span class="price-tag">₹199 <span style="font-size:0.75rem; color:#94a3b8; font-weight:normal;">base</span></span>
+            <a href="assistance.html?service=puncture" class="btn btn-outline btn-sm">Book Fix →</a>
+          </div>
+        </div>
+
+        <!-- Battery -->
+        <div class="card">
+          <div class="card-icon" style="background:#ecfdf5; color:#059669;">⚡</div>
+          <h3 class="card-title">Battery Jumpstart</h3>
+          <p class="card-desc">Heavy-duty 12V terminal jump cables, alternator health diagnostics, and quick battery revival.</p>
+          <div class="card-meta">
+            <span class="price-tag">₹349 <span style="font-size:0.75rem; color:#94a3b8; font-weight:normal;">base</span></span>
+            <a href="assistance.html?service=battery" class="btn btn-outline btn-sm">Book Fix →</a>
+          </div>
+        </div>
+
+        <!-- Fuel -->
+        <div class="card">
+          <div class="card-icon" style="background:#eff6ff; color:#2563eb;">⛽</div>
+          <h3 class="card-title">Emergency Fuel</h3>
+          <p class="card-desc">Ran out of fuel on the expressway? 5 Litres petrol or diesel delivered directly in certified safety cans.</p>
+          <div class="card-meta">
+            <span class="price-tag">₹249 <span style="font-size:0.75rem; color:#94a3b8; font-weight:normal;">base</span></span>
+            <a href="assistance.html?service=fuel" class="btn btn-outline btn-sm">Book Fix →</a>
+          </div>
+        </div>
+
+        <!-- Towing -->
+        <div class="card">
+          <div class="card-icon" style="background:#fef2f2; color:#dc2626;">🚛</div>
+          <h3 class="card-title">Flatbed Tow Truck</h3>
+          <p class="card-desc">Hydraulic incline flatbed carrier towing for accidental or mechanical immobilizations to trusted garages.</p>
+          <div class="card-meta">
+            <span class="price-tag">₹799 <span style="font-size:0.75rem; color:#94a3b8; font-weight:normal;">base</span></span>
+            <a href="assistance.html?service=towing" class="btn btn-outline btn-sm">Book Fix →</a>
+          </div>
+        </div>
+
+        <!-- Lockout -->
+        <div class="card">
+          <div class="card-icon" style="background:#fefce8; color:#ca8a04;">🔑</div>
+          <h3 class="card-title">Key Lockout Recovery</h3>
+          <p class="card-desc">Locked keys inside the car or trunk? Specialized scratch-free entry tools unlock your vehicle safely.</p>
+          <div class="card-meta">
+            <span class="price-tag">₹449 <span style="font-size:0.75rem; color:#94a3b8; font-weight:normal;">base</span></span>
+            <a href="assistance.html?service=lockout" class="btn btn-outline btn-sm">Book Fix →</a>
+          </div>
+        </div>
+
+        <!-- Minor Repairs -->
+        <div class="card">
+          <div class="card-icon" style="background:#faf5ff; color:#9333ea;">🔧</div>
+          <h3 class="card-title">Minor On-Spot Repair</h3>
+          <p class="card-desc">Radiator coolant leakage, fan belt snap, fuse blown or brake pad servicing by master mechanics.</p>
+          <div class="card-meta">
+            <span class="price-tag">₹499 <span style="font-size:0.75rem; color:#94a3b8; font-weight:normal;">base</span></span>
+            <a href="assistance.html?service=repair" class="btn btn-outline btn-sm">Book Fix →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Road Safety & FAQs -->
+  <section class="section" style="background: #ffffff; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0;">
+    <div class="container">
+      <div class="section-head">
+        <span style="font-size:0.75rem; font-weight:800; color:#10b981; text-transform:uppercase; letter-spacing:0.05em;">Highway Protocols</span>
+        <h2>Road Safety & Important Guidelines</h2>
+        <p>What to do immediately when stranded on an expressway before help arrives.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem;">
+        <div style="background:#f8fafc; border-radius:18px; padding:1.5rem; border:1px solid #e2e8f0;">
+          <h4 style="font-weight:800; font-size:1rem; color:#0f172a; margin-bottom:0.4rem;">⚠️ 1. Pull Over to the Hard Shoulder</h4>
+          <p style="font-size:0.8rem; color:#64748b; line-height:1.6;">
+            Turn on hazard warning lights immediately. Gently guide the vehicle to the extreme left lane or service shoulder away from fast highway traffic.
+          </p>
+        </div>
+
+        <div style="background:#f8fafc; border-radius:18px; padding:1.5rem; border:1px solid #e2e8f0;">
+          <h4 style="font-weight:800; font-size:1rem; color:#0f172a; margin-bottom:0.4rem;">📐 2. Place Warning Triangle</h4>
+          <p style="font-size:0.8rem; color:#64748b; line-height:1.6;">
+            Place your reflective emergency triangle at least 45 to 50 meters behind your vehicle so approaching vehicles have sufficient braking distance.
+          </p>
+        </div>
+
+        <div style="background:#f8fafc; border-radius:18px; padding:1.5rem; border:1px solid #e2e8f0;">
+          <h4 style="font-weight:800; font-size:1rem; color:#0f172a; margin-bottom:0.4rem;">🛡️ 3. Stand Behind Highway Crash Barriers</h4>
+          <p style="font-size:0.8rem; color:#64748b; line-height:1.6;">
+            Never remain seated inside a stranded car on high-speed expressways. Exit from the left passenger side and stand safely behind the steel crash barrier.
+          </p>
+        </div>
+
+        <div style="background:#f8fafc; border-radius:18px; padding:1.5rem; border:1px solid #e2e8f0;">
+          <h4 style="font-weight:800; font-size:1rem; color:#0f172a; margin-bottom:0.4rem;">🚨 4. Use 1-Click Highway SOS</h4>
+          <p style="font-size:0.8rem; color:#64748b; line-height:1.6;">
+            Click the red <strong>SOS HELP</strong> button on this platform. It works without login, copies exact GPS coordinates, and provides direct dial to 112 / 1033.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem;">
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <span style="font-size:1.25rem;">🚗</span>
+        <strong style="color:#fff; font-size:1rem;">Help on Drive</strong>
+        <span style="font-size:0.75rem; color:#64748b;">— Standalone Portable Web Edition</span>
+      </div>
+
+      <div style="display:flex; gap:1.25rem; font-size:0.8rem;">
+        <a href="assistance.html">Roadside Assistance</a>
+        <a href="driver.html">Hire Driver</a>
+        <a href="tracking.html">Live Tracking</a>
+        <a href="garage.html">My Garage</a>
+        <a href="admin.html">Admin Console</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

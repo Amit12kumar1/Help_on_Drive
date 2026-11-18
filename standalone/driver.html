@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hire Verified Chauffeur - Help on Drive</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Demo Topbar -->
+  <div id="demoTopbar" class="demo-topbar"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🚗</div>
+        <span>Help on Drive</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="assistance.html" class="nav-link">Roadside Assistance</a></li>
+        <li><a href="driver.html" class="nav-link active">Hire Driver</a></li>
+        <li><a href="tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="garage.html" class="nav-link">My Garage</a></li>
+        <li><a href="admin.html" class="nav-link">Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button onclick="openSOSModal()" class="btn-sos">
+          <span>🚨 SOS HELP</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Header -->
+  <div class="container" style="padding-top:2.5rem; padding-bottom:1.5rem;">
+    <span class="hero-pill" style="margin-bottom:0.5rem; background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe;">
+      👨‍✈️ On-Demand Professional Chauffeur Dispatch
+    </span>
+    <h1 style="font-size:2rem; font-weight:900; color:#0f172a; letter-spacing:-0.025em;">Hire a Professional Driver for Your Car</h1>
+    <p style="font-size:0.85rem; color:#64748b;">Background-verified commercial drivers for daily commutes, night parties, or outstation family trips.</p>
+  </div>
+
+  <!-- Booking Form Container -->
+  <div class="container" style="padding-bottom:4rem;">
+    <form id="driverForm" onsubmit="handleBookDriver(event)" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:2rem;">
+      
+      <!-- Left Column: Inputs -->
+      <div style="display:flex; flex-direction:column; gap:1.5rem;">
+        
+        <!-- Step 1: Select Duration Tier -->
+        <div class="form-card">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
+            <span style="width:1.75rem; height:1.75rem; border-radius:50%; background:#dbeafe; color:#1d4ed8; font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center;">1</span>
+            <h3 style="font-size:1.1rem; font-weight:800; color:#0f172a;">Select Trip Duration</h3>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:0.6rem; margin-bottom:1rem;">
+            <div id="tier2" class="selectable-box" onclick="selectTier(2, 240)">
+              <div style="font-weight:800; font-size:0.85rem;">2 Hours</div>
+              <div style="font-size:0.7rem; color:#64748b;">Quick City Run</div>
+              <div style="font-weight:bold; color:#1d4ed8; font-size:0.75rem; margin-top:0.25rem;">₹240</div>
+            </div>
+
+            <div id="tier4" class="selectable-box active" onclick="selectTier(4, 480)">
+              <div style="font-weight:800; font-size:0.85rem;">4 Hours</div>
+              <div style="font-size:0.7rem; color:#64748b;">Shopping / Meetings</div>
+              <div style="font-weight:bold; color:#1d4ed8; font-size:0.75rem; margin-top:0.25rem;">₹480</div>
+            </div>
+
+            <div id="tier8" class="selectable-box" onclick="selectTier(8, 880)">
+              <div style="font-weight:800; font-size:0.85rem;">8 Hours</div>
+              <div style="font-size:0.7rem; color:#64748b;">Full Day City</div>
+              <div style="font-weight:bold; color:#1d4ed8; font-size:0.75rem; margin-top:0.25rem;">₹880</div>
+            </div>
+
+            <div id="tierOut" class="selectable-box" onclick="selectTier(12, 1200, true)">
+              <div style="font-weight:800; font-size:0.85rem;">Full Day / Outstation</div>
+              <div style="font-size:0.7rem; color:#64748b;">Intercity Highway</div>
+              <div style="font-weight:bold; color:#1d4ed8; font-size:0.75rem; margin-top:0.25rem;">₹1,200/day</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Select Car -->
+        <div class="form-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span style="width:1.75rem; height:1.75rem; border-radius:50%; background:#dbeafe; color:#1d4ed8; font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center;">2</span>
+              <h3 style="font-size:1.1rem; font-weight:800; color:#0f172a;">Select Your Car</h3>
+            </div>
+            
+            <button type="button" onclick="quickAddTestCar()" class="btn btn-outline btn-sm" style="background:#fffbeb; color:#b45309; border-color:#fde68a;">
+              ⚡ Quick Add Test Car
+            </button>
+          </div>
+
+          <div id="vehiclesList" style="display:grid; grid-template-columns:1fr; gap:0.75rem;">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Step 3: Pickup Location & Time -->
+        <div class="form-card">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
+            <span style="width:1.75rem; height:1.75rem; border-radius:50%; background:#dbeafe; color:#1d4ed8; font-weight:800; font-size:0.8rem; display:flex; align-items:center; justify-content:center;">3</span>
+            <h3 style="font-size:1.1rem; font-weight:800; color:#0f172a;">Pickup Point & Schedule</h3>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Pickup Address</label>
+            <input type="text" id="pickupAddress" class="form-control" value="Green Park Extension, New Delhi" required>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+            <div class="form-group">
+              <label class="form-label">Reporting Date</label>
+              <input type="date" id="pickupDate" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reporting Time</label>
+              <input type="text" id="pickupTime" class="form-control" value="10:00 AM" required>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Chauffeur Profile & Summary -->
+      <div>
+        <div class="form-card" style="position:sticky; top:110px; border-top:4px solid #2563eb;">
+          
+          <!-- Assigned Driver Preview -->
+          <div style="display:flex; align-items:center; gap:0.85rem; padding-bottom:1rem; border-bottom:1px solid #e2e8f0; margin-bottom:1rem;">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" style="width:3.25rem; height:3.25rem; border-radius:14px; object-cover:cover; border:2px solid #2563eb;" alt="Driver">
+            <div>
+              <div style="display:flex; align-items:center; gap:0.35rem;">
+                <h4 style="font-weight:900; font-size:0.95rem; color:#0f172a;">Rajesh Verma</h4>
+                <span style="color:#059669; font-size:0.75rem; font-weight:bold;">✓ Verified</span>
+              </div>
+              <div style="font-size:0.75rem; color:#64748b;">★ 4.9 Rating • 7 Years Exp.</div>
+              <div style="font-size:0.7rem; color:#2563eb; font-weight:bold;">Speaks: Hindi, English, Punjabi</div>
+            </div>
+          </div>
+
+          <span style="font-size:0.7rem; font-weight:800; text-transform:uppercase; color:#64748b; letter-spacing:0.05em;">Trip Fare Calculation</span>
+          
+          <div style="display:flex; flex-direction:column; gap:0.75rem; font-size:0.85rem; border-bottom:1px dashed #cbd5e1; padding-bottom:1rem; margin:1rem 0;">
+            <div style="display:flex; justify-content:space-between;">
+              <span id="tierLabel" style="color:#64748b;">4 Hours City Chauffeur</span>
+              <span id="tierBasePrice" style="font-weight:700;">₹480</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:#64748b;">Platform Booking Fee</span>
+              <span style="font-weight:700;">₹50</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:#64748b;">GST (18% Applicable)</span>
+              <span id="taxAmount" style="font-weight:700;">₹95</span>
+            </div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+            <span style="font-weight:800; font-size:1rem; color:#0f172a;">Total Fare:</span>
+            <span id="totalFare" style="font-size:1.6rem; font-weight:900; color:#1d4ed8;">₹625</span>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:0.9rem; font-size:1rem; background:#2563eb; box-shadow:0 10px 25px rgba(37, 99, 235, 0.35);">
+            👨‍✈️ Confirm & Book Chauffeur Now
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:#fff; font-weight:bold;">Help on Drive</span>
+      <span style="font-size:0.8rem; color:#64748b;">Standalone Edition</span>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let currentTierHours = 4;
+    let currentTierBase = 480;
+    let selectedVehicleId = '';
+
+    function initPage() {
+      document.getElementById('pickupDate').value = new Date().toISOString().split('T')[0];
+      renderVehicles();
+      updateBill();
+    }
+
+    function selectTier(hours, basePrice, isOutstation = false) {
+      currentTierHours = hours;
+      currentTierBase = basePrice;
+      
+      document.querySelectorAll('.selectable-box').forEach(el => el.classList.remove('active'));
+      const activeEl = isOutstation ? document.getElementById('tierOut') : document.getElementById('tier' + hours);
+      if (activeEl) activeEl.classList.add('active');
+
+      document.getElementById('tierLabel').textContent = isOutstation ? 'Full Day / Outstation Chauffeur' : `${hours} Hours City Chauffeur`;
+      document.getElementById('tierBasePrice').textContent = '₹' + basePrice;
+
+      updateBill();
+    }
+
+    function updateBill() {
+      const platform = 50;
+      const gst = Math.round((currentTierBase + platform) * 0.18);
+      const total = currentTierBase + platform + gst;
+
+      document.getElementById('taxAmount').textContent = '₹' + gst;
+      document.getElementById('totalFare').textContent = '₹' + total;
+    }
+
+    function renderVehicles() {
+      const vehicles = HOD.getVehicles();
+      const container = document.getElementById('vehiclesList');
+
+      if (vehicles.length === 0) {
+        container.innerHTML = `
+          <div style="padding:1rem; background:#fffbeb; border:1px solid #fde68a; border-radius:12px; font-size:0.8rem; color:#92400e; display:flex; justify-content:space-between; align-items:center;">
+            <span>No car in garage. Click button to add instantly.</span>
+            <button type="button" onclick="quickAddTestCar()" class="btn btn-sm" style="background:#d97706; color:#fff;">Add Test Car</button>
+          </div>
+        `;
+        selectedVehicleId = '';
+        return;
+      }
+
+      if (!selectedVehicleId) selectedVehicleId = vehicles[0].id;
+
+      container.innerHTML = vehicles.map(v => `
+        <div class="selectable-box ${selectedVehicleId === v.id ? 'active' : ''}" onclick="selectVehicle('${v.id}')">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-weight:800; font-size:0.85rem; color:#0f172a;">${v.brand} ${v.model}</div>
+              <div style="font-family:var(--font-mono); font-size:0.75rem; color:#2563eb; font-weight:bold;">${v.number}</div>
+              <div style="font-size:0.7rem; color:#64748b;">${v.type} • ${v.fuel}</div>
+            </div>
+            ${selectedVehicleId === v.id ? '<span style="color:#2563eb; font-size:1.1rem; font-weight:bold;">✓</span>' : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function selectVehicle(id) {
+      selectedVehicleId = id;
+      renderVehicles();
+    }
+
+    function quickAddTestCar() {
+      const newCar = HOD.addVehicle({
+        brand: 'Hyundai',
+        model: 'Creta SX',
+        number: 'DL-04-ER-' + Math.floor(Math.random() * 8999 + 1000),
+        type: 'SUV',
+        fuel: 'Petrol',
+        color: 'Titan Grey',
+        isDefault: true
+      });
+      selectedVehicleId = newCar.id;
+      renderVehicles();
+      if (typeof confetti === 'function') confetti({ particleCount: 30, spread: 50, origin: { y: 0.7 } });
+    }
+
+    function handleBookDriver(e) {
+      e.preventDefault();
+      const vehicles = HOD.getVehicles();
+      const chosenVeh = vehicles.find(v => v.id === selectedVehicleId) || vehicles[0];
+
+      if (!chosenVeh) {
+        alert('Please add or select your car first.');
+        return;
+      }
+
+      const platform = 50;
+      const gst = Math.round((currentTierBase + platform) * 0.18);
+      const total = currentTierBase + platform + gst;
+
+      HOD.createBooking({
+        type: 'driver',
+        serviceType: `Chauffeur (${currentTierHours}h)`,
+        vehicle: chosenVeh,
+        driver: HOD.USERS.driver,
+        location: {
+          address: document.getElementById('pickupAddress').value,
+          lat: 28.5583,
+          lng: 77.2028
+        },
+        schedule: {
+          date: document.getElementById('pickupDate').value,
+          time: document.getElementById('pickupTime').value
+        },
+        charges: { base: currentTierBase, platform, gst, total }
+      });
+
+      window.location.href = 'tracking.html';
+    }
+
+    window.addEventListener('load', initPage);
+  </script>
+</body>
+</html>
