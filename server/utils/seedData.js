@@ -81,9 +81,32 @@ const seedDatabase = async () => {
       avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150'
     });
 
+    const customer2 = await User.create({
+      name: 'Test Customer',
+      email: 'user@helpondrive.com',
+      password: 'user123',
+      phone: '+91 9876543211',
+      role: 'user',
+      city: 'New Delhi',
+      address: 'B-14, Green Park Extension, New Delhi',
+      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150'
+    });
+
     // Customer's Vehicles
     const car1 = await Vehicle.create({
       userId: customer._id,
+      vehicleNumber: 'UP-16-AB-1234',
+      vehicleType: 'Hatchback',
+      brand: 'Hyundai',
+      model: 'i20 Asta',
+      fuelType: 'Petrol',
+      color: 'Polar White',
+      rcNumber: 'RC-HYU-2022-9901',
+      isDefault: true
+    });
+
+    await Vehicle.create({
+      userId: customer2._id,
       vehicleNumber: 'UP-16-AB-1234',
       vehicleType: 'Hatchback',
       brand: 'Hyundai',
@@ -106,8 +129,32 @@ const seedDatabase = async () => {
       isDefault: false
     });
 
+    await Vehicle.create({
+      userId: customer2._id,
+      vehicleNumber: 'DL-03-CC-5678',
+      vehicleType: 'SUV',
+      brand: 'Tata',
+      model: 'Nexon Fearless',
+      fuelType: 'Diesel',
+      color: 'Foliage Green',
+      rcNumber: 'RC-TAT-2023-4412',
+      isDefault: false
+    });
+
     const car3 = await Vehicle.create({
       userId: customer._id,
+      vehicleNumber: 'HR-26-EE-9999',
+      vehicleType: 'SUV',
+      brand: 'Mahindra',
+      model: 'Thar 4x4',
+      fuelType: 'Diesel',
+      color: 'Napoli Black',
+      rcNumber: 'RC-MAH-2021-3321',
+      isDefault: false
+    });
+
+    await Vehicle.create({
+      userId: customer2._id,
       vehicleNumber: 'HR-26-EE-9999',
       vehicleType: 'SUV',
       brand: 'Mahindra',

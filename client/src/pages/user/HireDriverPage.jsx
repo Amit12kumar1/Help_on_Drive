@@ -89,6 +89,27 @@ export default function HireDriverPage() {
     loadData();
   }, []);
 
+  const handleQuickAddDefaultCar = async () => {
+    try {
+      const res = await api.post('/vehicles', {
+        vehicleNumber: 'DL-01-CX-' + Math.floor(Math.random() * 8999 + 1000),
+        brand: 'Tata',
+        model: 'Nexon EV',
+        vehicleType: 'SUV',
+        fuelType: 'Electric',
+        color: 'Daytona Grey',
+        rcNumber: 'RC-NEX-DEFAULT',
+        isDefault: true
+      });
+      if (res.data.success) {
+        setVehicles(prev => [...prev, res.data.vehicle]);
+        setSelectedVehicle(res.data.vehicle._id);
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || 'Error creating test vehicle');
+    }
+  };
+
   const handleDurationSelect = (type, hrs, days) => {
     setBookingType(type);
     setDurationHours(hrs);
@@ -173,26 +194,47 @@ export default function HireDriverPage() {
                 <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs flex items-center justify-center font-bold">1</span>
                 <span>Select Your Car</span>
               </h3>
-              <button
-                type="button"
-                onClick={() => navigate('/user/vehicles')}
-                className="text-xs font-bold text-blue-600 hover:underline flex items-center space-x-1"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>Add Vehicle</span>
-              </button>
-            </div>
-
-            {vehicles.length === 0 ? (
-              <div className="p-4 bg-amber-50 rounded-2xl text-xs text-amber-800 border border-amber-200 flex items-center justify-between">
-                <span>No car registered yet. Please add your car to book a personal chauffeur.</span>
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={handleQuickAddDefaultCar}
+                  className="text-xs font-bold text-amber-700 hover:text-amber-800 bg-amber-50 hover:bg-amber-100 px-2.5 py-1 rounded-lg border border-amber-200 flex items-center space-x-1 transition-all"
+                  title="Instantly add a pre-configured test car"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                  <span>⚡ Quick Add Test Car</span>
+                </button>
                 <button
                   type="button"
                   onClick={() => navigate('/user/vehicles')}
-                  className="px-3 py-1 bg-amber-600 text-white rounded-lg font-bold text-xs"
+                  className="text-xs font-bold text-blue-600 hover:underline flex items-center space-x-1"
                 >
-                  Add Now
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Add Vehicle</span>
                 </button>
+              </div>
+            </div>
+
+            {vehicles.length === 0 ? (
+              <div className="p-4 bg-amber-50 rounded-2xl text-xs text-amber-800 border border-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <span>No car registered yet. Please add your car to book a personal chauffeur.</span>
+                <div className="flex items-center space-x-2">
+                  <button
+                    type="button"
+                    onClick={handleQuickAddDefaultCar}
+                    className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold text-xs flex items-center space-x-1 shadow-sm transition-all"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>⚡ Quick Add Test Car</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => navigate('/user/vehicles')}
+                    className="px-3 py-1.5 bg-white text-slate-700 border border-slate-300 rounded-lg font-bold text-xs hover:bg-slate-50 transition-all"
+                  >
+                    Add Custom
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

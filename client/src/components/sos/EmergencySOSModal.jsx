@@ -10,6 +10,7 @@ export default function EmergencySOSModal({ isOpen, onClose }) {
   const [loading, setLoading] = useState(false);
   const [coords, setCoords] = useState({ lat: 28.5494, lng: 77.2001, address: 'Acquiring GPS location...' });
   const [contacts, setContacts] = useState([]);
+  const [copied, setCopied] = useState(false);
 
   // Browser Web Audio Siren Synthesis
   const playSiren = () => {

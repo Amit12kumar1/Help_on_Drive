@@ -23,16 +23,16 @@ export default function ReviewModal({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!comment.trim()) return;
+    const finalComment = comment.trim() || (rating >= 4 ? 'Excellent, fast and reliable roadside assistance service!' : 'Service completed as requested.');
 
     setSubmitting(true);
     try {
       const res = await api.post('/reviews', {
-        targetId: targetUser._id,
+        targetId: targetUser?._id || (typeof targetUser === 'string' ? targetUser : undefined),
         bookingId,
         bookingType,
         rating,
-        comment: comment.trim(),
+        comment: finalComment,
         aspects: {
           punctuality,
           serviceQuality,
@@ -182,7 +182,6 @@ export default function ReviewModal({
               Your Review & Comments
             </label>
             <textarea
-              required
               rows={3}
               value={comment}
               onChange={(e) => setComment(e.target.value)}

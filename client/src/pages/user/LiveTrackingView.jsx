@@ -8,6 +8,7 @@ import SimulatedCallModal from '../../components/common/SimulatedCallModal';
 import MockPaymentModal from '../../components/common/MockPaymentModal';
 import PrintableInvoiceModal from '../../components/invoice/PrintableInvoiceModal';
 import ReviewModal from '../../components/common/ReviewModal';
+import confetti from 'canvas-confetti';
 import {
   Car,
   Wrench,
@@ -20,7 +21,8 @@ import {
   Clock,
   ShieldCheck,
   Printer,
-  Siren
+  Siren,
+  Sparkles
 } from 'lucide-react';
 
 export default function LiveTrackingView() {
@@ -113,6 +115,53 @@ export default function LiveTrackingView() {
         bookingDetails: booking
       });
       setInvoiceModalOpen(true);
+    }
+  };
+
+  const [updatingStatus, setUpdatingStatus] = useState(false);
+
+  const handleSimulateStatus = async (newStatus) => {
+    if (!booking?._id || booking.status === newStatus) return;
+    setUpdatingStatus(true);
+    try {
+      const isDrv = bookingType === 'driver';
+      const endpoint = isDrv
+        ? `/driver-bookings/${booking._id}/status`
+        : `/assistance/${booking._id}/status`;
+
+      const res = await api.put(endpoint, {
+        status: newStatus,
+        note: `Simulated lifecycle transition to ${newStatus}`
+      });
+
+      if (res.data.success) {
+        setBooking(prev => ({ ...prev, status: newStatus }));
+        if (socket) {
+          socket.emit('status_change', {
+            bookingId: booking._id,
+            status: newStatus
+          });
+        }
+        if (newStatus === 'completed') {
+          confetti({
+            particleCount: 60,
+            spread: 60,
+            origin: { y: 0.5 }
+          });
+        }
+      }
+    } catch (err) {
+      console.warn('Simulating status transition locally:', err);
+      setBooking(prev => ({ ...prev, status: newStatus }));
+      if (newStatus === 'completed') {
+        confetti({
+          particleCount: 60,
+          spread: 60,
+          origin: { y: 0.5 }
+        });
+      }
+    } finally {
+      setUpdatingStatus(false);
     }
   };
 
@@ -267,6 +316,55 @@ export default function LiveTrackingView() {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      {/* ⚡ Live Dispatch Lifecycle Simulator (For Viva & Interactive Testing) */}
+      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-5 border border-indigo-500/30 text-white shadow-xl">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-[10px] font-bold border border-indigo-400/30">
+              <Sparkles className="w-3 h-3 text-indigo-400" />
+              <span>Interactive Viva & Dispatch Demo Simulator</span>
+            </div>
+            <h4 className="text-sm font-black text-white">Live Lifecycle Controller</h4>
+            <p className="text-[11px] text-slate-300 max-w-xl">
+              Test each stage in real time without switching devices. Click any stage to advance dispatch status and verify invoice, payment, and customer feedback flow:
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {steps.map((st, idx) => {
+              const isCurrent = booking.status === st;
+              return (
+                <button
+                  key={st}
+                  type="button"
+                  disabled={updatingStatus}
+                  onClick={() => handleSimulateStatus(st)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center space-x-1.5 ${
+                    isCurrent
+                      ? 'bg-amber-500 text-slate-950 shadow-md ring-2 ring-amber-400/50 scale-105'
+                      : 'bg-white/10 hover:bg-white/20 text-slate-200 border border-white/10'
+                  }`}
+                >
+                  <span>{idx + 1}. {st.replace(/_/g, ' ')}</span>
+                  {isCurrent && <CheckCircle2 className="w-3.5 h-3.5" />}
+                </button>
+              );
+            })}
+
+            {booking.status !== 'completed' && (
+              <button
+                type="button"
+                disabled={updatingStatus}
+                onClick={() => handleSimulateStatus('completed')}
+                className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white text-xs font-black shadow-lg shadow-emerald-500/30 transition-all hover:scale-105 flex items-center space-x-1"
+              >
+                <span>🏁 Fast Finish & Test Feedback</span>
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
