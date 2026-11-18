@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Help on Drive</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Demo Topbar -->
+  <div id="demoTopbar" class="demo-topbar"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🚗</div>
+        <span>Help on Drive</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+        <li><a href="assistance.html" class="nav-link">Roadside Assistance</a></li>
+        <li><a href="driver.html" class="nav-link">Hire Driver</a></li>
+        <li><a href="nearby.html" class="nav-link">Petrol & EV Hubs</a></li>
+        <li><a href="tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="history.html" class="nav-link">History & Billing</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="tel:1800435737" class="phone-badge">
+          <span>📞</span>
+          <span>1800-HOD-HELP</span>
+        </a>
+        <button onclick="openSOSModal()" class="btn-sos">
+          <span>🚨 SOS HELP</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dynamic Dashboard Container -->
+  <div class="container" style="padding-top:2.5rem; padding-bottom:5rem;">
+    
+    <!-- User / Role Profile Header Banner -->
+    <div id="dashProfileBanner" style="background: linear-gradient(135deg, #090d16 0%, #1e293b 100%); border-radius: var(--radius-xl); padding: 2rem; color: #fff; margin-bottom: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.1);">
+      <!-- Injected by JS -->
+    </div>
+
+    <!-- Active Job / Incident Live Tracking Callout (If active dispatch exists) -->
+    <div id="activeIncidentCallout" style="display:none; background: linear-gradient(135deg, #7c2d12 0%, #0f172a 100%); border: 1px solid #ea580c; border-radius: var(--radius-xl); padding: 1.5rem; color: #fff; margin-bottom: 2rem; box-shadow: var(--shadow-md);">
+      <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;">
+        <div style="display:flex; align-items:center; gap:1rem;">
+          <div style="width:3.25rem; height:3.25rem; border-radius:14px; background:rgba(249,115,22,0.25); border:1px solid #f97316; display:flex; align-items:center; justify-content:center; font-size:1.5rem; animation:pulse-red 2s infinite;">
+            🚨
+          </div>
+          <div>
+            <div style="display:flex; align-items:center; gap:0.4rem;">
+              <span style="background:#ea580c; color:#fff; font-size:0.65rem; font-weight:800; padding:0.15rem 0.5rem; border-radius:9999px;">ACTIVE DISPATCH IN PROGRESS</span>
+              <span id="calloutStatus" style="font-size:0.7rem; color:#fde68a; font-weight:bold;">● On The Way (ETA: 12 Mins)</span>
+            </div>
+            <h3 id="calloutTitle" style="font-size:1.15rem; font-weight:900; margin-top:0.25rem;">
+              Flat Tyre / Puncture Repair for Hyundai i20
+            </h3>
+            <p id="calloutLoc" style="font-size:0.75rem; color:#cbd5e1;">Location: Hauz Khas Enclave, Outer Ring Road, New Delhi</p>
+          </div>
+        </div>
+
+        <a href="tracking.html" class="btn btn-primary" style="background:#ea580c; border-color:#ea580c; font-weight:800;">
+          📡 Open Live GPS Radar →
+        </a>
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW 1: CUSTOMER / USER DASHBOARD -->
+    <!-- ================================================================= -->
+    <div id="view_user" style="display:none;">
+      
+      <!-- Quick Action Cards Grid -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem; margin-bottom:2.5rem;">
+        
+        <a href="assistance.html" class="card" style="text-decoration:none;">
+          <div class="card-icon" style="background:#ffedd5; color:#ea580c;">🔧</div>
+          <h3 class="card-title" style="font-size:1.15rem;">Request Roadside Rescue</h3>
+          <p class="card-desc">Tyre puncture, dead battery jumpstart, flatbed towing, or emergency fuel dispatched in 15 mins.</p>
+          <div style="color:var(--primary); font-size:0.8rem; font-weight:bold;">Dispatch Mobile Van →</div>
+        </a>
+
+        <a href="driver.html" class="card" style="text-decoration:none;">
+          <div class="card-icon" style="background:#dbeafe; color:#1d4ed8;">👨‍✈️</div>
+          <h3 class="card-title" style="font-size:1.15rem;">Hire Personal Chauffeur</h3>
+          <p class="card-desc">Hourly city commutes (₹120/hr) or full-day outstation highway trips with verified commercial drivers.</p>
+          <div style="color:#2563eb; font-size:0.8rem; font-weight:bold;">Book Driver Now →</div>
+        </a>
+
+        <a href="nearby.html" class="card" style="text-decoration:none;">
+          <div class="card-icon" style="background:#ecfdf5; color:#059669;">⛽</div>
+          <h3 class="card-title" style="font-size:1.15rem;">Nearby Petrol & EV Hubs</h3>
+          <p class="card-desc">Locate 24/7 petrol pumps with live fuel rates and fast DC EV charging stations with gun availability.</p>
+          <div style="color:#059669; font-size:0.8rem; font-weight:bold;">Explore Live Radar →</div>
+        </a>
+
+        <a href="garage.html" class="card" style="text-decoration:none;">
+          <div class="card-icon" style="background:#fef3c7; color:#b45309;">🚘</div>
+          <h3 class="card-title" style="font-size:1.15rem;">My Vehicle Garage</h3>
+          <p class="card-desc">Manage your registered cars, SUVs, and electric vehicles for 1-click roadside assistance selection.</p>
+          <div style="color:#b45309; font-size:0.8rem; font-weight:bold;">Manage Garage (3 Cars) →</div>
+        </a>
+
+      </div>
+
+      <!-- Garage Vehicles Snapshot -->
+      <div class="form-card" style="margin-bottom:2rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+          <div>
+            <h3 style="font-size:1.2rem; font-weight:900; color:#0f172a;">Active Vehicles in My Garage</h3>
+            <p style="font-size:0.75rem; color:#64748b;">Vehicles configured for 1-click roadside rescue and chauffeur assignment.</p>
+          </div>
+          <a href="garage.html" class="btn btn-outline btn-sm">+ Manage Vehicles</a>
+        </div>
+
+        <div id="userGarageSnapshot" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1rem;">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW 2: DRIVER (CHAUFFEUR) DASHBOARD -->
+    <!-- ================================================================= -->
+    <div id="view_driver" style="display:none;">
+      
+      <!-- Duty Status & Incoming Ride Request Box -->
+      <div style="background:#fff; border:1px solid #bfdbfe; border-radius:var(--radius-xl); padding:1.75rem; margin-bottom:2rem; box-shadow:var(--shadow-sm);">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1.5rem;">
+          <div>
+            <span style="background:#dbeafe; color:#1e40af; font-size:0.7rem; font-weight:800; padding:0.2rem 0.6rem; border-radius:9999px;">
+              👨‍✈️ CHAUFFEUR DISPATCH RADAR
+            </span>
+            <h3 style="font-size:1.25rem; font-weight:900; color:#0f172a; margin-top:0.35rem;">Driver Duty & Live Jobs</h3>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <span id="driverDutyBadge" style="font-size:0.75rem; font-weight:bold; color:#059669;">● ON-DUTY (ACCEPTING TRIPS)</span>
+            <button onclick="toggleDriverDuty()" class="btn btn-outline btn-sm" id="driverDutyToggleBtn">Go Off-Duty</button>
+          </div>
+        </div>
+
+        <!-- Incoming Ride Alert -->
+        <div id="incomingDriverTrip" style="background:#eff6ff; border:1px solid #93c5fd; border-radius:18px; padding:1.25rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem;">
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <div style="width:3rem; height:3rem; border-radius:12px; background:#2563eb; color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.4rem;">
+              🚗
+            </div>
+            <div>
+              <div style="font-size:0.7rem; font-weight:800; color:#1d4ed8; text-transform:uppercase;">Incoming Trip Request (4 Hours City Duty)</div>
+              <h4 style="font-weight:900; font-size:1rem; color:#0f172a;">Driving for Rahul Sharma (Tata Nexon)</h4>
+              <p style="font-size:0.75rem; color:#64748b;">Pickup: Green Park Extension, New Delhi • Estimated Fare: ₹625</p>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:0.5rem;">
+            <button onclick="acceptDriverTrip()" class="btn btn-emerald btn-sm" style="padding:0.6rem 1.25rem; font-size:0.85rem;">
+              ✓ Accept Trip
+            </button>
+            <button onclick="declineDriverTrip()" class="btn btn-outline btn-sm" style="color:#ef4444; border-color:#fca5a5;">
+              ✕ Decline
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Driver Performance Stats -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem; margin-bottom:2rem;">
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:1.25rem;">
+          <span style="font-size:0.7rem; color:#64748b; font-weight:800; text-transform:uppercase;">Gross Earnings</span>
+          <div style="font-size:1.75rem; font-weight:900; color:#0f172a; margin-top:0.25rem;">₹28,400</div>
+          <span style="font-size:0.7rem; color:#10b981; font-weight:bold;">Weekly Payout: Clear</span>
+        </div>
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:1.25rem;">
+          <span style="font-size:0.7rem; color:#64748b; font-weight:800; text-transform:uppercase;">Trips Completed</span>
+          <div style="font-size:1.75rem; font-weight:900; color:#0f172a; margin-top:0.25rem;">48 Trips</div>
+          <span style="font-size:0.7rem; color:#2563eb; font-weight:bold;">100% Five-Star Driving</span>
+        </div>
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:1.25rem;">
+          <span style="font-size:0.7rem; color:#64748b; font-weight:800; text-transform:uppercase;">Commercial License</span>
+          <div style="font-size:1.1rem; font-family:var(--font-mono); font-weight:900; color:var(--primary); margin-top:0.5rem;">DL-0420140028</div>
+          <span style="font-size:0.7rem; color:#10b981; font-weight:bold;">✓ Verified Commercial DL</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW 3: GARAGE / WORKSHOP / TOW TRUCK (PROVIDER) DASHBOARD -->
+    <!-- ================================================================= -->
+    <div id="view_provider" style="display:none;">
+      
+      <!-- Workshop Standby & Incoming Breakdown Rescue Box -->
+      <div style="background:#fff; border:1px solid #fed7aa; border-radius:var(--radius-xl); padding:1.75rem; margin-bottom:2rem; box-shadow:var(--shadow-sm);">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1.5rem;">
+          <div>
+            <span style="background:#ffedd5; color:#c2410c; font-size:0.7rem; font-weight:800; padding:0.2rem 0.6rem; border-radius:9999px;">
+              🏢 GARAGE MOBILE RESCUE CONSOLE
+            </span>
+            <h3 style="font-size:1.25rem; font-weight:900; color:#0f172a; margin-top:0.35rem;">Workshop Fleet & Mobile Vans</h3>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <span id="providerStandbyBadge" style="font-size:0.75rem; font-weight:bold; color:#059669;">● STANDBY (READY FOR BREAKDOWN DISPATCH)</span>
+            <button onclick="toggleProviderStandby()" class="btn btn-outline btn-sm" id="providerStandbyToggleBtn">Pause Radar</button>
+          </div>
+        </div>
+
+        <!-- Incoming Breakdown Alert -->
+        <div id="incomingBreakdownJob" style="background:#fff7ed; border:1px solid #fdba74; border-radius:18px; padding:1.25rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem;">
+          <div style="display:flex; align-items:center; gap:1rem;">
+            <div style="width:3rem; height:3rem; border-radius:12px; background:#ea580c; color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.4rem;">
+              🔧
+            </div>
+            <div>
+              <div style="font-size:0.7rem; font-weight:800; color:#c2410c; text-transform:uppercase;">High Priority Incident (Puncture / Flat Tyre)</div>
+              <h4 style="font-weight:900; font-size:1rem; color:#0f172a;">Hyundai i20 Asta Stranded on Outer Ring Road</h4>
+              <p style="font-size:0.75rem; color:#64748b;">Distance: 1.8 km • Customer: Rahul Sharma • Payable: ₹412</p>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:0.5rem;">
+            <button onclick="acceptBreakdownJob()" class="btn btn-primary btn-sm" style="padding:0.6rem 1.25rem; font-size:0.85rem;">
+              ⚡ Dispatch Mobile Van
+            </button>
+            <button onclick="declineBreakdownJob()" class="btn btn-outline btn-sm" style="color:#ef4444; border-color:#fca5a5;">
+              ✕ Pass
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Garage Workshop Metrics -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem; margin-bottom:2rem;">
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:1.25rem;">
+          <span style="font-size:0.7rem; color:#64748b; font-weight:800; text-transform:uppercase;">Workshop Earnings</span>
+          <div style="font-size:1.75rem; font-weight:900; color:#0f172a; margin-top:0.25rem;">₹45,200</div>
+          <span style="font-size:0.7rem; color:#10b981; font-weight:bold;">184 Total Rescues</span>
+        </div>
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:1.25rem;">
+          <span style="font-size:0.7rem; color:#64748b; font-weight:800; text-transform:uppercase;">Tow Truck Fleet</span>
+          <div style="font-size:1.75rem; font-weight:900; color:#ea580c; margin-top:0.25rem;">2 Flatbeds</div>
+          <span style="font-size:0.7rem; color:#64748b;">Hydraulic Carrier Equipped</span>
+        </div>
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:1.25rem;">
+          <span style="font-size:0.7rem; color:#64748b; font-weight:800; text-transform:uppercase;">Customer Satisfaction</span>
+          <div style="font-size:1.75rem; font-weight:900; color:#f59e0b; margin-top:0.25rem;">4.9 ★★★★★</div>
+          <span style="font-size:0.7rem; color:#10b981; font-weight:bold;">Verified Service Center</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Quick Navigation Links Footer Banner -->
+    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:1.25rem; gap:1rem;">
+      <div style="font-size:0.85rem; font-weight:bold; color:#0f172a;">
+        Looking for past invoices, transactions, or route history?
+      </div>
+      <div style="display:flex; gap:0.5rem;">
+        <a href="history.html" class="btn btn-dark btn-sm">📜 View History & Billing</a>
+        <a href="nearby.html" class="btn btn-outline btn-sm">⛽ Petrol & EV Hubs</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let isDriverOnDuty = true;
+    let isProviderStandby = true;
+
+    function renderDashboard() {
+      const role = HOD.getCurrentRole();
+      const user = HOD.getCurrentUser();
+
+      // Render Top Banner
+      const banner = document.getElementById('dashProfileBanner');
+      const roleBadge = role === 'driver' 
+        ? '<span style="background:rgba(59,130,246,0.3); color:#93c5fd; padding:0.2rem 0.6rem; border-radius:9999px; font-size:0.7rem; font-weight:800;">👨‍✈️ COMMERCIAL CHAUFFEUR</span>'
+        : role === 'provider'
+        ? '<span style="background:rgba(249,115,22,0.3); color:#fdba74; padding:0.2rem 0.6rem; border-radius:9999px; font-size:0.7rem; font-weight:800;">🏢 WORKSHOP & GARAGE PARTNER</span>'
+        : '<span style="background:rgba(16,185,129,0.3); color:#6ee7b7; padding:0.2rem 0.6rem; border-radius:9999px; font-size:0.7rem; font-weight:800;">👤 VERIFIED VEHICLE OWNER</span>';
+
+      banner.innerHTML = `
+        <div style="display:flex; align-items:center; gap:1.25rem;">
+          <img src="${user.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}" style="width:4.25rem; height:4.25rem; border-radius:18px; object-fit:cover; border:3px solid var(--primary);" alt="User">
+          <div>
+            ${roleBadge}
+            <h2 style="font-size:1.6rem; font-weight:900; margin-top:0.35rem; color:#fff;">Welcome back, ${user.name}!</h2>
+            <div style="font-size:0.8rem; color:#94a3b8; margin-top:0.2rem;">
+              <span>${user.email}</span> • <span>${user.phone}</span> • <span>${user.city || 'New Delhi'}</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <a href="register.html" class="btn btn-outline btn-sm" style="background:rgba(255,255,255,0.1); color:#fff; border-color:rgba(255,255,255,0.2);">
+            Switch Profile
+          </a>
+          <button onclick="openSOSModal()" class="btn btn-sos btn-sm">
+            🚨 Highway SOS
+          </button>
+        </div>
+      `;
+
+      // Check Active Booking
+      const activeBooking = HOD.getActiveBooking();
+      const callout = document.getElementById('activeIncidentCallout');
+      if (activeBooking && activeBooking.status !== 'completed') {
+        callout.style.display = 'block';
+        document.getElementById('calloutTitle').textContent = `${activeBooking.serviceType} for ${activeBooking.vehicle?.brand} ${activeBooking.vehicle?.model}`;
+        document.getElementById('calloutStatus').textContent = `● ${activeBooking.status?.replace(/_/g, ' ').toUpperCase()}`;
+        document.getElementById('calloutLoc').textContent = `Location: ${activeBooking.location?.address}`;
+      } else {
+        callout.style.display = 'none';
+      }
+
+      // Show View
+      document.getElementById('view_user').style.display = role === 'user' ? 'block' : 'none';
+      document.getElementById('view_driver').style.display = role === 'driver' ? 'block' : 'none';
+      document.getElementById('view_provider').style.display = role === 'provider' ? 'block' : 'none';
+
+      if (role === 'user') {
+        renderUserGarage();
+      }
+    }
+
+    function renderUserGarage() {
+      const vehicles = HOD.getVehicles();
+      const container = document.getElementById('userGarageSnapshot');
+      container.innerHTML = vehicles.slice(0, 3).map(v => `
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:1rem;">
+          <div style="font-size:0.7rem; color:#64748b; font-weight:bold;">${v.type} • ${v.fuel}</div>
+          <div style="font-weight:900; font-size:0.95rem; color:#0f172a; margin:0.2rem 0;">${v.brand} ${v.model}</div>
+          <div style="font-family:var(--font-mono); font-size:0.75rem; color:var(--primary); font-weight:bold;">${v.number}</div>
+        </div>
+      `).join('');
+    }
+
+    // Driver Handlers
+    function toggleDriverDuty() {
+      isDriverOnDuty = !isDriverOnDuty;
+      document.getElementById('driverDutyBadge').textContent = isDriverOnDuty ? '● ON-DUTY (ACCEPTING TRIPS)' : '● OFF-DUTY (PAUSED)';
+      document.getElementById('driverDutyBadge').style.color = isDriverOnDuty ? '#059669' : '#ef4444';
+      document.getElementById('driverDutyToggleBtn').textContent = isDriverOnDuty ? 'Go Off-Duty' : 'Go On-Duty';
+      document.getElementById('incomingDriverTrip').style.display = isDriverOnDuty ? 'flex' : 'none';
+    }
+
+    function acceptDriverTrip() {
+      if (typeof confetti === 'function') confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+      alert('✓ Trip accepted! Opening live chauffeur navigation radar.');
+      window.location.href = 'tracking.html';
+    }
+
+    function declineDriverTrip() {
+      document.getElementById('incomingDriverTrip').style.display = 'none';
+      alert('Trip passed. Next incoming passenger ride will appear shortly.');
+    }
+
+    // Provider Handlers
+    function toggleProviderStandby() {
+      isProviderStandby = !isProviderStandby;
+      document.getElementById('providerStandbyBadge').textContent = isProviderStandby ? '● STANDBY (READY FOR BREAKDOWN DISPATCH)' : '● WORKSHOP RADAR PAUSED';
+      document.getElementById('providerStandbyBadge').style.color = isProviderStandby ? '#059669' : '#ef4444';
+      document.getElementById('providerStandbyToggleBtn').textContent = isProviderStandby ? 'Pause Radar' : 'Activate Radar';
+      document.getElementById('incomingBreakdownJob').style.display = isProviderStandby ? 'flex' : 'none';
+    }
+
+    function acceptBreakdownJob() {
+      if (typeof confetti === 'function') confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+      alert('✓ Mobile van dispatched! Connected to customer breakdown location.');
+      window.location.href = 'tracking.html';
+    }
+
+    function declineBreakdownJob() {
+      document.getElementById('incomingBreakdownJob').style.display = 'none';
+      alert('Breakdown alert routed to secondary backup mobile mechanic.');
+    }
+
+    window.addEventListener('load', renderDashboard);
+  </script>
+</body>
+</html>

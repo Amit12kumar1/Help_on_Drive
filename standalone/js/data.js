@@ -92,10 +92,130 @@
       vehicle: { brand: 'Hyundai', model: 'i20 Asta', number: 'UP-16-AB-1234' },
       provider: DEFAULT_USERS.provider,
       location: { address: 'Hauz Khas Enclave, Outer Ring Road, New Delhi', lat: 28.5494, lng: 77.2001 },
-      status: 'on_the_way', // pending, accepted, on_the_way, arrived, completed
+      status: 'on_the_way',
       charges: { base: 199, distance: 100, platform: 50, gst: 63, total: 412 },
       paymentStatus: 'pending',
-      createdAt: new Date().toISOString()
+      paymentMethod: 'UPI (Pending Settle)',
+      createdAt: 'Today, 10:45 AM'
+    },
+    {
+      id: 'HOD-DRV-4412',
+      type: 'driver',
+      serviceType: '4 Hours Chauffeur Duty',
+      vehicle: { brand: 'Tata', model: 'Nexon Fearless', number: 'DL-03-CC-5678' },
+      driver: DEFAULT_USERS.driver,
+      location: { address: 'DLF Cyber City to New Delhi Airport (T3)', lat: 28.4595, lng: 77.0266 },
+      status: 'completed',
+      charges: { base: 480, distance: 0, platform: 50, gst: 95, total: 625 },
+      paymentStatus: 'paid',
+      paymentMethod: 'Credit Card (Paid)',
+      createdAt: 'Yesterday, 02:15 PM'
+    },
+    {
+      id: 'HOD-RSA-1109',
+      type: 'assistance',
+      serviceType: 'Battery Jumpstart & Health Test',
+      vehicle: { brand: 'Mahindra', model: 'Thar 4x4', number: 'HR-26-EE-9999' },
+      provider: DEFAULT_USERS.provider,
+      location: { address: 'Yamuna Expressway Mile 28, Noida Sector 128', lat: 28.5355, lng: 77.3910 },
+      status: 'completed',
+      charges: { base: 349, distance: 150, platform: 50, gst: 99, total: 648 },
+      paymentStatus: 'paid',
+      paymentMethod: 'Cash to Mechanic (Paid)',
+      createdAt: '14 Nov 2026, 06:30 PM'
+    }
+  ];
+
+  const DEFAULT_STATIONS = [
+    {
+      id: 'pump_01',
+      type: 'petrol',
+      name: 'Indian Oil (IOCL) 24x7 Highway Care',
+      brand: 'IndianOil',
+      address: 'Outer Ring Road, Near Hauz Khas Metro Gate 2',
+      lat: 28.5520,
+      lng: 77.2060,
+      distance: '0.8 km',
+      rates: { petrol: '₹96.72', diesel: '₹89.62', cng: '₹79.20' },
+      amenities: ['Free Nitrogen Air', 'Automated Car Wash', '24x7 Convenience Store', 'ATM'],
+      rating: 4.8,
+      status: 'Open 24 Hours'
+    },
+    {
+      id: 'ev_01',
+      type: 'ev',
+      name: 'Tata Power EZ Charge (60kW DC Fast)',
+      brand: 'Tata Power',
+      address: 'Commercial Complex Parking, Hauz Khas Market',
+      lat: 28.5540,
+      lng: 77.2100,
+      distance: '1.2 km',
+      ports: 'CCS-2 (60kW) & Type-2 (22kW)',
+      availableGuns: '3 of 4 Guns Free',
+      ratePerKwh: '₹18.00 / kWh',
+      amenities: ['Ultra Fast Charging', 'Coffee Lounge', 'Restrooms', 'Security'],
+      rating: 4.9,
+      status: 'Operational (Fast Charger)'
+    },
+    {
+      id: 'pump_02',
+      type: 'petrol',
+      name: 'Bharat Petroleum (BPCL) SpeedHub',
+      brand: 'BPCL',
+      address: 'Mehrauli-Gurgaon Road, Opp. Qutub Minar Crossing',
+      lat: 28.5430,
+      lng: 77.1950,
+      distance: '1.4 km',
+      rates: { petrol: '₹96.75', diesel: '₹89.65', speed97: '₹108.50' },
+      amenities: ['High Octane Speed97', 'Quick Tyre Pressure Check', 'EV Slow Charger'],
+      rating: 4.7,
+      status: 'Open 24 Hours'
+    },
+    {
+      id: 'ev_02',
+      type: 'ev',
+      name: 'Statiq Dual-Gun 120kW Supercharger',
+      brand: 'Statiq',
+      address: 'DLF South Court Multi-Level Parking Level B1',
+      lat: 28.5410,
+      lng: 77.2080,
+      distance: '2.1 km',
+      ports: 'Dual CCS-2 (120kW Fast)',
+      availableGuns: '2 of 2 Guns Free',
+      ratePerKwh: '₹19.50 / kWh',
+      amenities: ['Mall Food Court Access', 'Covered Basement Bay', 'App-Based Pay'],
+      rating: 4.8,
+      status: 'Operational (Supercharger)'
+    },
+    {
+      id: 'pump_03',
+      type: 'petrol',
+      name: 'HP Auto Care Express Service Station',
+      brand: 'HPCL',
+      address: 'AIIMS Ring Road Flyover Exit, New Delhi',
+      lat: 28.5600,
+      lng: 77.2150,
+      distance: '2.3 km',
+      rates: { petrol: '₹96.70', diesel: '₹89.60', powerPetrol: '₹102.00' },
+      amenities: ['Club HP Lounge', 'Wheel Alignment', 'Highway Emergency Spares'],
+      rating: 4.6,
+      status: 'Open 24 Hours'
+    },
+    {
+      id: 'ev_03',
+      type: 'ev',
+      name: 'Jio-bp pulse Highway Fast EV Hub',
+      brand: 'Jio-bp pulse',
+      address: 'Near Green Park Main Market Boulevard',
+      lat: 28.5650,
+      lng: 77.1980,
+      distance: '3.2 km',
+      ports: 'CCS-2 (30kW DC) & Bharat AC-001',
+      availableGuns: '1 of 2 Guns Free',
+      ratePerKwh: '₹17.50 / kWh',
+      amenities: ['Wild Bean Café', 'Clean Washrooms', 'Free Wi-Fi'],
+      rating: 4.7,
+      status: 'Operational (Fast Charger)'
     }
   ];
 
@@ -123,6 +243,9 @@
     if (!localStorage.getItem('hod_bookings')) {
       localStorage.setItem('hod_bookings', JSON.stringify(DEFAULT_BOOKINGS));
     }
+    if (!localStorage.getItem('hod_stations')) {
+      localStorage.setItem('hod_stations', JSON.stringify(DEFAULT_STATIONS));
+    }
     if (!localStorage.getItem('hod_sos_alerts')) {
       localStorage.setItem('hod_sos_alerts', JSON.stringify(DEFAULT_SOS_ALERTS));
     }
@@ -147,6 +270,14 @@
   window.HOD = {
     USERS: DEFAULT_USERS,
     SERVICES: DEFAULT_SERVICES,
+    STATIONS: DEFAULT_STATIONS,
+
+    getStations: function (filter = 'all') {
+      const stations = JSON.parse(localStorage.getItem('hod_stations') || JSON.stringify(DEFAULT_STATIONS));
+      if (filter === 'petrol') return stations.filter(s => s.type === 'petrol');
+      if (filter === 'ev') return stations.filter(s => s.type === 'ev');
+      return stations;
+    },
 
     getCurrentRole: function () {
       return localStorage.getItem('hod_current_role') || 'user';

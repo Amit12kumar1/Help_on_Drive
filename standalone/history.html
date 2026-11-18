@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service & Payment History - Help on Drive</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Demo Topbar -->
+  <div id="demoTopbar" class="demo-topbar"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🚗</div>
+        <span>Help on Drive</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li><a href="assistance.html" class="nav-link">Roadside Assistance</a></li>
+        <li><a href="driver.html" class="nav-link">Hire Driver</a></li>
+        <li><a href="nearby.html" class="nav-link">Petrol & EV Hubs</a></li>
+        <li><a href="tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="history.html" class="nav-link active">History & Billing</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="tel:1800435737" class="phone-badge">
+          <span>📞</span>
+          <span>1800-HOD-HELP</span>
+        </a>
+        <button onclick="openSOSModal()" class="btn-sos">
+          <span>🚨 SOS HELP</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <div class="container" style="padding-top:2.5rem; padding-bottom:5rem;">
+    
+    <!-- Title Header -->
+    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:2rem;">
+      <div>
+        <span class="hero-pill" style="margin-bottom:0.4rem; background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe;">
+          📜 Incident Audit Trail & Financial Records
+        </span>
+        <h1 style="font-size:2rem; font-weight:900; color:#0f172a; letter-spacing:-0.03em;">
+          Service History & Tax Invoices
+        </h1>
+        <p style="font-size:0.85rem; color:#64748b;">
+          Review past roadside mechanical dispatches, chauffeur journeys, payment methods (UPI, Card, Cash), and download GST invoices.
+        </p>
+      </div>
+
+      <div style="display:flex; gap:0.5rem;">
+        <a href="assistance.html" class="btn btn-primary btn-sm">+ Book New Service</a>
+      </div>
+    </div>
+
+    <!-- Metric Summary Cards -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem; margin-bottom:2rem;">
+      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:1.25rem;">
+        <span style="font-size:0.7rem; color:#64748b; font-weight:800; text-transform:uppercase;">Total Bookings</span>
+        <div id="statTotal" style="font-size:1.75rem; font-weight:900; color:#0f172a; margin-top:0.25rem;">3 Bookings</div>
+        <span style="font-size:0.7rem; color:#10b981; font-weight:bold;">● 100% Response SLA</span>
+      </div>
+      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:1.25rem;">
+        <span style="font-size:0.7rem; color:#64748b; font-weight:800; text-transform:uppercase;">Total Spend</span>
+        <div id="statSpend" style="font-size:1.75rem; font-weight:900; color:var(--primary); margin-top:0.25rem;">₹1,685</div>
+        <span style="font-size:0.7rem; color:#64748b;">18% GST Compliant</span>
+      </div>
+      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:18px; padding:1.25rem;">
+        <span style="font-size:0.7rem; color:#64748b; font-weight:800; text-transform:uppercase;">Payment Methods Used</span>
+        <div style="font-size:1rem; font-weight:800; color:#0f172a; margin-top:0.4rem;">UPI • Card • Cash</div>
+        <span style="font-size:0.7rem; color:#059669; font-weight:bold;">✓ Direct Settlement</span>
+      </div>
+    </div>
+
+    <!-- History Cards / Table -->
+    <div class="form-card">
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem; text-align:left;">
+          <thead>
+            <tr style="background:#f8fafc; border-bottom:2px solid #e2e8f0; color:#475569;">
+              <th style="padding:0.75rem 1rem;">Booking Ref & Date</th>
+              <th style="padding:0.75rem 1rem;">Service Description</th>
+              <th style="padding:0.75rem 1rem;">Vehicle</th>
+              <th style="padding:0.75rem 1rem;">Assigned Specialist</th>
+              <th style="padding:0.75rem 1rem;">Fare & Payment Method</th>
+              <th style="padding:0.75rem 1rem;">Status</th>
+              <th style="padding:0.75rem 1rem; text-align:right;">Tax Invoice</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Printable GST Invoice Modal -->
+  <div id="invoiceModalOverlay" class="modal-overlay">
+    <div class="modal-card" style="max-width:580px;">
+      <button class="modal-close" onclick="closeInvoiceModal()">✕</button>
+
+      <div id="invoicePrintArea">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #0f172a; padding-bottom:1rem; margin-bottom:1.25rem;">
+          <div>
+            <div style="font-size:1.25rem; font-weight:900; color:#0f172a; display:flex; align-items:center; gap:0.35rem;">
+              🚗 Help on Drive
+            </div>
+            <div style="font-size:0.7rem; color:#64748b;">Emergency Roadside & Chauffeur Services</div>
+            <div style="font-size:0.7rem; color:#64748b;">GSTIN: 07AAAAH0000A1Z5</div>
+          </div>
+          <div style="text-align:right;">
+            <span style="background:#0f172a; color:#fff; font-size:0.65rem; font-weight:bold; padding:0.2rem 0.5rem; border-radius:4px;">TAX INVOICE</span>
+            <div id="invNumber" style="font-family:var(--font-mono); font-size:0.8rem; font-weight:bold; margin-top:0.25rem;">INV-882190</div>
+            <div id="invDate" style="font-size:0.7rem; color:#64748b;">18 Nov 2026</div>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.75rem; margin-bottom:1.25rem;">
+          <div>
+            <strong style="color:#0f172a;">Customer Details:</strong>
+            <div id="invCustName">Rahul Sharma</div>
+            <div>+91 98765 43210</div>
+            <div id="invVehicle">Vehicle: Hyundai i20 (UP-16-AB-1234)</div>
+          </div>
+          <div>
+            <strong style="color:#0f172a;">Service Provider:</strong>
+            <div id="invPartnerName">Manoj Mechanic</div>
+            <div>SpeedFix Express Garage</div>
+            <div id="invPayMode">Payment Mode: UPI Confirmed</div>
+          </div>
+        </div>
+
+        <table style="width:100%; border-collapse:collapse; font-size:0.75rem; margin-bottom:1.25rem;">
+          <thead>
+            <tr style="background:#f1f5f9; text-align:left; border-bottom:1px solid #cbd5e1;">
+              <th style="padding:0.5rem;">Service Particulars</th>
+              <th style="padding:0.5rem; text-align:right;">Amount (INR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td id="invServiceName" style="padding:0.5rem;">Flat Tyre / Puncture Repair</td>
+              <td id="invBaseAmt" style="padding:0.5rem; text-align:right;">₹199.00</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5rem;">Mobile Unit Transit / Fuel Charge</td>
+              <td id="invTransitAmt" style="padding:0.5rem; text-align:right;">₹105.00</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5rem;">Technology & Platform Fee</td>
+              <td style="padding:0.5rem; text-align:right;">₹50.00</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5rem;">GST (18% SGST + CGST)</td>
+              <td id="invTaxAmt" style="padding:0.5rem; text-align:right;">₹63.00</td>
+            </tr>
+            <tr style="font-weight:900; font-size:0.9rem; background:#f8fafc;">
+              <td style="padding:0.6rem;">Total Amount Settled:</td>
+              <td id="invTotalAmt" style="padding:0.6rem; text-align:right; color:#0f172a;">₹417.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1rem;">
+        <button onclick="window.print()" class="btn btn-dark btn-sm">🖨️ Print Tax Invoice</button>
+        <button onclick="closeInvoiceModal()" class="btn btn-outline btn-sm">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    function renderHistory() {
+      const bookings = HOD.getBookings();
+      const tbody = document.getElementById('historyTableBody');
+
+      document.getElementById('statTotal').textContent = bookings.length + ' Bookings';
+      const totalSpend = bookings.reduce((acc, b) => acc + (b.charges?.total || 400), 0);
+      document.getElementById('statSpend').textContent = '₹' + totalSpend.toLocaleString('en-IN');
+
+      tbody.innerHTML = bookings.map(b => {
+        const isCompleted = b.status === 'completed';
+        const partner = b.provider || b.driver || { name: 'Assigned Specialist' };
+        const payMethod = b.paymentMethod || (b.paymentStatus === 'paid' ? 'UPI (Paid)' : 'Pending Settlement');
+
+        return `
+          <tr style="border-bottom:1px solid #f1f5f9;">
+            <td style="padding:0.85rem 1rem;">
+              <span style="font-family:var(--font-mono); font-weight:bold; color:var(--primary); font-size:0.85rem;">${b.id}</span>
+              <div style="font-size:0.7rem; color:#64748b;">${b.createdAt || 'Recent'}</div>
+            </td>
+
+            <td style="padding:0.85rem 1rem; font-weight:700; color:#0f172a;">
+              ${b.serviceType}
+            </td>
+
+            <td style="padding:0.85rem 1rem;">
+              <div style="font-weight:bold; color:#0f172a;">${b.vehicle?.brand} ${b.vehicle?.model}</div>
+              <div style="font-family:var(--font-mono); font-size:0.75rem; color:#64748b;">${b.vehicle?.number}</div>
+            </td>
+
+            <td style="padding:0.85rem 1rem;">
+              <div style="font-weight:bold; color:#0f172a;">${partner.name}</div>
+              <div style="font-size:0.7rem; color:#059669;">★ 4.9 Verified</div>
+            </td>
+
+            <td style="padding:0.85rem 1rem;">
+              <div style="font-weight:900; font-size:0.95rem; color:#0f172a;">₹${b.charges?.total || 412}</div>
+              <span style="background:${b.paymentStatus === 'paid' ? '#ecfdf5' : '#fff7ed'}; color:${b.paymentStatus === 'paid' ? '#047857' : '#c2410c'}; font-size:0.65rem; font-weight:bold; padding:0.15rem 0.5rem; border-radius:6px;">
+                ${payMethod}
+              </span>
+            </td>
+
+            <td style="padding:0.85rem 1rem;">
+              <span style="background:${isCompleted ? '#ecfdf5' : '#eff6ff'}; color:${isCompleted ? '#065f46' : '#1d4ed8'}; padding:0.25rem 0.6rem; border-radius:9999px; font-weight:bold; font-size:0.7rem; text-transform:uppercase;">
+                ${b.status?.replace(/_/g, ' ')}
+              </span>
+            </td>
+
+            <td style="padding:0.85rem 1rem; text-align:right;">
+              <button onclick="viewInvoice('${b.id}')" class="btn btn-outline btn-sm" style="font-size:0.75rem; padding:0.35rem 0.75rem;">
+                📄 GST Invoice
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function viewInvoice(bookingId) {
+      const bookings = HOD.getBookings();
+      const b = bookings.find(item => item.id === bookingId) || bookings[0];
+
+      document.getElementById('invNumber').textContent = 'INV-' + b.id.replace(/[^0-9]/g, '');
+      document.getElementById('invDate').textContent = b.createdAt || new Date().toLocaleDateString();
+      document.getElementById('invServiceName').textContent = b.serviceType;
+      document.getElementById('invVehicle').textContent = `Vehicle: ${b.vehicle?.brand} ${b.vehicle?.model} (${b.vehicle?.number})`;
+      
+      const partner = b.provider || b.driver || { name: 'Manoj Mechanic' };
+      document.getElementById('invPartnerName').textContent = partner.name;
+      document.getElementById('invPayMode').textContent = `Payment Mode: ${b.paymentMethod || 'UPI Confirmed'}`;
+
+      const base = b.charges?.base || 199;
+      const gst = b.charges?.gst || 63;
+      const total = b.charges?.total || 412;
+
+      document.getElementById('invBaseAmt').textContent = '₹' + base + '.00';
+      document.getElementById('invTaxAmt').textContent = '₹' + gst + '.00';
+      document.getElementById('invTotalAmt').textContent = '₹' + total + '.00';
+
+      document.getElementById('invoiceModalOverlay').classList.add('open');
+    }
+
+    function closeInvoiceModal() {
+      document.getElementById('invoiceModalOverlay').classList.remove('open');
+    }
+
+    window.addEventListener('load', renderHistory);
+  </script>
+</body>
+</html>

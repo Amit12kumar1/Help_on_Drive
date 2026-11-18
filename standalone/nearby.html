@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nearby Petrol Pumps & EV Charging Hubs - Help on Drive</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Leaflet CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Demo Topbar -->
+  <div id="demoTopbar" class="demo-topbar"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🚗</div>
+        <span>Help on Drive</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+        <li><a href="assistance.html" class="nav-link">Roadside Assistance</a></li>
+        <li><a href="driver.html" class="nav-link">Hire Driver</a></li>
+        <li><a href="nearby.html" class="nav-link active">Petrol & EV Hubs</a></li>
+        <li><a href="tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="history.html" class="nav-link">History & Billing</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="tel:1800435737" class="phone-badge">
+          <span>📞</span>
+          <span>1800-HOD-HELP</span>
+        </a>
+        <button onclick="openSOSModal()" class="btn-sos">
+          <span>🚨 SOS HELP</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <div class="container" style="padding-top:2.5rem; padding-bottom:5rem;">
+    
+    <!-- Title Header -->
+    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1.75rem;">
+      <div>
+        <span class="hero-pill" style="margin-bottom:0.4rem; background:#ecfdf5; color:#047857; border-color:#a7f3d0;">
+          ⚡ Live Energy & Refueling Radar
+        </span>
+        <h1 style="font-size:2rem; font-weight:900; color:#0f172a; letter-spacing:-0.03em;">
+          Nearby Petrol Pumps & EV Charging Hubs
+        </h1>
+        <p style="font-size:0.85rem; color:#64748b;">
+          Locate verified 24/7 fuel stations with live rates and fast DC EV charging stations with gun availability.
+        </p>
+      </div>
+
+      <!-- Filter Switch Pills -->
+      <div style="display:flex; background:#f1f5f9; padding:0.35rem; border-radius:var(--radius-full); border:1px solid #cbd5e1; gap:0.35rem;">
+        <button id="filterBtn_all" onclick="filterStations('all')" class="btn btn-sm" style="background:var(--primary); color:#fff; border-radius:var(--radius-full);">
+          📍 All Stations (6)
+        </button>
+        <button id="filterBtn_petrol" onclick="filterStations('petrol')" class="btn btn-sm" style="background:transparent; color:#475569; border-radius:var(--radius-full);">
+          ⛽ Petrol & CNG (3)
+        </button>
+        <button id="filterBtn_ev" onclick="filterStations('ev')" class="btn btn-sm" style="background:transparent; color:#475569; border-radius:var(--radius-full);">
+          ⚡ EV Fast Chargers (3)
+        </button>
+      </div>
+    </div>
+
+    <!-- Map & Grid Layout -->
+    <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:2rem; align-items:start;">
+      
+      <!-- Leaflet Map Box -->
+      <div style="position:sticky; top:110px;">
+        <div id="map" style="height:520px; border-radius:var(--radius-xl); box-shadow:var(--shadow-lg);"></div>
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:14px; padding:0.85rem 1.25rem; margin-top:0.75rem; display:flex; justify-content:space-between; align-items:center; font-size:0.75rem;">
+          <span style="color:#64748b;">📍 GPS Center: <strong>Hauz Khas Ring Road, New Delhi</strong></span>
+          <span style="color:#10b981; font-weight:bold;">● 6 Hubs Within 3.5 km</span>
+        </div>
+      </div>
+
+      <!-- Station Cards Scrollable List -->
+      <div id="stationsList" style="display:flex; flex-direction:column; gap:1rem;">
+        <!-- Injected by JS -->
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let map = null;
+    let markers = [];
+    let currentFilter = 'all';
+
+    function initNearbyPage() {
+      initMap();
+      renderStations();
+    }
+
+    function initMap() {
+      const center = [28.5494, 77.2001]; // User Hauz Khas
+      map = L.map('map').setView(center, 14);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      // User Marker
+      const userIcon = L.divIcon({
+        className: 'user-pin',
+        html: '<div style="background:#059669; color:#fff; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; border:3px solid #fff; box-shadow:0 4px 10px rgba(0,0,0,0.3);">📍</div>',
+        iconSize: [34, 34],
+        iconAnchor: [17, 34]
+      });
+      L.marker(center, { icon: userIcon }).addTo(map).bindPopup('<strong>Your Current GPS Location</strong><br>Hauz Khas, New Delhi');
+    }
+
+    function renderStations() {
+      const stations = HOD.getStations(currentFilter);
+      const container = document.getElementById('stationsList');
+
+      // Clear existing markers
+      markers.forEach(m => map.removeLayer(m));
+      markers = [];
+
+      // Render cards & map pins
+      container.innerHTML = stations.map(s => {
+        const isEV = s.type === 'ev';
+        
+        // Add Leaflet Pin
+        const pinIcon = L.divIcon({
+          className: 'station-pin',
+          html: `<div style="background:${isEV ? '#059669' : '#ea580c'}; color:#fff; width:36px; height:36px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:18px; border:2px solid #fff; box-shadow:0 6px 14px rgba(0,0,0,0.25);">${isEV ? '⚡' : '⛽'}</div>`,
+          iconSize: [36, 36],
+          iconAnchor: [18, 36]
+        });
+
+        const m = L.marker([s.lat, s.lng], { icon: pinIcon }).addTo(map);
+        m.bindPopup(`
+          <div style="font-family:var(--font-main);">
+            <strong style="font-size:0.9rem; color:#0f172a;">${s.name}</strong><br>
+            <span style="font-size:0.75rem; color:#64748b;">${s.address}</span><br>
+            <strong style="color:${isEV ? '#059669' : '#ea580c'}; font-size:0.8rem;">${isEV ? s.ports : s.rates.petrol + ' (Petrol)'}</strong>
+          </div>
+        `);
+        markers.push(m);
+
+        return `
+          <div class="card" onclick="focusStation(${s.lat}, ${s.lng})" style="cursor:pointer; border-left:4px solid ${isEV ? '#059669' : '#ea580c'}; padding:1.25rem;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.5rem;">
+              <div>
+                <span style="background:${isEV ? '#ecfdf5' : '#fff7ed'}; color:${isEV ? '#047857' : '#c2410c'}; font-size:0.65rem; font-weight:800; padding:0.15rem 0.5rem; border-radius:9999px;">
+                  ${isEV ? '⚡ EV FAST CHARGING HUB' : '⛽ PETROL & CNG REFUELING'}
+                </span>
+                <h3 style="font-weight:900; font-size:1.05rem; color:#0f172a; margin-top:0.35rem;">${s.name}</h3>
+                <p style="font-size:0.75rem; color:#64748b;">${s.address}</p>
+              </div>
+
+              <div style="text-align:right;">
+                <span style="font-size:1rem; font-weight:900; color:#0f172a;">${s.distance}</span>
+                <div style="font-size:0.7rem; color:#059669; font-weight:bold;">● ${s.status}</div>
+              </div>
+            </div>
+
+            <!-- Rates / Ports Box -->
+            <div style="background:#f8fafc; border-radius:12px; padding:0.75rem; margin:0.75rem 0; font-size:0.75rem;">
+              ${isEV ? `
+                <div style="display:flex; justify-content:space-between; font-weight:bold;">
+                  <span>Ports: ${s.ports}</span>
+                  <span style="color:#059669;">${s.availableGuns}</span>
+                </div>
+                <div style="color:#64748b; font-size:0.7rem; margin-top:0.25rem;">Rate: <strong>${s.ratePerKwh}</strong></div>
+              ` : `
+                <div style="display:flex; gap:1rem; font-weight:bold;">
+                  <span>Petrol: <strong style="color:var(--primary);">${s.rates.petrol}</strong></span>
+                  <span>Diesel: <strong style="color:var(--primary);">${s.rates.diesel}</strong></span>
+                  ${s.rates.cng ? `<span>CNG: <strong style="color:var(--primary);">${s.rates.cng}</strong></span>` : ''}
+                </div>
+              `}
+            </div>
+
+            <!-- Amenities & Navigation Button -->
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.7rem; color:#64748b;">
+              <div>${s.amenities.slice(0, 2).join(' • ')}</div>
+              <button onclick="event.stopPropagation(); alert('🗺️ Opening turn-by-turn Google Maps navigation to ${s.name}...')" class="btn btn-outline btn-sm" style="font-size:0.7rem; padding:0.3rem 0.65rem;">
+                Directions ↗
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterStations(type) {
+      currentFilter = type;
+      ['all', 'petrol', 'ev'].forEach(t => {
+        const btn = document.getElementById('filterBtn_' + t);
+        if (t === type) {
+          btn.style.background = 'var(--primary)';
+          btn.style.color = '#fff';
+        } else {
+          btn.style.background = 'transparent';
+          btn.style.color = '#475569';
+        }
+      });
+      renderStations();
+    }
+
+    function focusStation(lat, lng) {
+      map.setView([lat, lng], 16, { animate: true });
+    }
+
+    window.addEventListener('load', initNearbyPage);
+  </script>
+</body>
+</html>
