@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Help on Drive - Register as Customer, Driver, or Garage Partner</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Demo Topbar -->
+  <div id="demoTopbar" class="demo-topbar"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">🚗</div>
+        <span>Help on Drive</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="assistance.html" class="nav-link">Roadside Assistance</a></li>
+        <li><a href="driver.html" class="nav-link">Hire Driver</a></li>
+        <li><a href="tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="garage.html" class="nav-link">My Garage</a></li>
+        <li><a href="register.html" class="nav-link active">Register / Join</a></li>
+        <li><a href="admin.html" class="nav-link">Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="tel:1800435737" class="phone-badge">
+          <span>📞</span>
+          <span>1800-HOD-HELP</span>
+        </a>
+        <button onclick="openSOSModal()" class="btn-sos">
+          <span>🚨 SOS HELP</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <div class="container" style="padding-top: 3rem; padding-bottom: 1.5rem; text-align: center;">
+    <span class="hero-pill" style="margin-bottom: 0.5rem; background: #ecfdf5; color: #047857; border-color: #a7f3d0;">
+      ✨ Official Onboarding Portal
+    </span>
+    <h1 style="font-size: 2.35rem; font-weight: 900; color: #0f172a; letter-spacing: -0.03em;">
+      Join the <span>Help on Drive</span> Network
+    </h1>
+    <p style="font-size: 0.95rem; color: #64748b; max-width: 650px; margin: 0.5rem auto 1.75rem auto;">
+      Whether you are a vehicle owner needing 24/7 rescue, a professional commercial driver seeking daily trips, or a certified garage owner, get started in under 2 minutes.
+    </p>
+
+    <!-- 3-Role Tab Switcher -->
+    <div style="display: inline-flex; background: #f1f5f9; padding: 0.35rem; border-radius: var(--radius-full); border: 1px solid #cbd5e1; gap: 0.35rem; max-width: 100%; flex-wrap: wrap; justify-content: center;">
+      <button id="tabBtn_user" onclick="switchRegRole('user')" class="btn btn-sm" style="background: var(--primary); color: #fff; font-weight: 800; border-radius: var(--radius-full);">
+        👤 Vehicle Owner (Customer)
+      </button>
+      <button id="tabBtn_driver" onclick="switchRegRole('driver')" class="btn btn-sm" style="background: transparent; color: #475569; font-weight: 800; border-radius: var(--radius-full);">
+        👨‍✈️ Professional Driver
+      </button>
+      <button id="tabBtn_provider" onclick="switchRegRole('provider')" class="btn btn-sm" style="background: transparent; color: #475569; font-weight: 800; border-radius: var(--radius-full);">
+        🏢 Garage / Towing Partner
+      </button>
+    </div>
+  </div>
+
+  <!-- Registration Form Container -->
+  <div class="container" style="padding-bottom: 5rem;">
+    <div style="display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 2.5rem; align-items: start;">
+      
+      <!-- Left Column: Registration Forms -->
+      <div class="form-card" style="box-shadow: var(--shadow-lg);">
+        
+        <!-- ============================================================= -->
+        <!-- FORM 1: VEHICLE OWNER (CUSTOMER) -->
+        <!-- ============================================================= -->
+        <form id="form_user" onsubmit="handleCustomerRegister(event)">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #e2e8f0;">
+            <div style="width: 2.25rem; height: 2.25rem; border-radius: 10px; background: #ffedd5; color: #ea580c; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+              👤
+            </div>
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 900; color: #0f172a;">Customer Account Registration</h3>
+              <p style="font-size: 0.75rem; color: #64748b;">Instant access to emergency roadside dispatch & personal chauffeurs.</p>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="custName" class="form-control" placeholder="e.g. Rahul Sharma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mobile Number *</label>
+              <input type="tel" id="custPhone" class="form-control" placeholder="e.g. +91 98765 43210" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input type="email" id="custEmail" class="form-control" placeholder="rahul@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">City *</label>
+              <input type="text" id="custCity" class="form-control" placeholder="e.g. New Delhi, Noida" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Create Secure Password *</label>
+            <input type="password" id="custPassword" class="form-control" placeholder="••••••••" required>
+          </div>
+
+          <!-- Optional First Car -->
+          <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 14px; padding: 1.25rem; margin-top: 1rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <span style="font-size: 0.8rem; font-weight: 800; color: #0f172a;">🚘 Add Your First Car (Optional - Can add later)</span>
+              <span style="font-size: 0.7rem; color: #10b981; font-weight: bold;">Quick Setup</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div>
+                <label class="form-label" style="font-size: 0.75rem;">Car Brand / Make</label>
+                <input type="text" id="custCarBrand" class="form-control" placeholder="e.g. Hyundai, Tata">
+              </div>
+              <div>
+                <label class="form-label" style="font-size: 0.75rem;">Car Model</label>
+                <input type="text" id="custCarModel" class="form-control" placeholder="e.g. i20, Nexon">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.75rem;">
+              <div>
+                <label class="form-label" style="font-size: 0.75rem;">Vehicle Reg. Number</label>
+                <input type="text" id="custCarNumber" class="form-control" placeholder="e.g. UP-16-AB-1234" style="text-transform: uppercase;">
+              </div>
+              <div>
+                <label class="form-label" style="font-size: 0.75rem;">Fuel Type</label>
+                <select id="custCarFuel" class="form-control">
+                  <option value="Petrol">Petrol</option>
+                  <option value="Diesel">Diesel</option>
+                  <option value="CNG">CNG</option>
+                  <option value="Electric">Electric (EV)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.9rem; font-size: 1rem;">
+            👤 Complete Customer Registration
+          </button>
+        </form>
+
+        <!-- ============================================================= -->
+        <!-- FORM 2: PROFESSIONAL DRIVER (CHAUFFEUR) -->
+        <!-- ============================================================= -->
+        <form id="form_driver" onsubmit="handleDriverRegister(event)" style="display: none;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #e2e8f0;">
+            <div style="width: 2.25rem; height: 2.25rem; border-radius: 10px; background: #dbeafe; color: #1d4ed8; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+              👨‍✈️
+            </div>
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 900; color: #0f172a;">Commercial Chauffeur Onboarding</h3>
+              <p style="font-size: 0.75rem; color: #64748b;">Earn reliable daily income driving verified personal passenger cars.</p>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="drvName" class="form-control" placeholder="e.g. Rajesh Verma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mobile Number *</label>
+              <input type="tel" id="drvPhone" class="form-control" placeholder="e.g. +91 98101 01011" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input type="email" id="drvEmail" class="form-control" placeholder="driver@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Operating City *</label>
+              <input type="text" id="drvCity" class="form-control" placeholder="e.g. Gurugram, Delhi NCR" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Commercial Driving License (DL) Number *</label>
+              <input type="text" id="drvLicense" class="form-control" placeholder="e.g. DL-0420140028192" required style="text-transform: uppercase;">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Years of Experience *</label>
+              <select id="drvExp" class="form-control">
+                <option value="3">3+ Years</option>
+                <option value="5">5+ Years</option>
+                <option value="7" selected>7+ Years</option>
+                <option value="10">10+ Years (Senior)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Preferred Hourly Rate (₹)</label>
+              <input type="number" id="drvHourly" class="form-control" value="120" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Preferred Daily Outstation Rate (₹)</label>
+              <input type="number" id="drvDaily" class="form-control" value="900" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password *</label>
+            <input type="password" id="drvPassword" class="form-control" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.9rem; font-size: 1rem; background: #2563eb; border-color: #2563eb;">
+            👨‍✈️ Submit Driver KYC & Onboard Now
+          </button>
+        </form>
+
+        <!-- ============================================================= -->
+        <!-- FORM 3: GARAGE / WORKSHOP / TOW TRUCK (PROVIDER) -->
+        <!-- ============================================================= -->
+        <form id="form_provider" onsubmit="handleProviderRegister(event)" style="display: none;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #e2e8f0;">
+            <div style="width: 2.25rem; height: 2.25rem; border-radius: 10px; background: #fef3c7; color: #b45309; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+              🏢
+            </div>
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 900; color: #0f172a;">Garage & Tow Truck Partner Network</h3>
+              <p style="font-size: 0.75rem; color: #64748b;">Receive 10+ daily breakdown leads on your highway corridor.</p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Workshop / Garage Name *</label>
+            <input type="text" id="prvGarageName" class="form-control" placeholder="e.g. SpeedFix Express Garage & Towing" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Owner / Master Mechanic Name *</label>
+              <input type="text" id="prvOwnerName" class="form-control" placeholder="e.g. Manoj Kumar" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mobile Number *</label>
+              <input type="tel" id="prvPhone" class="form-control" placeholder="e.g. +91 98202 02021" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Business Email *</label>
+              <input type="email" id="prvEmail" class="form-control" placeholder="garage@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Workshop City / Highway Location *</label>
+              <input type="text" id="prvCity" class="form-control" placeholder="e.g. Yamuna Expressway KM-35" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Trade / GST Registration No. (Optional)</label>
+              <input type="text" id="prvTrade" class="form-control" placeholder="e.g. 07AAAAH0000A1Z5" style="text-transform: uppercase;">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Flatbed Tow Truck Available?</label>
+              <select id="prvTowing" class="form-control">
+                <option value="yes">Yes, Available</option>
+                <option value="no">No, Mechanics Only</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password *</label>
+            <input type="password" id="prvPassword" class="form-control" placeholder="••••••••" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.9rem; font-size: 1rem; background: #ea580c; border-color: #ea580c;">
+            🏢 Register Garage & Start Receiving Jobs
+          </button>
+        </form>
+
+      </div>
+
+      <!-- Right Column: Visual Perks & Testimonials -->
+      <div>
+        
+        <!-- Perks Box -->
+        <div style="background: linear-gradient(135deg, #090d16 0%, #1e293b 100%); border-radius: var(--radius-xl); padding: 2rem; color: #fff; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 1.75rem; box-shadow: var(--shadow-lg);">
+          <span style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--primary); letter-spacing: 0.05em;">Partner Benefits</span>
+          <h3 id="perksTitle" style="font-size: 1.25rem; font-weight: 900; margin-top: 0.25rem; margin-bottom: 1rem;">
+            Why Vehicle Owners Trust Us
+          </h3>
+
+          <ul id="perksList" style="list-style: none; display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.8rem; color: #cbd5e1;">
+            <li style="display: flex; gap: 0.5rem; align-items: flex-start;">
+              <span style="color: #10b981; font-weight: bold;">✓</span>
+              <span><strong>15-Minute Highway Rescue:</strong> GPS dispatch of nearest certified mobile mechanic.</span>
+            </li>
+            <li style="display: flex; gap: 0.5rem; align-items: flex-start;">
+              <span style="color: #10b981; font-weight: bold;">✓</span>
+              <span><strong>Upfront Fixed Pricing:</strong> Zero hidden roadside surcharges with official GST tax invoice.</span>
+            </li>
+            <li style="display: flex; gap: 0.5rem; align-items: flex-start;">
+              <span style="color: #10b981; font-weight: bold;">✓</span>
+              <span><strong>Live OpenStreetMap Radar:</strong> Watch mechanic vehicle move towards you in real time.</span>
+            </li>
+            <li style="display: flex; gap: 0.5rem; align-items: flex-start;">
+              <span style="color: #10b981; font-weight: bold;">✓</span>
+              <span><strong>Free Emergency SOS:</strong> Highway assistance triggers police & ambulance in 1 tap.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Trust Card with Image -->
+        <div style="background: #ffffff; border: 1px solid var(--slate-200); border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-sm);">
+          <img 
+            id="perksImage" 
+            src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&q=80" 
+            alt="Help on Drive Fleet"
+            style="width: 100%; height: 180px; object-fit: cover;"
+          >
+          <div style="padding: 1.25rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 800; color: #0f172a; margin-bottom: 0.25rem;">
+              <span>🛡️</span>
+              <span>100% Background Checked & Insured</span>
+            </div>
+            <p style="font-size: 0.75rem; color: #64748b; line-height: 1.6;">
+              Every driver and mechanic on Help on Drive is vetted with official commercial license authentication, criminal record checks, and workshop verification.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let currentRole = 'user';
+
+    function switchRegRole(role) {
+      currentRole = role;
+
+      // Update Tab Buttons
+      ['user', 'driver', 'provider'].forEach(r => {
+        const btn = document.getElementById('tabBtn_' + r);
+        const form = document.getElementById('form_' + r);
+
+        if (r === role) {
+          btn.style.background = (r === 'driver' ? '#2563eb' : r === 'provider' ? '#ea580c' : 'var(--primary)');
+          btn.style.color = '#fff';
+          form.style.display = 'block';
+        } else {
+          btn.style.background = 'transparent';
+          btn.style.color = '#475569';
+          form.style.display = 'none';
+        }
+      });
+
+      // Update Perks Sidebar
+      const title = document.getElementById('perksTitle');
+      const list = document.getElementById('perksList');
+      const img = document.getElementById('perksImage');
+
+      if (role === 'user') {
+        title.textContent = 'Why Vehicle Owners Trust Us';
+        img.src = 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&q=80';
+        list.innerHTML = `
+          <li style="display:flex; gap:0.5rem;"><span style="color:#10b981; font-weight:bold;">✓</span><span><strong>15-Minute Highway Rescue:</strong> GPS dispatch of nearest certified mobile mechanic.</span></li>
+          <li style="display:flex; gap:0.5rem;"><span style="color:#10b981; font-weight:bold;">✓</span><span><strong>Upfront Fixed Pricing:</strong> Zero hidden surcharges with official GST tax invoice.</span></li>
+          <li style="display:flex; gap:0.5rem;"><span style="color:#10b981; font-weight:bold;">✓</span><span><strong>Live OpenStreetMap Radar:</strong> Watch mechanic move towards you in real time.</span></li>
+        `;
+      } else if (role === 'driver') {
+        title.textContent = 'Why Drivers Earn with Us';
+        img.src = 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80';
+        list.innerHTML = `
+          <li style="display:flex; gap:0.5rem;"><span style="color:#60a5fa; font-weight:bold;">✓</span><span><strong>Earn ₹35k - ₹50k/mo:</strong> Keep up to 90% of trip fares with weekly direct bank payouts.</span></li>
+          <li style="display:flex; gap:0.5rem;"><span style="color:#60a5fa; font-weight:bold;">✓</span><span><strong>Verified Vehicle Owners:</strong> Drive verified private cars; no commercial vehicle maintenance cost.</span></li>
+          <li style="display:flex; gap:0.5rem;"><span style="color:#60a5fa; font-weight:bold;">✓</span><span><strong>Flexible Shifts:</strong> Choose hourly city trips or high-earning outstation highway drives.</span></li>
+        `;
+      } else if (role === 'provider') {
+        title.textContent = 'Why Garages Partner with Us';
+        img.src = 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=600&q=80';
+        list.innerHTML = `
+          <li style="display:flex; gap:0.5rem;"><span style="color:#f97316; font-weight:bold;">✓</span><span><strong>10+ Daily Breakdown Leads:</strong> Continuous expressway breakdown alerts within a 15 km radius.</span></li>
+          <li style="display:flex; gap:0.5rem;"><span style="color:#f97316; font-weight:bold;">✓</span><span><strong>Direct Customer Payments:</strong> Receive instant UPI/Cash payments upon job sign-off.</span></li>
+          <li style="display:flex; gap:0.5rem;"><span style="color:#f97316; font-weight:bold;">✓</span><span><strong>Free Fleet Digitalization:</strong> Manage mechanics, tow trucks, and invoices in 1 portal.</span></li>
+        `;
+      }
+    }
+
+    function handleCustomerRegister(e) {
+      e.preventDefault();
+      const res = HOD.registerUser({
+        role: 'user',
+        name: document.getElementById('custName').value,
+        phone: document.getElementById('custPhone').value,
+        email: document.getElementById('custEmail').value,
+        city: document.getElementById('custCity').value,
+        vehicleBrand: document.getElementById('custCarBrand').value,
+        vehicleModel: document.getElementById('custCarModel').value,
+        vehicleNumber: document.getElementById('custCarNumber').value,
+        fuelType: document.getElementById('custCarFuel').value
+      });
+
+      if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      alert(`🎉 Welcome to Help on Drive, ${res.user.name}!\nCustomer account created successfully.\nYour garage is configured.`);
+      window.location.href = 'garage.html';
+    }
+
+    function handleDriverRegister(e) {
+      e.preventDefault();
+      const res = HOD.registerUser({
+        role: 'driver',
+        name: document.getElementById('drvName').value,
+        phone: document.getElementById('drvPhone').value,
+        email: document.getElementById('drvEmail').value,
+        city: document.getElementById('drvCity').value,
+        licenseNumber: document.getElementById('drvLicense').value.toUpperCase(),
+        experience: document.getElementById('drvExp').value,
+        hourlyRate: Number(document.getElementById('drvHourly').value),
+        dailyRate: Number(document.getElementById('drvDaily').value)
+      });
+
+      if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      alert(`🎉 Welcome Chauffeur Partner ${res.user.name}!\nYour Commercial Driver profile is activated.\nYou can now accept trips.`);
+      window.location.href = 'driver.html';
+    }
+
+    function handleProviderRegister(e) {
+      e.preventDefault();
+      const res = HOD.registerUser({
+        role: 'provider',
+        businessName: document.getElementById('prvGarageName').value,
+        name: document.getElementById('prvOwnerName').value,
+        phone: document.getElementById('prvPhone').value,
+        email: document.getElementById('prvEmail').value,
+        city: document.getElementById('prvCity').value,
+        tradeLicense: document.getElementById('prvTrade').value,
+        hasTowing: document.getElementById('prvTowing').value === 'yes'
+      });
+
+      if (typeof confetti === 'function') confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      alert(`🎉 Welcome Garage Partner ${res.user.company}!\nYour workshop is now registered on Help on Drive radar.\nYou are ready to accept breakdown jobs.`);
+      window.location.href = 'assistance.html';
+    }
+
+    // Check URL params for preselected role (e.g. register.html?role=driver)
+    window.addEventListener('load', () => {
+      const params = new URLSearchParams(window.location.search);
+      const targetRole = params.get('role');
+      if (targetRole && ['user', 'driver', 'provider'].includes(targetRole)) {
+        switchRegRole(targetRole);
+      }
+    });
+  </script>
+</body>
+</html>

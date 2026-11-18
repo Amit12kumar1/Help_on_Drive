@@ -129,6 +129,16 @@
     if (!localStorage.getItem('hod_reviews')) {
       localStorage.setItem('hod_reviews', JSON.stringify([]));
     }
+
+    // Restore any custom registered user profiles
+    ['user', 'provider', 'driver'].forEach(r => {
+      const saved = localStorage.getItem('hod_user_' + r);
+      if (saved) {
+        try {
+          DEFAULT_USERS[r] = JSON.parse(saved);
+        } catch (e) {}
+      }
+    });
   }
 
   initStorage();
@@ -247,6 +257,62 @@
         ...review
       });
       localStorage.setItem('hod_reviews', JSON.stringify(reviews));
+    },
+
+    registerUser: function (data) {
+      const role = data.role || 'user';
+      const rolePrefix = role === 'driver' ? 'drv_' : role === 'provider' ? 'prv_' : 'usr_';
+      const newUser = {
+        id: rolePrefix + Date.now().toString().slice(-4),
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        role: role,
+        avatar: data.avatar || (role === 'driver' 
+          ? 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100'
+          : role === 'provider'
+          ? 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100'
+          : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'),
+        city: data.city || 'New Delhi',
+        company: data.businessName || (role === 'provider' ? `${data.name}'s Garage` : undefined),
+        experience: data.experience ? `${data.experience} Years Pro` : undefined,
+        rating: 5.0,
+        ...data
+      };
+
+      // Save user
+      this.USERS[role] = newUser;
+      localStorage.setItem('hod_user_' + role, JSON.stringify(newUser));
+      localStorage.setItem('hod_current_role', role);
+
+      // If customer provided initial car, add to garage
+      if (role === 'user' && data.vehicleBrand && data.vehicleNumber) {
+        this.addVehicle({
+          brand: data.vehicleBrand,
+          model: data.vehicleModel || 'Standard',
+          number: data.vehicleNumber.toUpperCase(),
+          type: data.vehicleType || 'Hatchback',
+          fuel: data.fuelType || 'Petrol',
+          color: data.vehicleColor || 'Standard',
+          isDefault: true
+        });
+      }
+
+      // Record in registered directory
+      const directory = JSON.parse(localStorage.getItem('hod_registered_directory') || '[]');
+      directory.unshift({
+        id: newUser.id,
+        name: newUser.name,
+        role: role,
+        email: newUser.email,
+        phone: newUser.phone,
+        businessName: data.businessName || '-',
+        license: data.licenseNumber || '-',
+        registeredAt: new Date().toLocaleDateString()
+      });
+      localStorage.setItem('hod_registered_directory', JSON.stringify(directory));
+
+      return { success: true, user: newUser };
     }
   };
 })();
