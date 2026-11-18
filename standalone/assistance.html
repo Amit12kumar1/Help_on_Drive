@@ -31,6 +31,10 @@
       </ul>
 
       <div class="nav-actions">
+        <a href="tel:1800435737" class="phone-badge">
+          <span>📞</span>
+          <span>1800-HOD-HELP</span>
+        </a>
         <button onclick="openSOSModal()" class="btn-sos">
           <span>🚨 SOS HELP</span>
         </button>
@@ -166,9 +170,12 @@
     function renderServices() {
       const container = document.getElementById('serviceGrid');
       container.innerHTML = HOD.SERVICES.map((s, idx) => `
-        <div class="selectable-box ${selectedService.id === s.id ? 'active' : ''}" onclick="selectService('${s.id}')">
-          <div style="font-size:1.4rem; margin-bottom:0.25rem;">${s.icon}</div>
-          <div style="font-size:0.8rem; font-weight:800; color:#0f172a;">${s.name}</div>
+        <div class="selectable-box ${selectedService.id === s.id ? 'active' : ''}" onclick="selectService('${s.id}')" style="padding:0.65rem; border-radius:16px;">
+          <img src="${s.image}" style="width:100%; height:90px; object-fit:cover; border-radius:10px; margin-bottom:0.5rem;" alt="${s.name}">
+          <div style="display:flex; align-items:center; gap:0.35rem;">
+            <span>${s.icon}</span>
+            <div style="font-size:0.8rem; font-weight:800; color:#0f172a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${s.name}</div>
+          </div>
           <div style="font-size:0.75rem; font-weight:bold; color:var(--primary); margin-top:0.25rem;">₹${s.basePrice} base</div>
         </div>
       `).join('');

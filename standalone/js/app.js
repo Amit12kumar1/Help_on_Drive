@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   renderDemoTopbar();
   renderEmergencySOSModal();
+  renderFooter();
   lucide.createIcons();
 });
 
@@ -135,4 +136,87 @@ function triggerDispatchSOS() {
 // Toast notification helper
 function showToast(title, message, type = 'info') {
   alert(`${title}\n${message}`);
+}
+
+// Global Professional Multi-Column Footer
+function renderFooter() {
+  const footers = document.querySelectorAll('footer');
+  if (footers.length === 0) return;
+
+  const footerHtml = `
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Bio -->
+        <div class="footer-col">
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;">
+            <div class="brand-icon" style="width: 2.2rem; height: 2.2rem; font-size: 1rem;">🚗</div>
+            <span style="font-size: 1.25rem; font-weight: 900; color: #fff;">Help on Drive</span>
+          </div>
+          <p style="color: #94a3b8; font-size: 0.85rem; line-height: 1.7; margin-bottom: 1.5rem;">
+            India's premier digital highway rescue ecosystem, bridging stranded motorists with verified mechanics, flatbed tow trucks, and licensed chauffeurs in real time.
+          </p>
+          <div style="display: flex; align-items: center; gap: 0.5rem; color: #10b981; font-weight: bold; font-size: 0.75rem;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981;"></span>
+            <span>24/7 National Dispatch Network Active</span>
+          </div>
+        </div>
+
+        <!-- Col 2: Services -->
+        <div class="footer-col">
+          <h4>Vehicle Services</h4>
+          <ul class="footer-links">
+            <li><a href="assistance.html?service=puncture">Tyre Puncture Repair</a></li>
+            <li><a href="assistance.html?service=battery">Battery Jumpstart</a></li>
+            <li><a href="assistance.html?service=fuel">5L Highway Fuel</a></li>
+            <li><a href="assistance.html?service=towing">Flatbed Tow Truck</a></li>
+            <li><a href="assistance.html?service=lockout">Key Lockout Recovery</a></li>
+            <li><a href="assistance.html?service=repair">Minor On-Spot Repair</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Quick Links -->
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul class="footer-links">
+            <li><a href="assistance.html">Roadside Assistance</a></li>
+            <li><a href="driver.html">Hire Personal Chauffeur</a></li>
+            <li><a href="tracking.html">Live GPS Radar</a></li>
+            <li><a href="garage.html">My Garage Management</a></li>
+            <li><a href="admin.html">SuperAdmin Console</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Emergency Helplines -->
+        <div class="footer-col">
+          <h4>National Highway Helplines</h4>
+          <ul class="footer-links">
+            <li><a href="tel:112" style="color: #f87171; font-weight: bold;">🚓 Police Emergency: 112</a></li>
+            <li><a href="tel:108" style="color: #f87171; font-weight: bold;">🚑 Medical Ambulance: 108</a></li>
+            <li><a href="tel:1033" style="color: #38bdf8; font-weight: bold;">🛣️ NHAI Expressway: 1033</a></li>
+            <li><a href="tel:1800435737" style="color: #fb923c; font-weight: bold;">📞 Help on Drive: 1800-HOD</a></li>
+          </ul>
+          <div style="margin-top: 1.25rem; font-size: 0.75rem; color: #64748b;">
+            GSTIN: 07AAAAH0000A1Z5 <br>
+            HQ: Cyber City, Gurugram, India
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div>
+          © 2026 <strong>Help on Drive</strong> Technologies Private Limited. All rights reserved.
+        </div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#" style="color: #64748b; text-decoration: none;">Privacy Policy</a>
+          <a href="#" style="color: #64748b; text-decoration: none;">Terms of Service</a>
+          <a href="#" style="color: #64748b; text-decoration: none;">GST Compliance</a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  footers.forEach(f => {
+    f.innerHTML = footerHtml;
+  });
 }

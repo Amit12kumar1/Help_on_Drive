@@ -76,12 +76,12 @@
   ];
 
   const DEFAULT_SERVICES = [
-    { id: 'puncture', name: 'Flat Tyre / Puncture Repair', icon: '🛞', basePrice: 199, desc: 'Tubeless puncture plugging or spare wheel mounting' },
-    { id: 'battery', name: 'Battery Jumpstart', icon: '⚡', basePrice: 349, desc: 'Heavy-duty 12V terminal jumpstart & alternator check' },
-    { id: 'fuel', name: 'Emergency Fuel Delivery', icon: '⛽', basePrice: 249, desc: '5 Litres petrol or diesel delivered directly to your stranded car' },
-    { id: 'towing', name: 'Flatbed Tow Truck', icon: '🚛', basePrice: 799, desc: 'Hydraulic ramp flatbed towing to certified garage' },
-    { id: 'lockout', name: 'Key Lockout Assistance', icon: '🔑', basePrice: 449, desc: 'Non-damaging car door entry & ignition key retrieval' },
-    { id: 'repair', name: 'Minor On-Spot Repair', icon: '🔧', basePrice: 499, desc: 'Radiator hose, fuse, brake pad or fan belt emergency servicing' }
+    { id: 'puncture', name: 'Flat Tyre / Puncture Repair', icon: '🛞', basePrice: 199, image: 'https://images.unsplash.com/photo-1578844251758-2f71da64c96f?w=400&q=80', desc: 'Tubeless puncture plugging or spare wheel mounting' },
+    { id: 'battery', name: 'Battery Jumpstart', icon: '⚡', basePrice: 349, image: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?w=400&q=80', desc: 'Heavy-duty 12V terminal jumpstart & alternator check' },
+    { id: 'fuel', name: 'Emergency Fuel Delivery', icon: '⛽', basePrice: 249, image: 'https://images.unsplash.com/photo-1527018607119-e33e13707f57?w=400&q=80', desc: '5 Litres petrol or diesel delivered directly to your stranded car' },
+    { id: 'towing', name: 'Flatbed Tow Truck', icon: '🚛', basePrice: 799, image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&q=80', desc: 'Hydraulic ramp flatbed towing to certified garage' },
+    { id: 'lockout', name: 'Key Lockout Assistance', icon: '🔑', basePrice: 449, image: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=400&q=80', desc: 'Non-damaging car door entry & ignition key retrieval' },
+    { id: 'repair', name: 'Minor On-Spot Repair', icon: '🔧', basePrice: 499, image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=400&q=80', desc: 'Radiator hose, fuse, brake pad or fan belt emergency servicing' }
   ];
 
   const DEFAULT_BOOKINGS = [
